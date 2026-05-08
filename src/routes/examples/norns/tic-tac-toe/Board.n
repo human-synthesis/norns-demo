@@ -1,0 +1,11 @@
+.tt-board
+	+each('cells as value, idx (idx)')
+		Cell(
+			value!="{value}"
+			isWinning!="{winningLine.includes(idx)}"
+			disabled!="{disabled || !!value || winningLine.length > 0}"
+			onClick!="{() => onCellClick(idx)}"
+		)
+
+<script>
+	{ cells, winningLine = [], disabled = false, onCellClick } := $props()

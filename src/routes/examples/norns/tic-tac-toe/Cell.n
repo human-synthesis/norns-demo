@@ -1,0 +1,12 @@
+button.tt-cell(
+	type="button"
+	onclick!="{onClick}"
+	disabled!="{disabled}"
+	class!="{value ? 'tt-cell-' + value.toLowerCase() : ''} {isWinning ? 'tt-cell-winning' : ''}"
+	aria-label!="{value ? 'cell with ' + value : 'empty cell'}"
+)
+	+if('value')
+		span.tt-mark {value}
+
+<script>
+	{ value, isWinning = false, disabled = false, onClick } := $props()

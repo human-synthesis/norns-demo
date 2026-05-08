@@ -1,0 +1,22 @@
+section.animate-in.space-y-4
+	h1.text-5xl.font-bold.tracking-tight.leading-none
+		span.gradient-text Examples
+	p.text-lg.text-neutral-600.max-w-prose.leading-relaxed
+		| The same apps written two ways. Same UI, same behavior — different conventions.
+
+section.animate-in-delayed.pt-12.space-y-3
+	.grid.gap-3(class="sm:grid-cols-2")
+		a.card-interactive(href="/examples/norns")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg Norns
+				span.text-xs.text-neutral-400.font-mono.shrink-0.mt-1 .n
+			p.text-sm.text-neutral-600.leading-relaxed Pug + Civet, the
+				code .n
+				| extension. Concise, typed, optional.
+		a.card-interactive(href="/examples/svelte")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg Vanilla Svelte
+				span.text-xs.text-neutral-400.font-mono.shrink-0.mt-1 .svelte
+			p.text-sm.text-neutral-600.leading-relaxed HTML + TypeScript, the
+				code .svelte
+				| extension. Default.

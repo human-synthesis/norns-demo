@@ -1,0 +1,33 @@
+{
+  "name": "norns-demo",
+  "version": "0.0.1",
+  "description": "Norns demo app — full examples (notes CRUD, tic-tac-toe) showing the framework end-to-end.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "NODE_OPTIONS='--preserve-symlinks' norns dev",
+    "build": "NODE_OPTIONS='--preserve-symlinks' norns build",
+    "preview": "norns preview",
+    "check": "svelte-check --tsconfig ./jsconfig.json",
+    "migrate": "norns migrate"
+  },
+  "devDependencies": {
+    "@human-synthesis/norns": "^0.0.7",
+    "@human-synthesis/norns-core": "^0.0.7",
+    "@human-synthesis/norns-ui": "workspace:*",
+    "@sveltejs/adapter-auto": "^3.3.1",
+    "@sveltejs/kit": "^2.59.1",
+    "@sveltejs/vite-plugin-svelte": "^4",
+    "@tailwindcss/vite": "^4",
+    "svelte": "^5.55.5",
+    "svelte-check": "^4.0.0",
+    "tailwindcss": "^4",
+    "vite": "^5.4.0"
+  },
+  "packageManager": "bun@1.2.16",
+  "dependencies": {
+    "better-sqlite3": "^12.9.0",
+    "lodash": "^4.18.1",
+    "valibot": "^1.4.0"
+  }
+}

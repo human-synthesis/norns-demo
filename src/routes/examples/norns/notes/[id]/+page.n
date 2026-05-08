@@ -1,0 +1,31 @@
+section.animate-in.space-y-3
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/norns/notes") ← all notes
+	h1.text-3xl.font-bold.tracking-tight.leading-none {data.note.title}
+	p.text-sm.text-neutral-500
+		| updated {new Date(data.note.updated_at).toLocaleString()}
+
+section.animate-in-delayed.pt-8.space-y-6
+	Form(action="?/update" form!="{form}")
+		Field(label="Title" name="title" required)
+			Input(name="title" value!="{data.note.title}" required)
+		Field(label="Body" name="body")
+			Textarea(name="body" rows="6" value!="{data.note.body}")
+		.flex.items-center.gap-3
+			Btn(type="submit" variant="primary") Save
+			+if('form?.saved')
+				span.text-sm.text-green-600 saved
+
+	Dialog(bind:open!="{deleteOpen}" title="Delete this note?" description="This cannot be undone.")
+		+snippet('trigger')
+			Btn(variant="danger") Delete note
+		+snippet('actions')
+			Btn(variant="ghost" onclick!="{() => deleteOpen = false}") Cancel
+			form(method="POST" action="?/delete" style="display:inline")
+				Btn(type="submit" variant="danger") Delete
+
+<script>
+	import './../notes.css'
+
+	{ data, form } := $props()
+	deleteOpen .= $state false
+</script>

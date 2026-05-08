@@ -1,0 +1,62 @@
+@reference 'tailwindcss';
+
+.note-form {
+	@apply flex flex-col gap-3 p-5 bg-white border border-neutral-200 rounded-xl shadow-sm;
+}
+
+.note-title-input {
+	@apply px-4 py-2.5 bg-white border border-neutral-200 rounded-lg text-neutral-900 transition-all duration-200;
+	@apply focus:outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-100;
+	@apply placeholder:text-neutral-400;
+}
+
+.note-body-input {
+	@apply px-4 py-2.5 bg-white border border-neutral-200 rounded-lg text-neutral-900 transition-all duration-200 resize-y;
+	@apply focus:outline-none focus:border-violet-400 focus:ring-4 focus:ring-violet-100;
+	@apply placeholder:text-neutral-400 font-sans text-sm;
+}
+
+.note-submit {
+	@apply px-5 py-2.5 rounded-lg font-medium text-white shadow-sm transition-all duration-200 cursor-pointer self-start;
+	background: linear-gradient(135deg, oklch(0.5 0.22 285), oklch(0.45 0.2 240));
+	@apply hover:shadow-md hover:-translate-y-0.5;
+	@apply disabled:opacity-40 disabled:cursor-not-allowed disabled:translate-y-0;
+}
+
+.note-delete {
+	@apply px-4 py-2 rounded-lg text-sm font-medium text-red-600 border border-red-200 bg-white transition-all duration-200 cursor-pointer;
+	@apply hover:bg-red-50 hover:border-red-300;
+}
+
+.note-error {
+	@apply text-sm text-red-600;
+}
+
+.note-card {
+	@apply bg-white border border-neutral-200 rounded-lg shadow-sm transition-all duration-200;
+	@apply hover:border-neutral-300 hover:shadow-md;
+}
+
+.note-link {
+	@apply block p-4 no-underline text-neutral-900;
+}
+
+.note-card-title {
+	@apply font-medium text-neutral-900 mb-1;
+}
+
+.note-card-meta {
+	@apply text-xs text-neutral-500;
+}
+
+.note-card-snippet {
+	@apply text-sm text-neutral-600 mt-1 line-clamp-2;
+}
+
+.note-empty {
+	@apply text-neutral-400 text-center py-12 px-6 bg-white/40 border border-dashed border-neutral-300 rounded-xl;
+}
+
+.note-saved {
+	@apply text-sm text-emerald-600;
+}

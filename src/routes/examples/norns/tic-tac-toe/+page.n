@@ -1,0 +1,14 @@
+section.animate-in.space-y-3
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/norns") ← Norns examples
+	h1.text-4xl.font-bold.tracking-tight.leading-none
+		span.gradient-text Tic Tac Toe
+	p.text-neutral-600.max-w-prose.leading-relaxed
+		| Click a cell to play. Switch between two players or take on the computer. State lives in Svelte stores written in
+		code .c
+		| ; the AI is a small heuristic in the same module.
+
+section.animate-in-delayed.pt-10
+	Game
+
+<script>
+	import './tic-tac-toe.css'

@@ -1,0 +1,49 @@
+section.animate-in.space-y-6
+	p.text-xl.text-neutral-600.max-w-prose.leading-relaxed
+		| A meta-framework on top of Svelte and SvelteKit. Write components in Pug and Civet with the
+		code .n
+		|  file extension — no template wrappers, no
+		code lang=
+		|  attributes, just clean syntax with optional types.
+	.flex.flex-wrap.gap-3.pt-2
+		a.btn-cta(href="/examples") See examples →
+		a.btn-secondary(
+			href="https://github.com/human-synthesis/norns"
+			target="_blank"
+			rel="noopener"
+		) GitHub
+
+section.animate-in-delayed.pt-20.space-y-5
+	h2.text-2xl.font-semibold.tracking-tight What's in the box
+	ul.space-y-4.list-none.p-0
+		li.flex.gap-3
+			span.feature-bullet ✦
+			div.text-neutral-700.leading-relaxed
+				strong.text-neutral-900 Civet everywhere
+				| .  Write
+				code count .= $state 0
+				| ; reactivity just works. Civet's TypeScript-aware compiler emits ESM-correct output, so runes work without preprocessor magic.
+		li.flex.gap-3
+			span.feature-bullet ✦
+			div.text-neutral-700.leading-relaxed
+				strong.text-neutral-900 Pug as the default markup
+				| .  Concise, indented, no closing tags. Use
+				code .n
+				|  files for zero boilerplate.
+		li.flex.gap-3
+			span.feature-bullet ✦
+			div.text-neutral-700.leading-relaxed
+				strong.text-neutral-900 All of SvelteKit
+				| .  File-based routing,
+				code +page.c
+				|  loaders, layouts, adapters — nothing relearned.
+		li.flex.gap-3
+			span.feature-bullet ✦
+			div.text-neutral-700.leading-relaxed
+				strong.text-neutral-900 Norns runtime
+				| .  Feature-folder modularity, DI container, route/page wrappers with valibot validation, and a migrations CLI.
+		li.flex.gap-3
+			span.feature-bullet ✦
+			div.text-neutral-700.leading-relaxed
+				strong.text-neutral-900 Style how you want
+				| .  Norns ships no default styling. This app uses Tailwind v4; pick whatever you like.

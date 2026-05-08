@@ -1,0 +1,4 @@
+section.animate-in.space-y-3
+	h1.text-3xl.font-bold.tracking-tight.leading-none Note not found
+	p.text-neutral-600 {page.error?.message ?? 'this note does not exist'}
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/norns/notes") ← back to all notes

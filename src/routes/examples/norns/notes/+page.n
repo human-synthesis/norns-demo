@@ -1,0 +1,35 @@
+section.animate-in.space-y-3
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/norns") ← Norns examples
+	h1.text-4xl.font-bold.tracking-tight.leading-none
+		span.gradient-text Notes
+	p.text-neutral-600.max-w-prose.leading-relaxed
+		| SQLite-backed CRUD with SvelteKit form
+		code actions
+		| and SSR
+		code load
+		| — no client-side fetch.
+
+section.animate-in-delayed.pt-8.space-y-6
+	Form(action="?/create" form!="{form}")
+		Field(label="Title" name="title" required)
+			Input(name="title" placeholder="title…" value!="{form?.values?.title ?? ''}" required)
+		Field(label="Body" name="body" help="Optional")
+			Textarea(name="body" placeholder="body (optional)…" rows="3" value!="{form?.values?.body ?? ''}")
+		Btn(type="submit" variant="primary") Create note
+
+	+if('data.notes.length === 0')
+		p.note-empty no notes yet — create one above
+	+else
+		ul.list-none.p-0.m-0.space-y-2
+			+each('data.notes as note (note.id)')
+				li.note-card
+					a.note-link(href!="/examples/norns/notes/{note.id}")
+						.note-card-title {note.title}
+						+if('note.body')
+							.note-card-snippet {note.body}
+						.note-card-meta updated {new Date(note.updated_at).toLocaleString()}
+
+<script>
+	import './notes.css'
+
+	{ data, form } := $props()

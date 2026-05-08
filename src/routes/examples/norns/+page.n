@@ -1,0 +1,23 @@
+section.animate-in.space-y-4
+	a.nav-link.text-sm.inline-flex.items-center.gap-1(href="/examples") ← examples
+	h1.text-5xl.font-bold.tracking-tight.leading-none
+		span.gradient-text Norns
+	p.text-lg.text-neutral-600.max-w-prose.leading-relaxed
+		| Apps using Norns conventions — Pug + Civet in
+		code .n
+		| files, with feature folders factored into
+		code $lib
+		| .
+
+section.animate-in-delayed.pt-12
+	.grid.gap-3(class="sm:grid-cols-2")
+		a.card-interactive(href="/examples/norns/tic-tac-toe")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg Tic Tac Toe
+				span.text-xs.text-neutral-400.font-mono.shrink-0.mt-1 .n
+			p.text-sm.text-neutral-600.leading-relaxed components, props, Svelte stores, derived state, AI heuristic
+		a.card-interactive(href="/examples/norns/notes")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg Notes
+				span.text-xs.text-neutral-400.font-mono.shrink-0.mt-1 .n
+			p.text-sm.text-neutral-600.leading-relaxed SQLite + form actions, dynamic routes, +error.n, SSR load, valibot validation, DI container

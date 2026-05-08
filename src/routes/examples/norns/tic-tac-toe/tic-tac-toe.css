@@ -1,0 +1,135 @@
+@reference 'tailwindcss';
+
+/*
+ * Tic-tac-toe feature styles.
+ * Self-contained — no dependencies on app.css.
+ */
+
+.tt-game {
+	@apply max-w-md mx-auto;
+}
+
+/* Toolbar: stats + mode toggle */
+.tt-toolbar {
+	@apply flex items-center justify-between gap-4 flex-wrap;
+}
+
+.tt-stats {
+	@apply inline-flex items-center bg-white border border-neutral-200 rounded-xl px-2 py-2 shadow-sm;
+}
+
+.tt-stat {
+	@apply px-3 flex flex-col items-center;
+}
+
+.tt-stat-divider {
+	@apply w-px h-8 bg-neutral-200;
+}
+
+.tt-stat-label {
+	@apply text-[0.65rem] uppercase tracking-widest text-neutral-400 font-medium;
+}
+
+.tt-stat-value {
+	@apply text-lg font-bold tabular-nums text-neutral-900 leading-none mt-1;
+}
+
+/* Mode toggle (segmented control) */
+.tt-mode-bar {
+	@apply inline-flex bg-neutral-100 p-1 rounded-full text-sm;
+}
+
+.tt-mode {
+	@apply px-4 py-1.5 rounded-full text-neutral-500 transition-all duration-200 cursor-pointer;
+	@apply bg-transparent border-0 font-medium;
+}
+
+.tt-mode:hover {
+	@apply text-neutral-900;
+}
+
+.tt-mode-active {
+	@apply bg-white text-neutral-900 shadow-sm;
+}
+.tt-mode-active:hover {
+	@apply text-neutral-900;
+}
+
+/* Board */
+.tt-board {
+	@apply grid grid-cols-3 gap-3 mt-2;
+}
+
+.tt-cell {
+	@apply aspect-square rounded-2xl bg-white border-2 border-neutral-200 flex items-center justify-center;
+	@apply text-6xl font-bold cursor-pointer transition-all duration-200;
+}
+
+.tt-cell:not(:disabled):hover {
+	@apply border-violet-300 shadow-md -translate-y-0.5;
+	background: linear-gradient(180deg, oklch(0.99 0.01 290), oklch(0.97 0.03 290));
+}
+
+.tt-cell:disabled {
+	@apply cursor-not-allowed;
+}
+
+.tt-cell-x {
+	@apply text-violet-600;
+}
+
+.tt-cell-o {
+	@apply text-indigo-600;
+}
+
+.tt-cell-winning {
+	@apply border-violet-500 shadow-lg;
+	background: linear-gradient(135deg, oklch(0.97 0.05 290), oklch(0.95 0.06 270));
+	animation: tt-win-pulse 0.6s cubic-bezier(0.21, 1.02, 0.73, 1);
+}
+
+@keyframes tt-win-pulse {
+	0%   { transform: scale(1); }
+	50%  { transform: scale(1.08); }
+	100% { transform: scale(1); }
+}
+
+/* X / O mark */
+.tt-mark {
+	display: inline-block;
+	animation: tt-mark-in 0.25s cubic-bezier(0.21, 1.02, 0.73, 1) both;
+}
+
+@keyframes tt-mark-in {
+	from {
+		opacity: 0;
+		transform: scale(0.5) rotate(-15deg);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1) rotate(0deg);
+	}
+}
+
+/* Bottom: status + reset */
+.tt-bottom {
+	@apply flex items-center justify-between gap-4 pt-2;
+}
+
+.tt-status {
+	@apply text-base text-neutral-700 font-medium;
+}
+
+.tt-status-win {
+	@apply text-violet-700 font-semibold;
+}
+
+.tt-status-draw {
+	@apply text-neutral-500;
+}
+
+.tt-reset {
+	@apply px-4 py-2 rounded-lg bg-white border border-neutral-200 text-sm font-medium text-neutral-700;
+	@apply transition-all duration-200 cursor-pointer;
+	@apply hover:border-neutral-400 hover:text-neutral-900 hover:shadow-sm;
+}
