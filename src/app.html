@@ -5,6 +5,17 @@
 		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<title>Norns</title>
+		<script>
+			// Inline so it runs before paint — avoids light/dark FOUC.
+			(function () {
+				try {
+					var t = localStorage.getItem('norns-theme');
+					if (t === 'dark' || (t === null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+						document.documentElement.dataset.theme = 'dark';
+					}
+				} catch (_) {}
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

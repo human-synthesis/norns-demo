@@ -1,0 +1,1019 @@
+ToastProvider
+
+section.animate-in.flex.items-start.justify-between.gap-4
+	div.space-y-2
+		a.nav-link.text-sm.inline-flex.items-center.gap-1(href="/examples") ← examples
+		h1.text-5xl.font-bold.tracking-tight.leading-none
+			span.gradient-text norns-ui
+		p.text-base.max-w-prose.leading-relaxed(class="text-fg-muted")
+			| Every component in
+			code @human-synthesis/norns-ui
+			| with its variants. Toggle the theme to verify dark-mode contrast.
+	button.btn.btn-ghost(type="button" onclick!="{toggleTheme}" aria-label="Toggle theme")
+		Icon(name="lucide:moon" size="size-4" class="theme-toggle-light")
+		Icon(name="lucide:sun" size="size-4" class="theme-toggle-dark")
+		span.theme-toggle-light Dark
+		span.theme-toggle-dark Light
+
+//- ============================================================
+//- TYPOGRAPHY
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Typography
+	p.text-sm(class="text-fg-muted") Bare HTML elements pick up the library defaults. No wrapper components needed.
+	Card
+		.space-y-4
+			h1 Heading 1
+			h2 Heading 2
+			h3 Heading 3
+			h4 Heading 4
+			h5 Heading 5
+			h6 Heading 6
+			p Body paragraph. The lazy dog jumps over the quick brown fox, then thinks better of it and curls up by the fire. Default
+				code line-height
+				| , default
+				code font-family
+				| , default contrast role tokens.
+			p(class="text-fg-muted") Muted paragraph using
+				code .text-fg-muted
+				| utility — for secondary copy.
+			p
+				| Inline
+				code code
+				| , a pre block, and a
+				kbd ⌘ K
+				| keyboard hint.
+			pre
+				| {codeSample}
+			hr
+			blockquote.pl-4.italic(class="border-l-4 border-border text-fg-muted")
+				| “Programs must be written for people to read, and only incidentally for machines to execute.”
+
+//- ============================================================
+//- COLORS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Colors
+	p.text-sm(class="text-fg-muted")
+		| Five oklch scales (50–950) for
+		code primary
+		| ,
+		code success
+		| ,
+		code warning
+		| ,
+		code danger
+		| ,
+		code info
+		| . Use as
+		code bg-&lt;name&gt;-&lt;step&gt;
+		| ,
+		code text-&lt;name&gt;-&lt;step&gt;
+		| ,
+		code border-&lt;name&gt;-&lt;step&gt;
+		| .
+	Card
+		.space-y-3
+			+each('paletteRows as row')
+				.space-y-1
+					.text-xs.font-mono(class="text-fg-muted") {row.name}
+					.flex.gap-1.items-stretch
+						+each('palette as step')
+							.flex-1.h-12.rounded-sm.flex.items-end.justify-center.font-mono.pb-1(
+								class="text-[10px]"
+								style!="{`background: var(--color-${row.name}-${step}); color: ${step >= 500 ? 'white' : 'oklch(20% 0 0)'}`}"
+							)
+								| {step}
+			.flex.flex-wrap.gap-2.pt-3.text-xs(class="text-fg-muted")
+				span.inline-flex.items-center.gap-1
+					.size-3.rounded-sm(style="background: var(--color-primary-500)")
+					| primary
+				span.inline-flex.items-center.gap-1
+					.size-3.rounded-sm(style="background: var(--color-success-500)")
+					| success
+				span.inline-flex.items-center.gap-1
+					.size-3.rounded-sm(style="background: var(--color-warning-500)")
+					| warning
+				span.inline-flex.items-center.gap-1
+					.size-3.rounded-sm(style="background: var(--color-danger-500)")
+					| danger
+				span.inline-flex.items-center.gap-1
+					.size-3.rounded-sm(style="background: var(--color-info-500)")
+					| info
+
+//- ============================================================
+//- ROLE TOKENS (contrast probe)
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Role tokens
+	p.text-sm(class="text-fg-muted") What atoms reference. Swap themes — these are the cells that change.
+	.grid.gap-3(class="sm:grid-cols-3")
+		div(class="p-3 rounded bg-bg text-fg border border-border") fg on bg
+		div(class="p-3 rounded bg-bg-muted text-fg") fg on bg-muted
+		div(class="p-3 rounded bg-bg-elevated text-fg border border-border") fg on bg-elevated
+		div(class="p-3 rounded bg-bg text-fg-muted border border-border") fg-muted on bg
+		div(class="p-3 rounded bg-bg text-fg-subtle border border-border") fg-subtle on bg
+		div(class="p-3 rounded bg-primary-600 text-white") white on primary-600
+		div(class="p-3 rounded bg-success-bg text-success-fg border border-success-border") success
+		div(class="p-3 rounded bg-warning-bg text-warning-fg border border-warning-border") warning
+		div(class="p-3 rounded bg-danger-bg text-danger-fg border border-danger-border") danger
+
+//- ============================================================
+//- ICON
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Icon
+	p.text-sm(class="text-fg-muted") Iconify wrapper. Default set is Lucide.
+	Card
+		.flex.flex-wrap.items-center.gap-4.text-fg
+			Icon(name="lucide:home" size="size-5")
+			Icon(name="lucide:search" size="size-5")
+			Icon(name="lucide:settings" size="size-5")
+			Icon(name="lucide:bell" size="size-5")
+			Icon(name="lucide:heart" size="size-5")
+			Icon(name="lucide:star" size="size-5")
+			Icon(name="lucide:check-circle-2" size="size-5")
+			Icon(name="lucide:alert-triangle" size="size-5" class="text-warning-500")
+			Icon(name="lucide:x-circle" size="size-5" class="text-danger-500")
+			Icon(name="lucide:info" size="size-5" class="text-info-500")
+			Icon(name="lucide:zap" size="size-6" class="text-warning-500")
+			Icon(name="lucide:sparkles" size="size-6" class="text-primary-500")
+			Icon(name="lucide:rocket" size="size-7" class="text-primary-600")
+
+//- ============================================================
+//- BUTTONS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Btn
+	p.text-sm(class="text-fg-muted") Variants, sizes, loading, icon prop, snippet slots.
+	Card
+		.space-y-3
+			.flex.flex-wrap.items-center.gap-3
+				Btn(variant="primary") primary
+				Btn(variant="secondary") secondary
+				Btn(variant="ghost") ghost
+				Btn(variant="danger") danger
+				Btn(variant="link") link
+			.flex.flex-wrap.items-center.gap-3
+				Btn(size="sm") small
+				Btn(size="md") medium
+				Btn(size="lg") large
+			.flex.flex-wrap.items-center.gap-3
+				Btn(disabled) disabled
+				Btn(loading!="{true}") loading
+				Btn(icon="lucide:save") save with icon
+				Btn(variant="secondary" icon="lucide:download") download
+				Btn(variant="danger" icon="lucide:trash-2") delete
+				Btn(variant="primary" size="sm" icon="lucide:plus") add
+				Btn(variant="ghost" size="sm" icon="lucide:x")
+				Btn(variant="primary")
+					| save
+					+snippet('trailing')
+						Icon(name="lucide:arrow-right" size="size-4")
+
+//- ============================================================
+//- INPUTS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Input / Textarea / Select
+	p.text-sm(class="text-fg-muted") Form controls. Field wraps with label, help, error.
+	Card
+		.grid.gap-6(class="sm:grid-cols-2")
+			Field(label="Default")
+				Input(name="a" placeholder="type here…")
+			Field(label="With error" error="this field is required")
+				Input(name="b" placeholder="oh no")
+			Field(label="Small" help="size='sm'")
+				Input(name="c" size="sm" placeholder="small input")
+			Field(label="Disabled")
+				Input(name="d" disabled value="can't touch this")
+			Field(label="Email" help="autocomplete + type")
+				Input(name="e" type="email" autocomplete="email" placeholder="you@host.com")
+			Field(label="Select" help="children: option elements")
+				Select(name="f")
+					option(value="a") option a
+					option(value="b") option b
+					option(value="c") option c
+		.mt-6
+			Field(label="Textarea" help="rows=3")
+				Textarea(name="g" rows="3" placeholder="multi-line…")
+
+//- ============================================================
+//- TOGGLES
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Checkbox / Radio / Switch
+	Card
+		.grid.gap-6(class="sm:grid-cols-3")
+			Field(label="Checkbox")
+				label.field-row
+					Checkbox(name="agree")
+					span.text-sm I agree
+			Field(label="Radio")
+				.space-y-1
+					label.field-row
+						Radio(name="size" value="s" bind:group!="{radio}")
+						span.text-sm Small
+					label.field-row
+						Radio(name="size" value="m" bind:group!="{radio}")
+						span.text-sm Medium
+					label.field-row
+						Radio(name="size" value="l" bind:group!="{radio}")
+						span.text-sm Large
+			Field(label="Switch")
+				label.field-row
+					Switch(name="notify" bind:checked!="{toggle}")
+					span.text-sm Notifications
+
+//- ============================================================
+//- DISPLAY: CARD / SURFACE
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Card / Surface
+	p.text-sm(class="text-fg-muted") Surface primitives. Card has structural slots; Surface is bare.
+	.grid.gap-4(class="md:grid-cols-3")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Card with header
+			p.text-sm Body content goes here. Padded by default.
+			+snippet('footer')
+				.flex.justify-end.gap-2
+					Btn(variant="ghost" size="sm") Cancel
+					Btn(variant="primary" size="sm") Confirm
+		Card(interactive!="{true}")
+			h3.text-base.font-semibold.mb-2 Interactive card
+			p.text-sm Hover me. The border shifts.
+		Surface
+			h3.text-base.font-semibold.mb-1 Surface
+			p.text-sm.opacity-80 Bare panel — same role tokens as Card without the structural slots.
+
+//- ============================================================
+//- BANNERS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Banner
+	p.text-sm(class="text-fg-muted") Variants, optional icon, optional actions.
+	.space-y-2
+		Banner(variant="info" icon="lucide:info")
+			| Heads up — this is informational.
+		Banner(variant="success" icon="lucide:check-circle-2")
+			| Saved successfully.
+		Banner(variant="warning" icon="lucide:alert-triangle")
+			| Take a closer look at this.
+			+snippet('actions')
+				Btn(variant="ghost" size="sm") Dismiss
+		Banner(variant="danger" icon="lucide:x-circle")
+			| Something went wrong.
+			+snippet('actions')
+				Btn(variant="danger" size="sm") Retry
+
+//- ============================================================
+//- BADGES + CHIPS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Badge / Chip
+	Card
+		.space-y-3
+			.flex.flex-wrap.items-center.gap-2
+				Badge default
+				Badge(variant="primary") primary
+				Badge(variant="success") success
+				Badge(variant="warning") warning
+				Badge(variant="danger") danger
+				Badge(variant="info") info
+				Badge(size="sm" variant="success") small
+				Badge(variant="primary")
+					Icon(name="lucide:zap" size="size-3")
+					| with icon
+			.flex.flex-wrap.items-center.gap-2
+				Chip(icon="lucide:tag") tag
+				Chip(removable!="{true}" onremove!="{() => toast('Removed')}") removable
+				Chip(icon="lucide:user" removable!="{true}" onremove!="{() => toast('Removed')}") with icon
+				Chip(icon="lucide:filter") filter
+				Chip(icon="lucide:globe") public
+
+//- ============================================================
+//- AVATARS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Avatar
+	Card
+		.flex.flex-wrap.items-center.gap-4
+			Avatar(name="Ada Lovelace" size="sm")
+			Avatar(name="Ada Lovelace" size="md")
+			Avatar(name="Ada Lovelace" size="lg")
+			Avatar(name="Grace Hopper" size="xl")
+			Avatar(size="lg")
+			Avatar(src="https://i.pravatar.cc/150?img=12" name="Sample" size="lg")
+			.flex.-space-x-2
+				Avatar(name="A B" size="md" class="ring-2 ring-bg")
+				Avatar(name="C D" size="md" class="ring-2 ring-bg")
+				Avatar(name="E F" size="md" class="ring-2 ring-bg")
+				Avatar(name="+3" size="md" class="ring-2 ring-bg")
+
+//- ============================================================
+//- SKELETON + PROGRESS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Skeleton / Progress
+	.grid.gap-4(class="md:grid-cols-2")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Skeleton
+			.space-y-2
+				Skeleton(variant="text" width="60%")
+				Skeleton(variant="text" width="80%")
+				Skeleton(variant="text" width="40%")
+				.flex.items-center.gap-3.pt-2
+					Skeleton(variant="circle" width="40" height="40")
+					.flex-1.space-y-2
+						Skeleton(variant="text" width="50%")
+						Skeleton(variant="text" width="70%")
+				Skeleton(width="100%" height="80")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Progress
+			.space-y-3
+				Progress(value!="{30}")
+				Progress(value!="{60}" variant="success")
+				Progress(value!="{85}" variant="warning")
+				Progress(value!="{40}" variant="danger")
+				Progress(indeterminate!="{true}")
+				.flex.items-center.gap-4.pt-1
+					ProgressCircular(value!="{45}" size="sm")
+					ProgressCircular(value!="{70}" size="md")
+					ProgressCircular(indeterminate!="{true}" size="lg")
+
+//- ============================================================
+//- TREE VIEW
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Tree
+	p.text-sm(class="text-fg-muted") Recursive nodes; click to expand or select. Bind
+		code expanded
+		| (array of ids) and
+		code selected
+		| .
+	.grid.gap-4(class="md:grid-cols-2")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Files
+			Tree(items!="{treeItems}" bind:expanded!="{treeExpanded}" bind:selected!="{treeSelected}")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Selected
+			pre.text-xs.m-0(style="background: transparent; padding: 0")
+				| selected: {treeSelected ?? '∅'}
+			pre.text-xs.m-0.mt-2(style="background: transparent; padding: 0")
+				| expanded: {JSON.stringify(treeExpanded)}
+
+//- ============================================================
+//- BREADCRUMBS + PAGINATION
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Breadcrumbs / Pagination
+	.grid.gap-4(class="md:grid-cols-2")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Breadcrumbs
+			.space-y-2
+				Breadcrumbs(items!="{[{ label: 'Home', href: '/' }, { label: 'Examples', href: '/examples' }, { label: 'norns-ui' }]}")
+				Breadcrumbs(separator="›" items!="{[{ label: 'Org', href: '#' }, { label: 'Repo', href: '#' }, { label: 'main', href: '#' }, { label: 'src' }]}")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Pagination
+			Pagination(bind:page!="{pageNum}" total!="{183}" pageSize!="{10}")
+			p.mt-3.text-xs(class="text-fg-muted") Page {pageNum} of 19
+
+//- ============================================================
+//- STEPPER
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Stepper
+	Card
+		.space-y-6
+			Stepper(steps!="{stepperSteps}" current!="{stepIdx}")
+			.flex.gap-2
+				Btn(variant="ghost" size="sm" icon="lucide:chevron-left" onclick!="{() => stepIdx = Math.max(0, stepIdx - 1)}") Prev
+				Btn(variant="primary" size="sm" onclick!="{() => stepIdx = Math.min(stepperSteps.length - 1, stepIdx + 1)}")
+					| Next
+					+snippet('trailing')
+						Icon(name="lucide:chevron-right" size="size-4")
+
+//- ============================================================
+//- ACCORDION
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Accordion
+	+snippet('a1')
+		p Lighter than chrome plate, heavier than a Faraday cage.
+	+snippet('a2')
+		p Polyphonic notes layered through ratio-based wave folding.
+	+snippet('a3')
+		p Knobs are smooth-detented; macros bind via shift-click.
+	Accordion(items!="{[{ value: 'a', title: 'Build quality', content: a1 }, { value: 'b', title: 'Sound design', content: a2 }, { value: 'c', title: 'Controls', content: a3 }]}")
+
+//- ============================================================
+//- CAROUSEL
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Carousel
+	p.text-sm(class="text-fg-muted") Default
+		code aspect="video"
+		| ; pass
+		code class="aspect-square"
+		| etc. to override.
+	Carousel(slides!="{carouselSlides}")
+
+//- ============================================================
+//- HEADER (composite)
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Header
+	p.text-sm(class="text-fg-muted") Site header — brand / nav / actions slots.
+	Header
+		+snippet('brand')
+			.size-7.rounded.flex.items-center.justify-center.text-white.font-bold.text-sm(style="background: var(--color-primary-600)") N
+			span Norns
+		+snippet('nav')
+			Btn(variant="ghost" size="sm") Home
+			Btn(variant="ghost" size="sm") Docs
+			Btn(variant="ghost" size="sm") Examples
+		+snippet('actions')
+			Btn(variant="ghost" size="sm" icon="lucide:search")
+			Btn(variant="primary" size="sm") Sign in
+
+//- ============================================================
+//- DRAWER
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Drawer
+	p.text-sm(class="text-fg-muted") Side-anchored panel. Same API as Sheet but persistent-feel left/right.
+	.flex.gap-2
+		Drawer(bind:open!="{drawerL}" side="left" title="Left drawer" triggerClass="btn btn-secondary")
+			+snippet('trigger')
+				Icon(name="lucide:panel-left" size="size-4")
+				| Open left
+			p.text-sm Drawer content. Use Esc or click overlay to close.
+		Drawer(bind:open!="{drawerR}" side="right" title="Right drawer" triggerClass="btn btn-secondary")
+			+snippet('trigger')
+				Icon(name="lucide:panel-right" size="size-4")
+				| Open right
+
+//- ============================================================
+//- HERO
+//- ============================================================
+section.pt-12.space-y-3
+	h2 HeroBanner
+	HeroBanner(title="Build apps you can read in five minutes." description="Pug + Civet on top of Svelte 5. Feature folders, DI, valibot — opinionated app architecture without the ceremony." align="left")
+		+snippet('actions')
+			Btn(variant="primary" icon="lucide:rocket") Get started
+			Btn(variant="ghost" icon="lucide:book-open") Read the docs
+	HeroBanner(title="Centered hero" description="Same API; align='center'." align="center")
+		+snippet('actions')
+			Btn(variant="primary") Try it
+			Btn(variant="link") Skip
+
+//- ============================================================
+//- DIALOG / SHEET
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Dialog / Sheet
+	p.text-sm(class="text-fg-muted") Pass
+		code triggerClass
+		| to style Bits-UI's own button — putting another
+		code Btn
+		| inside would yield nested buttons (invalid HTML, breaks hydration).
+	.flex.flex-wrap.gap-2
+		Dialog(bind:open!="{dialogOpen}" title="Delete this item?" description="This cannot be undone." triggerClass="btn btn-danger")
+			+snippet('trigger')
+				Icon(name="lucide:trash-2" size="size-4")
+				| Open dialog
+			+snippet('actions')
+				Btn(variant="ghost" onclick!="{cancelDialog}") Cancel
+				Btn(variant="danger" onclick!="{confirmDialog}") Confirm
+		Sheet(bind:open!="{sheetRight}" side="right" title="Right sheet" triggerClass="btn btn-secondary")
+			+snippet('trigger')
+				| Sheet right
+			p.text-sm(class="text-fg-muted") Slides in from the edge.
+		Sheet(bind:open!="{sheetBottom}" side="bottom" title="Bottom sheet" triggerClass="btn btn-secondary")
+			+snippet('trigger')
+				| Sheet bottom
+
+//- ============================================================
+//- POPOVER / DROPDOWN / TOOLTIP
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Popover / Dropdown / Tooltip
+	.flex.flex-wrap.items-center.gap-3
+		Popover(triggerClass="btn btn-ghost")
+			+snippet('trigger')
+				| Popover
+			.space-y-2
+				p.text-sm Custom content goes here.
+				Field(label="Status")
+					Select(name="status")
+						option(value="all") All
+						option(value="open") Open
+		Dropdown(items!="{dropdownItems}" triggerClass="btn btn-ghost")
+			+snippet('trigger')
+				| Actions ▾
+		Tooltip(content="Saved 2 minutes ago" triggerClass="btn btn-ghost")
+			+snippet('trigger')
+				Icon(name="lucide:info" size="size-4")
+		Tooltip(content="Quick action" side="right" triggerClass="btn btn-ghost")
+			+snippet('trigger')
+				Icon(name="lucide:zap" size="size-4")
+		Tooltip(content="Esc to dismiss" side="bottom" triggerClass="btn btn-ghost")
+			+snippet('trigger')
+				Icon(name="lucide:keyboard" size="size-4")
+
+//- ============================================================
+//- TABS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Tabs
+	+snippet('panelOverview')
+		p.text-sm(class="text-fg-muted") Overview content. Keyboard nav (←/→, Home, End) and aria roles wired.
+	+snippet('panelDetails')
+		p.text-sm(class="text-fg-muted") Details content.
+	+snippet('panelSettings')
+		p.text-sm(class="text-fg-muted") Settings content. The disabled tab is skipped on keyboard nav.
+	Tabs(bind:value!="{tab}" items!="{[{ value: 'overview', label: 'Overview', panel: panelOverview }, { value: 'details', label: 'Details', panel: panelDetails }, { value: 'settings', label: 'Settings', panel: panelSettings, disabled: true }]}")
+
+//- ============================================================
+//- TOAST
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Toast
+	.flex.flex-wrap.items-center.gap-2
+		Btn(variant="primary"   onclick!="{toastInfo}")    info
+		Btn(variant="secondary" onclick!="{toastSuccess}") success
+		Btn(variant="secondary" onclick!="{toastWarning}") warning
+		Btn(variant="danger"    onclick!="{toastError}")   error
+		Btn(variant="ghost"     onclick!="{toastSticky}")  sticky
+
+//- ============================================================
+//- 0.0.4 — DATA TABLE
+//- ============================================================
+section.pt-12.space-y-3
+	h2 DataTable
+	p.text-sm(class="text-fg-muted") Styled minimal table — sticky header, optional striping, sortable columns.
+	DataTable(
+		columns!="{tableColumns}"
+		rows!="{tableRows}"
+		striped!="{true}"
+		bind:sortKey!="{tableSortKey}"
+		bind:sortDir!="{tableSortDir}"
+	)
+
+//- ============================================================
+//- 0.0.4 — DATE / TIME
+//- ============================================================
+section.pt-12.space-y-3
+	h2 DatePicker / DateRangePicker / TimePicker
+	.grid.gap-4(class="md:grid-cols-3")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold DatePicker
+			DatePicker(bind:value!="{datePickerValue}")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold DateRangePicker
+			DateRangePicker(bind:value!="{dateRangeValue}")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold TimePicker
+			TimePicker(bind:value!="{timeValue}")
+
+//- ============================================================
+//- 0.0.4 — AUTOCOMPLETE / MULTISELECT / TAGS
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Autocomplete / MultiSelect / TagsInput
+	.grid.gap-4(class="md:grid-cols-3")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Autocomplete
+			Field(label="Framework")
+				Autocomplete(items!="{frameworkOptions}" bind:value!="{acValue}" placeholder="Type to search…")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold MultiSelect
+			Field(label="Frameworks")
+				MultiSelect(items!="{frameworkOptions}" bind:value!="{msValue}" placeholder="Pick many…")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold TagsInput
+			Field(label="Tags" help="Press , or Enter to add")
+				TagsInput(bind:value!="{tagsValue}" placeholder="Add a tag…")
+
+//- ============================================================
+//- 0.0.4 — NUMBER / OTP / COLOR
+//- ============================================================
+section.pt-12.space-y-3
+	h2 NumberInput / OtpField / ColorPicker
+	.grid.gap-4(class="md:grid-cols-3")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold NumberInput
+			Field(label="Quantity" help="min 0, max 99")
+				NumberInput(bind:value!="{numValue}" min!="{0}" max!="{99}")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold OtpField
+			Field(label="6-digit code")
+				OtpField(bind:value!="{otpValue}" length!="{6}")
+			p.text-xs.mt-2(class="text-fg-muted") value: {otpValue || '∅'}
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold ColorPicker
+			Field(label="Brand color")
+				ColorPicker(bind:value!="{colorValue}")
+
+//- ============================================================
+//- 0.0.4 — UPLOADER
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Uploader
+	p.text-sm(class="text-fg-muted") Drag and drop or click. Multi-file by default.
+	Uploader(bind:files!="{uploadFiles}" helper="Up to 10MB each")
+
+//- ============================================================
+//- 0.0.4 — TOGGLES (BUTTON / GROUP / BUTTONGROUP / SEPARATOR / TOOLBAR)
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Toggles / ButtonGroup / Toolbar / Separator
+	.grid.gap-4(class="md:grid-cols-2")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold ToggleButton + ToggleButtonGroup
+			.space-y-3
+				.flex.flex-wrap.items-center.gap-3
+					ToggleButton(bind:pressed!="{boldOn}" icon="lucide:bold" aria-label="Bold")
+					ToggleButton(bind:pressed!="{italicOn}" icon="lucide:italic" aria-label="Italic")
+					ToggleButton(bind:pressed!="{underlineOn}" icon="lucide:underline" aria-label="Underline")
+				ToggleButtonGroup(items!="{alignmentOptions}" bind:value!="{alignment}")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold ButtonGroup + Toolbar
+			.space-y-3
+				ButtonGroup
+					Btn(variant="secondary" size="sm" icon="lucide:rotate-ccw") Undo
+					Btn(variant="secondary" size="sm" icon="lucide:rotate-cw") Redo
+					Btn(variant="secondary" size="sm" icon="lucide:save") Save
+				Toolbar(label="Editor toolbar")
+					Btn(variant="ghost" size="sm" icon="lucide:bold")
+					Btn(variant="ghost" size="sm" icon="lucide:italic")
+					Btn(variant="ghost" size="sm" icon="lucide:underline")
+					Separator(orientation="vertical" class="mx-1")
+					Btn(variant="ghost" size="sm" icon="lucide:list")
+					Btn(variant="ghost" size="sm" icon="lucide:list-ordered")
+					Separator(orientation="vertical" class="mx-1")
+					Btn(variant="ghost" size="sm" icon="lucide:link")
+
+//- ============================================================
+//- 0.0.4 — COLLAPSIBLE / RICH TOOLTIP / PREVIEW CARD
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Collapsible / RichTooltip / PreviewCard
+	.grid.gap-4(class="md:grid-cols-3")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Collapsible
+			.space-y-2
+				Collapsible(title="Show details")
+					p.text-sm(class="text-fg-muted") Inline expand-collapse for one section. Use Accordion for many.
+				Collapsible(title="More info")
+					p.text-sm(class="text-fg-muted") Each instance is independent.
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold RichTooltip
+			.flex.gap-2
+				RichTooltip(triggerClass="btn btn-ghost")
+					+snippet('trigger')
+						Icon(name="lucide:info" size="size-4")
+						| Hover
+					.flex.gap-3
+						Avatar(name="Ada Lovelace" size="md")
+						.text-sm
+							.font-semibold Ada Lovelace
+							p.text-xs(class="text-fg-muted") First programmer.
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold PreviewCard
+			.text-sm
+				| Hover the
+				PreviewCard(href="https://svelte.dev" triggerClass="underline text-primary-600")
+					+snippet('trigger')
+						| Svelte link
+					.text-sm
+						.font-semibold svelte.dev
+						p.text-xs(class="text-fg-muted") Cybernetically enhanced web apps.
+
+//- ============================================================
+//- 0.0.4 — CONTEXT MENU / HIERARCHICAL / MEGA MENU
+//- ============================================================
+section.pt-12.space-y-3
+	h2 ContextMenu / HierarchicalMenu / MegaMenu
+	Card
+		+snippet('header')
+			h3.text-base.font-semibold ContextMenu (right-click)
+		ContextMenu(items!="{ctxItems}")
+			+snippet('trigger')
+				.surface.p-6.text-center.text-sm(class="text-fg-muted") Right-click anywhere in this box
+
+	Card(class="mt-4")
+		+snippet('header')
+			h3.text-base.font-semibold HierarchicalMenu
+		HierarchicalMenu(items!="{hierItems}")
+
+	Card(class="mt-4")
+		+snippet('header')
+			h3.text-base.font-semibold MegaMenu
+		MegaMenu(sections!="{megaSections}")
+
+//- ============================================================
+//- 0.0.4 — SCROLL AREA
+//- ============================================================
+section.pt-12.space-y-3
+	h2 ScrollArea
+	Card
+		ScrollArea(class="h-48")
+			.p-2.space-y-1
+				+each('scrollList as i')
+					.px-3.py-1.5.rounded.text-sm(class="bg-bg-muted") Item {i}
+
+//- ============================================================
+//- 0.0.4 — TIMELINE
+//- ============================================================
+section.pt-12.space-y-3
+	h2 Timeline
+	Card
+		Timeline(items!="{timelineItems}")
+
+//- ============================================================
+//- 0.0.4 — MEDIA (IMAGE / AUDIO / VIDEO)
+//- ============================================================
+section.pt-12.pb-24.space-y-3
+	h2 Image / Audio / Video
+	.grid.gap-4(class="md:grid-cols-3")
+		Card(padded!="{false}")
+			Image(src="https://picsum.photos/id/1043/600/400" alt="Sample" class="aspect-video")
+			.p-3.text-xs(class="text-fg-muted") Image with aspect-video
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Audio
+			Audio(src="https://www.w3.org/2010/05/sound/sound.mp3")
+			p.text-xs.mt-2(class="text-fg-muted") Native
+				code &lt;audio&gt;
+				| with controls
+		Card(padded!="{false}")
+			Video(
+				src="https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4"
+				muted!="{true}"
+				class="aspect-video"
+			)
+			.p-3.text-xs(class="text-fg-muted") Native
+				code &lt;video&gt;
+				| , muted
+
+<script>
+	import { toast } from '@human-synthesis/norns-ui/toast'
+	import { addCollection } from '@iconify/svelte'
+	import lucideIcons from '@iconify-json/lucide/icons.json'
+
+	// Register the Lucide collection up-front so icons render in SSR + client.
+	// Apps that use norns-ui should do this once at their entry — see README.
+	addCollection lucideIcons
+
+	radio        .= $state 'm'
+	toggle       .= $state true
+	dialogOpen   .= $state false
+	sheetRight   .= $state false
+	sheetBottom  .= $state false
+	drawerL      .= $state false
+	drawerR      .= $state false
+	tab          .= $state 'overview'
+	pageNum      .= $state 4
+	stepIdx      .= $state 1
+	treeExpanded .= $state ['src', 'src/lib']
+	treeSelected .= $state 'src/lib/cn.js'
+
+	// 0.0.4 state
+	tableSortKey .= $state 'name'
+	tableSortDir .= $state 'asc'
+	datePickerValue .= $state ''
+	dateRangeValue  .= $state { start: '', end: '' }
+	timeValue       .= $state ''
+	acValue         .= $state ''
+	msValue         .= $state ['svelte', 'pug']
+	tagsValue       .= $state ['norns', 'pug', 'civet']
+	numValue        .= $state 5
+	otpValue        .= $state ''
+	colorValue      .= $state '#7c3aed'
+	uploadFiles     .= $state []
+	boldOn          .= $state true
+	italicOn        .= $state false
+	underlineOn     .= $state false
+	alignment       .= $state 'left'
+
+	toggleTheme := =>
+		next := document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
+		document.documentElement.dataset.theme = next === 'dark' ? 'dark' : ''
+		try
+			localStorage.setItem 'norns-theme', next
+		catch _
+
+	cancelDialog  := => dialogOpen = false
+	confirmDialog := =>
+		dialogOpen = false
+		toast 'Deleted', { variant: 'success' }
+
+	toastInfo    := -> toast 'Heads up.', { variant: 'info' }
+	toastSuccess := -> toast 'Saved!', { variant: 'success' }
+	toastWarning := -> toast 'Hmm, take a look.', { variant: 'warning' }
+	toastError   := -> toast 'Something failed.', { variant: 'error' }
+	toastSticky  := -> toast 'Sticky — close manually.', { duration: 0 }
+
+	dropdownItems := [
+		{ label: 'Edit',      onSelect: -> toast 'Edit clicked' }
+		{ label: 'Duplicate', onSelect: -> toast 'Duplicated' }
+		{ separator: true }
+		{ label: 'Delete',    onSelect: -> toast 'Deleted', { variant: 'error' } }
+	]
+
+	stepperSteps := [
+		{ label: 'Account' }
+		{ label: 'Profile' }
+		{ label: 'Preferences' }
+		{ label: 'Review' }
+	]
+
+	carouselSlides := [
+		{ src: 'https://picsum.photos/id/1018/1600/600', alt: 'Mountain' }
+		{ src: 'https://picsum.photos/id/1015/1600/600', alt: 'River' }
+		{ src: 'https://picsum.photos/id/1019/1600/600', alt: 'Forest' }
+	]
+
+	palette := [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950]
+	frameworkOptions := [
+		{ value: 'svelte',  label: 'Svelte' }
+		{ value: 'react',   label: 'React' }
+		{ value: 'vue',     label: 'Vue' }
+		{ value: 'solid',   label: 'Solid' }
+		{ value: 'angular', label: 'Angular' }
+		{ value: 'pug',     label: 'Pug' }
+		{ value: 'civet',   label: 'Civet' }
+	]
+
+	alignmentOptions := [
+		{ value: 'left',   icon: 'lucide:align-left',   label: 'Align left',   iconOnly: true }
+		{ value: 'center', icon: 'lucide:align-center', label: 'Align center', iconOnly: true }
+		{ value: 'right',  icon: 'lucide:align-right',  label: 'Align right',  iconOnly: true }
+		{ value: 'justify', icon: 'lucide:align-justify', label: 'Justify', iconOnly: true }
+	]
+
+	tableColumns := [
+		{ key: 'name',     label: 'Name',     sortable: true }
+		{ key: 'role',     label: 'Role',     sortable: true }
+		{ key: 'language', label: 'Language', sortable: true }
+		{ key: 'status',   label: 'Status' }
+	]
+	tableRows := [
+		{ name: 'Ada Lovelace',     role: 'Programmer',   language: 'Analytical',   status: 'Pioneer' }
+		{ name: 'Grace Hopper',     role: 'Compiler',     language: 'COBOL',        status: 'Pioneer' }
+		{ name: 'Donald Knuth',     role: 'Author',       language: 'TeX',          status: 'Active' }
+		{ name: 'Linus Torvalds',   role: 'Maintainer',   language: 'C',            status: 'Active' }
+		{ name: 'Anders Hejlsberg', role: 'Architect',    language: 'TypeScript',   status: 'Active' }
+	]
+
+	ctxItems := [
+		{ label: 'Open',     icon: 'lucide:folder-open', onSelect: -> toast 'Open' }
+		{ label: 'Rename',   icon: 'lucide:pencil',      onSelect: -> toast 'Rename' }
+		{ label: 'Share', icon: 'lucide:share-2', children: [
+			{ label: 'Copy link',  icon: 'lucide:link', onSelect: -> toast 'Copied link' }
+			{ label: 'Email',      icon: 'lucide:mail', onSelect: -> toast 'Emailed' }
+		] }
+		{ separator: true }
+		{ label: 'Delete', icon: 'lucide:trash-2', onSelect: -> toast 'Deleted', { variant: 'error' } }
+	]
+
+	hierItems := [
+		{ label: 'Products', children: [
+			{ label: 'Norns',       href: '#', icon: 'lucide:zap', description: 'Meta-framework' }
+			{ label: 'Norns UI',    href: '#', icon: 'lucide:layout', description: 'Component library' }
+			{ label: 'Norns Core',  href: '#', icon: 'lucide:cpu', description: 'Preprocessor' }
+		] }
+		{ label: 'Resources', children: [
+			{ label: 'Docs',     href: '#', icon: 'lucide:book-open' }
+			{ label: 'Examples', href: '#', icon: 'lucide:code-2' }
+			{ label: 'Blog',     href: '#', icon: 'lucide:newspaper' }
+		] }
+		{ label: 'Pricing', href: '#' }
+	]
+
+	megaSections := [
+		{ label: 'Build', cols: 3, columns: [
+			{ title: 'Framework', items: [
+				{ label: 'Norns',     icon: 'lucide:zap',    href: '#', description: 'The meta-framework' }
+				{ label: 'Norns Core', icon: 'lucide:cpu',   href: '#', description: 'Preprocessor pipeline' }
+				{ label: 'Norns UI',  icon: 'lucide:layout', href: '#', description: 'Component library' }
+			] }
+			{ title: 'Tooling', items: [
+				{ label: 'CLI',     icon: 'lucide:terminal', href: '#' }
+				{ label: 'Vite plugin', icon: 'lucide:plug', href: '#' }
+				{ label: 'Migrate', icon: 'lucide:database', href: '#' }
+			] }
+			{ title: 'Integrations', items: [
+				{ label: 'Cloudflare D1', icon: 'lucide:cloud',     href: '#' }
+				{ label: 'Postgres',     icon: 'lucide:server',    href: '#' }
+				{ label: 'better-sqlite3', icon: 'lucide:hard-drive', href: '#' }
+			] }
+		] }
+		{ label: 'Learn', cols: 2, columns: [
+			{ title: 'Guides', items: [
+				{ label: 'Getting started', icon: 'lucide:book',    href: '#' }
+				{ label: 'Recipes',         icon: 'lucide:utensils', href: '#' }
+			] }
+			{ title: 'Reference', items: [
+				{ label: 'API',  icon: 'lucide:braces',   href: '#' }
+				{ label: 'Components', icon: 'lucide:layout-grid', href: '#' }
+			] }
+		] }
+	]
+
+	scrollList := Array.from { length: 30 }, (_, i) => i + 1
+
+	timelineItems := [
+		{ time: 'May 2026', title: 'Phase 1 ships',    description: 'Btn + atoms + presetUI', icon: 'lucide:rocket' }
+		{ time: 'May 2026', title: 'Phase 2 ships',    description: 'Forms tier + valibot', icon: 'lucide:check-circle-2', variant: 'success' }
+		{ time: 'May 2026', title: 'Phase 3 ships',    description: 'Bits UI behavior tier', icon: 'lucide:sparkles', variant: 'info' }
+		{ time: 'May 2026', title: '0.0.4',            description: 'Theming + icons + display + composite + 27 more', icon: 'lucide:zap', variant: 'warning' }
+	]
+
+	codeSample := """
+		const norns = {
+		  framework: 'svelte+kit',
+		  language:  'civet',
+		  template:  'pug'
+		}
+	"""
+	paletteRows := [
+		{ name: 'primary' }
+		{ name: 'success' }
+		{ name: 'warning' }
+		{ name: 'danger' }
+		{ name: 'info' }
+	]
+
+	treeItems := [
+		{
+			id: 'src'
+			label: 'src'
+			icon: 'lucide:folder'
+			children: [
+				{
+					id: 'src/lib'
+					label: 'lib'
+					icon: 'lucide:folder'
+					children: [
+						{ id: 'src/lib/cn.js',       label: 'cn.js',       icon: 'lucide:file-code' }
+						{ id: 'src/lib/variants.js', label: 'variants.js', icon: 'lucide:file-code' }
+						{ id: 'src/lib/toast.js',    label: 'toast.svelte.js', icon: 'lucide:file-code' }
+					]
+				}
+				{
+					id: 'src/components'
+					label: 'components'
+					icon: 'lucide:folder'
+					children: [
+						{ id: 'src/components/Btn.n',    label: 'Btn.n',    icon: 'lucide:file' }
+						{ id: 'src/components/Card.n',   label: 'Card.n',   icon: 'lucide:file' }
+						{ id: 'src/components/Tree.n',   label: 'Tree.n',   icon: 'lucide:file' }
+					]
+				}
+				{
+					id: 'src/styles'
+					label: 'styles'
+					icon: 'lucide:folder'
+					children: [
+						{ id: 'src/styles/tokens.css', label: 'tokens.css', icon: 'lucide:file-text' }
+						{ id: 'src/styles/atoms.css',  label: 'atoms.css',  icon: 'lucide:file-text' }
+					]
+				}
+				{ id: 'src/index.js', label: 'index.js', icon: 'lucide:file-code' }
+			]
+		}
+		{
+			id: 'tests'
+			label: 'tests'
+			icon: 'lucide:folder'
+			children: [
+				{ id: 'tests/cn.test.js', label: 'cn.test.js', icon: 'lucide:flask-conical' }
+			]
+		}
+		{ id: 'package.json', label: 'package.json', icon: 'lucide:package' }
+		{ id: 'README.md',    label: 'README.md',    icon: 'lucide:book-open' }
+	]
+</script>

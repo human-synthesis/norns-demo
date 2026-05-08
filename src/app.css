@@ -1,16 +1,15 @@
 @import 'tailwindcss';
+@import '@fontsource-variable/outfit';
 @import '@human-synthesis/norns-ui/styles';
 
 /*
  * App-wide styles.
  *
- * Layers:
- *  - @layer base       — element-level defaults (body, code)
- *  - @layer components — semantic patterns (.nav-link, .card-*, .gradient-text, ...)
- *  - @layer utilities  — animation helpers
- *
- * Feature-specific styles (e.g. todo) live alongside the feature in
- * their own .css file with @reference 'tailwindcss';
+ * The norns-ui base layer (in tokens.css + atoms.css) sets html/body color +
+ * background using role tokens, so the global theme already swaps when you
+ * toggle <html data-theme="dark">. This file just adds the demo-specific
+ * gloss (gradient text, glass header, hero cards) on top, all using role
+ * tokens so dark mode looks right.
  */
 
 @layer base {
@@ -19,83 +18,104 @@
 	}
 
 	body {
-		@apply text-neutral-900 antialiased;
+		@apply antialiased;
 		background:
 			radial-gradient(at 20% 0%, oklch(0.97 0.04 290 / 0.6) 0px, transparent 50%),
 			radial-gradient(at 80% 0%, oklch(0.97 0.04 250 / 0.4) 0px, transparent 50%),
-			oklch(0.99 0 0);
+			var(--color-bg);
 		background-attachment: fixed;
 		min-height: 100vh;
 	}
 
-	/* inline code (not inside <pre>) */
-	:not(pre) > code {
-		@apply px-1.5 py-0.5 bg-violet-100/70 text-violet-900 rounded-md text-[0.9em] font-mono;
-	}
-
-	pre code {
-		@apply font-mono;
+	[data-theme='dark'] body {
+		background:
+			radial-gradient(at 20% 0%, oklch(0.25 0.06 290 / 0.5) 0px, transparent 50%),
+			radial-gradient(at 80% 0%, oklch(0.22 0.06 250 / 0.4) 0px, transparent 50%),
+			var(--color-bg);
 	}
 
 	::selection {
-		@apply bg-violet-200 text-violet-900;
+		background-color: var(--color-primary-200);
+		color: var(--color-primary-900);
+	}
+	[data-theme='dark'] ::selection {
+		background-color: var(--color-primary-900);
+		color: var(--color-primary-100);
 	}
 }
 
 @layer components {
+	/* Theme-toggle icon/label swap — purely CSS, so SSR + client agree. */
+	.theme-toggle-dark {
+		display: none;
+	}
+	[data-theme='dark'] .theme-toggle-light {
+		display: none;
+	}
+	[data-theme='dark'] .theme-toggle-dark {
+		display: inline-flex;
+	}
+
 	.nav-link {
-		@apply inline-flex items-center px-3 py-1.5 rounded-full text-neutral-600 no-underline text-sm font-medium;
-		@apply transition-all duration-200;
-		@apply hover:text-neutral-900 hover:bg-neutral-100/80;
+		@apply inline-flex items-center px-3 py-1.5 rounded-full no-underline text-sm font-medium;
+		@apply transition-colors duration-200;
+		color: var(--color-fg-muted);
+	}
+	.nav-link:hover {
+		color: var(--color-fg);
+		background-color: var(--color-bg-muted);
 	}
 
 	.nav-link-active {
-		@apply text-neutral-900 bg-neutral-100;
+		color: var(--color-fg);
+		background-color: var(--color-bg-muted);
 	}
 
 	.nav-link-icon {
-		@apply text-neutral-500 px-2.5;
+		color: var(--color-fg-subtle);
+		@apply px-2.5;
 	}
 
 	.logo-mark {
-		@apply w-7 h-7 rounded-lg flex items-center justify-center text-white text-sm font-bold shadow-sm;
+		@apply w-7 h-7 rounded-lg flex items-center justify-center text-white text-sm font-bold;
 		background: linear-gradient(135deg, oklch(0.55 0.2 285), oklch(0.4 0.18 270));
 	}
 
 	.glass-header {
-		@apply sticky top-0 z-20 bg-white/70 backdrop-blur-xl border-b border-neutral-200/60;
+		@apply sticky top-0 z-20 backdrop-blur-xl;
+		background-color: color-mix(in oklab, var(--color-bg) 80%, transparent);
+		border-bottom: 1px solid var(--color-border);
 	}
 
 	.gradient-text {
 		@apply text-transparent bg-clip-text;
-		background-image: linear-gradient(135deg, oklch(0.5 0.22 285), oklch(0.45 0.2 240));
-	}
-
-	.card {
-		@apply p-6 bg-white border border-neutral-200/80 rounded-xl shadow-sm;
+		background-image: linear-gradient(135deg, var(--color-primary-500), var(--color-info-500));
 	}
 
 	.card-interactive {
-		@apply p-6 bg-white border border-neutral-200/80 rounded-xl shadow-sm no-underline text-neutral-900 block;
+		@apply p-5 rounded-xl no-underline block;
 		@apply transition-all duration-300 ease-out;
-		@apply hover:border-violet-300 hover:shadow-xl hover:-translate-y-0.5;
+		background-color: var(--color-bg-elevated);
+		color: var(--color-fg);
+		border: 1px solid var(--color-border);
+	}
+	.card-interactive:hover {
+		border-color: var(--color-primary-500);
+		transform: translateY(-1px);
 	}
 
 	.feature-bullet {
-		@apply text-violet-500 shrink-0 font-bold;
+		color: var(--color-primary-500);
+		@apply shrink-0 font-bold;
 	}
 
 	.btn-cta {
-		@apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-white font-medium shadow-sm no-underline;
-		@apply transition-all duration-200;
-		background: linear-gradient(135deg, oklch(0.5 0.22 285), oklch(0.45 0.2 240));
-		@apply hover:shadow-lg hover:-translate-y-0.5;
+		@apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-white font-medium no-underline;
+		@apply transition-transform duration-200;
+		background: linear-gradient(135deg, var(--color-primary-500), var(--color-info-500));
 	}
-
-	.btn-secondary {
-		@apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white text-neutral-900 font-medium border border-neutral-200 shadow-sm no-underline;
-		@apply transition-all duration-200;
-		@apply hover:border-neutral-400 hover:shadow-md;
+	.btn-cta:hover {
+		transform: translateY(-1px);
 	}
 }
 
