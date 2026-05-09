@@ -1,5 +1,5 @@
 .min-h-screen.flex.flex-col
-	Header
+	AppHeader
 	main.flex-1.w-full.max-w-3xl.mx-auto.px-6.py-16(class="sm:px-8 lg:px-10")
 		| {@render children?.()}
 	.flex.justify-center.pb-10.pt-4

@@ -6,10 +6,12 @@
  * App-wide styles.
  *
  * The norns-ui base layer (in tokens.css + atoms.css) sets html/body color +
- * background using role tokens, so the global theme already swaps when you
- * toggle <html data-theme="dark">. This file just adds the demo-specific
- * gloss (gradient text, glass header, hero cards) on top, all using role
- * tokens so dark mode looks right.
+ * background using role tokens, plus sun/moon swap classes (.theme-toggle-light
+ * / -dark). This file only adds demo-specific gloss: the body's radial-gradient
+ * backdrop, brand mark, nav-link hover, gradient-text, and entrance utilities.
+ *
+ * Component-level styles (Card, Btn, Header, etc.) live in norns-ui — duplicates
+ * removed in 0.0.5 to avoid drift.
  */
 
 @layer base {
@@ -45,17 +47,6 @@
 }
 
 @layer components {
-	/* Theme-toggle icon/label swap — purely CSS, so SSR + client agree. */
-	.theme-toggle-dark {
-		display: none;
-	}
-	[data-theme='dark'] .theme-toggle-light {
-		display: none;
-	}
-	[data-theme='dark'] .theme-toggle-dark {
-		display: inline-flex;
-	}
-
 	.nav-link {
 		@apply inline-flex items-center px-3 py-1.5 rounded-full no-underline text-sm font-medium;
 		@apply transition-colors duration-200;
@@ -81,41 +72,18 @@
 		background: linear-gradient(135deg, oklch(0.55 0.2 285), oklch(0.4 0.18 270));
 	}
 
-	.glass-header {
-		@apply sticky top-0 z-20 backdrop-blur-xl;
-		background-color: color-mix(in oklab, var(--color-bg) 80%, transparent);
-		border-bottom: 1px solid var(--color-border);
-	}
-
-	.gradient-text {
-		@apply text-transparent bg-clip-text;
-		background-image: linear-gradient(135deg, var(--color-primary-500), var(--color-info-500));
-	}
-
-	.card-interactive {
-		@apply p-5 rounded-xl no-underline block;
-		@apply transition-all duration-300 ease-out;
-		background-color: var(--color-bg-elevated);
-		color: var(--color-fg);
-		border: 1px solid var(--color-border);
-	}
-	.card-interactive:hover {
-		border-color: var(--color-primary-500);
-		transform: translateY(-1px);
-	}
-
 	.feature-bullet {
 		color: var(--color-primary-500);
 		@apply shrink-0 font-bold;
 	}
 
-	.btn-cta {
-		@apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-white font-medium no-underline;
-		@apply transition-transform duration-200;
-		background: linear-gradient(135deg, var(--color-primary-500), var(--color-info-500));
-	}
-	.btn-cta:hover {
-		transform: translateY(-1px);
+	/* Used only by the vanilla-Svelte side (`/examples/svelte`) so its hand-rolled
+	 * cards still have visual chrome. The Norns side uses `<Card interactive>`. */
+	.card-interactive {
+		@apply p-5 rounded-xl no-underline block;
+		background-color: var(--color-bg-elevated);
+		color: var(--color-fg);
+		border: 1px solid var(--color-border);
 	}
 }
 

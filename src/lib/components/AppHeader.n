@@ -1,0 +1,21 @@
+Header(sticky!="{true}" class="surface-glass border-b border-border")
+	+snippet('brand')
+		a.flex.items-center.gap-2.no-underline.font-extrabold.tracking-tight.text-lg(href="/" class="text-fg")
+			.logo-mark N
+			| Norns
+	+snippet('nav')
+		a.nav-link(href="/" class!="{path === '/' ? 'nav-link-active' : ''}") home
+		a.nav-link(href="/examples" class!="{path.startsWith('/examples') ? 'nav-link-active' : ''}") examples
+	+snippet('actions')
+		a.nav-link.nav-link-icon(
+			href="https://github.com/human-synthesis/norns"
+			target="_blank"
+			rel="noopener"
+			aria-label="GitHub"
+		)
+			Icon(name="lucide:github" size="size-4")
+		ThemeToggler(size="sm")
+
+<script>
+	path := $derived page.url.pathname
+</script>

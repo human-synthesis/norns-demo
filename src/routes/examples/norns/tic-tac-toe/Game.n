@@ -12,15 +12,7 @@
 			.tt-stat
 				.tt-stat-label Draws
 				.tt-stat-value {$stats.draw}
-		.tt-mode-bar
-			button.tt-mode(
-				class!="{$mode === '1v1' ? 'tt-mode-active' : ''}"
-				onclick!="{() => switchMode('1v1')}"
-			) 1v1
-			button.tt-mode(
-				class!="{$mode === 'vs-pc' ? 'tt-mode-active' : ''}"
-				onclick!="{() => switchMode('vs-pc')}"
-			) vs PC
+		ToggleButtonGroup(items!="{modeItems}" value!="{$mode}" onchange!="{(v) => v && switchMode(v)}")
 
 	Board(
 		cells!="{$board}"
@@ -36,7 +28,7 @@
 			.tt-status.tt-status-draw It's a draw
 		+else
 			.tt-status Player {$turn}'s turn
-		button.tt-reset(onclick!="{handleReset}") Reset
+		Btn(variant="secondary" size="sm" icon="lucide:rotate-ccw" onclick!="{handleReset}") Reset
 
 <script>
 	notified .= $state false
@@ -58,3 +50,8 @@
 
 	switchMode := (m) =>
 		setMode m
+
+	modeItems := [
+		{ value: '1v1', label: '1v1' }
+		{ value: 'vs-pc', label: 'vs PC' }
+	]

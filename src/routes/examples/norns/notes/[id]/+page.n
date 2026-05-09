@@ -1,7 +1,7 @@
 section.animate-in.space-y-3
 	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/norns/notes") ← all notes
 	h1.text-3xl.font-bold.tracking-tight.leading-none {data.note.title}
-	p.text-sm.text-neutral-500
+	p.text-sm(class="text-fg-muted")
 		| updated {new Date(data.note.updated_at).toLocaleString()}
 
 section.animate-in-delayed.pt-8.space-y-6
@@ -13,19 +13,18 @@ section.animate-in-delayed.pt-8.space-y-6
 		.flex.items-center.gap-3
 			Btn(type="submit" variant="primary") Save
 			+if('form?.saved')
-				span.text-sm.text-green-600 saved
+				Badge(variant="success") saved
 
-	Dialog(bind:open!="{deleteOpen}" title="Delete this note?" description="This cannot be undone.")
+	Dialog(bind:open!="{deleteOpen}" title="Delete this note?" description="This cannot be undone." triggerClass="btn btn-danger")
 		+snippet('trigger')
-			Btn(variant="danger") Delete note
+			Icon(name="lucide:trash-2" size="size-4")
+			| Delete note
 		+snippet('actions')
 			Btn(variant="ghost" onclick!="{() => deleteOpen = false}") Cancel
 			form(method="POST" action="?/delete" style="display:inline")
 				Btn(type="submit" variant="danger") Delete
 
 <script>
-	import './../notes.css'
-
 	{ data, form } := $props()
 	deleteOpen .= $state false
 </script>
