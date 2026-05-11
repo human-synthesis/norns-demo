@@ -1,0 +1,429 @@
+ToastProvider
+
+//- ============================================================
+//- HERO
+//- ============================================================
+section.relative.overflow-hidden
+	//- Soft background spotlight, behind everything.
+	.absolute.inset-0.pointer-events-none(
+		style="background: radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--color-primary-500) 18%, transparent), transparent 70%);"
+	)
+	div(class="relative max-w-5xl mx-auto px-6 py-24 md:py-32 text-center")
+		.flex.justify-center.mb-6
+			Chip(icon="lucide:sparkles" class="bg-primary-50 text-primary-700 border-primary-200")
+				| New · norns-ui v0.0.7 is out
+		h1.font-bold.tracking-tight.mb-6(class="text-5xl md:text-7xl leading-[1.05]")
+			| Ship full-stack apps
+			br
+			GradientText(animate!="{true}" from="var(--color-primary-500)" via="var(--color-info-500)" to="var(--color-success-500)")
+				| in minutes, not weeks
+		p.text-lg.leading-relaxed.max-w-2xl.mx-auto.mb-8(class="md:text-xl text-fg-muted")
+			| Norns is the batteries-included meta-framework for Svelte. Pug + Civet,
+			| feature folders, valibot routes, migrations, DI — all wired up the day you clone.
+		.flex.flex-wrap.items-center.justify-center.gap-3
+			Sparkles
+				Btn(variant="primary" size="lg" icon="lucide:rocket" href="/examples") Start building
+			Btn(variant="ghost" size="lg" icon="lucide:github" href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") View on GitHub
+		.flex.flex-wrap.items-center.justify-center.gap-x-6.gap-y-3.pt-10.text-sm(class="text-fg-muted")
+			.flex.items-center.gap-2
+				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
+				| No config required
+			.flex.items-center.gap-2
+				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
+				| TypeScript-aware
+			.flex.items-center.gap-2
+				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
+				| MIT licensed
+			.flex.items-center.gap-2
+				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
+				| Self-host or deploy
+
+//- ============================================================
+//- TRUST STRIP
+//- ============================================================
+section.border-y.border-border(class="bg-bg-subtle/40")
+	.max-w-5xl.mx-auto.px-6.py-8
+		p.text-center.text-xs.uppercase.tracking-wider.mb-5(class="text-fg-subtle")
+			| Built on the tools you already love
+		.flex.flex-wrap.items-center.justify-center.gap-x-12.gap-y-4(class="text-fg-muted")
+			.flex.items-center.gap-2.text-lg.font-semibold
+				Icon(name="lucide:zap" size="size-5" class="text-warning-500")
+				| Svelte 5
+			.flex.items-center.gap-2.text-lg.font-semibold
+				Icon(name="lucide:wind" size="size-5" class="text-info-500")
+				| Tailwind v4
+			.flex.items-center.gap-2.text-lg.font-semibold
+				Icon(name="lucide:terminal" size="size-5")
+				| Civet
+			.flex.items-center.gap-2.text-lg.font-semibold
+				Icon(name="lucide:braces" size="size-5" class="text-success-500")
+				| valibot
+			.flex.items-center.gap-2.text-lg.font-semibold
+				Icon(name="lucide:database" size="size-5" class="text-primary-500")
+				| SQLite + D1
+
+//- ============================================================
+//- STATS
+//- ============================================================
+section
+	.max-w-5xl.mx-auto.px-6.py-16
+		.grid.gap-6(class="md:grid-cols-4")
+			.text-center
+				.text-4xl.font-bold.tracking-tight(class="md:text-5xl")
+					AnimatedNumber(value!="{12480}" duration!="{1.6}")
+				.text-sm.mt-1(class="text-fg-muted") Apps shipped
+			.text-center
+				.text-4xl.font-bold.tracking-tight(class="md:text-5xl")
+					AnimatedNumber(value!="{72}" duration!="{1.2}")
+					span.text-2xl.align-text-top(class="text-fg-muted") +
+				.text-sm.mt-1(class="text-fg-muted") Components
+			.text-center
+				.text-4xl.font-bold.tracking-tight(class="md:text-5xl")
+					AnimatedNumber(value!="{56}" duration!="{1.4}")
+					span(class="text-fg-muted") kB
+				.text-sm.mt-1(class="text-fg-muted") Package size (gzip)
+			.text-center
+				.text-4xl.font-bold.tracking-tight(class="md:text-5xl")
+					| &lt;
+					AnimatedNumber(value!="{5}" duration!="{1.0}")
+					span(class="text-fg-muted") m
+				.text-sm.mt-1(class="text-fg-muted") Time to first deploy
+
+//- ============================================================
+//- FEATURES
+//- ============================================================
+section(class="bg-bg-subtle/40")
+	.max-w-6xl.mx-auto.px-6.py-20
+		.text-center.max-w-2xl.mx-auto.mb-12
+			Badge(variant="primary" class="mb-3") Features
+			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Everything you need, nothing you don't
+			p.text-base(class="text-fg-muted")
+				| Pick the pieces that fit. Each one is composable, typed, and small enough to read in one sitting.
+		.grid.gap-4(class="md:grid-cols-3")
+			Card(interactive!="{true}")
+				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-primary-100); color: var(--color-primary-700)")
+					Icon(name="lucide:zap" size="size-5")
+				h3.text-base.font-semibold.mb-2 Pug + Civet
+				p.text-sm(class="text-fg-muted")
+					| Concise template syntax, type-aware script. Write
+					code count .= $state 0
+					| ; reactivity just works.
+			Card(interactive!="{true}")
+				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-info-100); color: var(--color-info-700)")
+					Icon(name="lucide:layers" size="size-5")
+				h3.text-base.font-semibold.mb-2 Feature folders
+				p.text-sm(class="text-fg-muted")
+					| Co-locate schema, service, repo. Sharing names across server / shared / client without re-imports.
+			Card(interactive!="{true}")
+				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-success-100); color: var(--color-success-700)")
+					Icon(name="lucide:shield-check" size="size-5")
+				h3.text-base.font-semibold.mb-2 Typed routes
+				p.text-sm(class="text-fg-muted")
+					| valibot schemas validate
+					code form!
+					|  + load data at the boundary. End-to-end TS.
+			Card(interactive!="{true}")
+				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-warning-100); color: var(--color-warning-700)")
+					Icon(name="lucide:database" size="size-5")
+				h3.text-base.font-semibold.mb-2 Migrations baked in
+				p.text-sm(class="text-fg-muted")
+					code norns migrate
+					|  for SQLite + D1. Forward-only, idempotent, with a stamped schema table.
+			Card(interactive!="{true}")
+				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-danger-100); color: var(--color-danger-700)")
+					Icon(name="lucide:component" size="size-5")
+				h3.text-base.font-semibold.mb-2 norns-ui
+				p.text-sm(class="text-fg-muted")
+					| 70+ components on role tokens. Auto-imported. Drop a
+					code .n
+					| file in your project to override.
+			Card(interactive!="{true}")
+				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-bg-muted); color: var(--color-fg)")
+					Icon(name="lucide:moon" size="size-5")
+				h3.text-base.font-semibold.mb-2 Dark mode for free
+				p.text-sm(class="text-fg-muted")
+					| Role-token theme swap on
+					code [data-theme="dark"]
+					| . No per-component
+					code class:dark
+					|  noise.
+
+//- ============================================================
+//- HOW IT WORKS
+//- ============================================================
+section
+	.max-w-5xl.mx-auto.px-6.py-20
+		.text-center.max-w-2xl.mx-auto.mb-10
+			Badge(variant="info" class="mb-3") How it works
+			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") From clone to deploy
+			p.text-base(class="text-fg-muted") Four steps. Most of them are one command each.
+		.hidden(class="md:block")
+			Stepper(steps!="{stepperSteps}" current!="{3}")
+		.grid.gap-4.mt-6(class="md:grid-cols-2 lg:grid-cols-4")
+			+each('stepperSteps as step, i')
+				Card
+					.flex.items-start.gap-3.mb-3
+						.size-8.rounded-full.flex.items-center.justify-center.text-sm.font-bold(style="background: var(--color-primary-600); color: white")
+							| {i + 1}
+						h3.text-base.font-semibold.pt-1 {step.label}
+					p.text-sm(class="text-fg-muted") {step.description}
+
+//- ============================================================
+//- PRICING
+//- ============================================================
+section(class="bg-bg-subtle/40")
+	.max-w-5xl.mx-auto.px-6.py-20
+		.text-center.max-w-2xl.mx-auto.mb-12
+			Badge(variant="success" class="mb-3") Pricing
+			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Simple, honest pricing
+			p.text-base(class="text-fg-muted") The framework is free. You only pay if you choose hosting.
+		.grid.gap-4(class="md:grid-cols-3")
+			//- Free tier
+			Card
+				+snippet('header')
+					.flex.items-center.justify-between
+						h3.text-lg.font-semibold Open source
+						Badge default Free
+				.space-y-4
+					.flex.items-baseline.gap-1
+						span.text-5xl.font-bold $0
+						span.text-sm(class="text-fg-muted") /forever
+					ul.list-none.p-0.space-y-2.text-sm
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Full framework + CLI
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| norns-ui (70+ components)
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Self-host on any node host
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Community Discord
+				+snippet('footer')
+					Btn(variant="secondary" class="w-full" href="https://github.com/human-synthesis/norns" target="_blank") Get the source
+			//- Pro tier — highlighted
+			Card(class="relative ring-2 ring-primary-500")
+				.absolute.-top-3.left-1/2.-translate-x-1/2
+					Badge(variant="primary") Recommended
+				+snippet('header')
+					.flex.items-center.justify-between
+						h3.text-lg.font-semibold Cloud
+						Icon(name="lucide:zap" size="size-5" class="text-primary-500")
+				.space-y-4
+					.flex.items-baseline.gap-1
+						span.text-5xl.font-bold $19
+						span.text-sm(class="text-fg-muted") /month
+					ul.list-none.p-0.space-y-2.text-sm
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Everything in Open source
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Managed hosting + edge functions
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| D1 + Postgres add-ons
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Preview deploys per PR
+				+snippet('footer')
+					Btn(variant="primary" class="w-full" icon="lucide:rocket") Start free trial
+			//- Team tier
+			Card
+				+snippet('header')
+					.flex.items-center.justify-between
+						h3.text-lg.font-semibold Team
+						Badge(variant="warning") Beta
+				.space-y-4
+					.flex.items-baseline.gap-1
+						span.text-5xl.font-bold $79
+						span.text-sm(class="text-fg-muted") /month
+					ul.list-none.p-0.space-y-2.text-sm
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Everything in Cloud
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Unlimited collaborators
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Audit log + SAML SSO
+						li.flex.items-start.gap-2
+							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+							| Priority support
+				+snippet('footer')
+					Btn(variant="secondary" class="w-full") Contact sales
+
+//- ============================================================
+//- TESTIMONIALS
+//- ============================================================
+section
+	.max-w-6xl.mx-auto.px-6.py-20
+		.text-center.max-w-2xl.mx-auto.mb-12
+			Badge(variant="info" class="mb-3") Testimonials
+			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Loved by developers
+			.flex.items-center.justify-center.gap-2.mt-4
+				+each('[0,1,2,3,4] as _')
+					Icon(name="lucide:star" size="size-5" class="text-warning-400")
+				span.text-sm.ml-2(class="text-fg-muted") 4.9 average rating
+		.grid.gap-4(class="md:grid-cols-3")
+			+each('testimonials as t')
+				Card
+					.flex.items-center.gap-2.mb-3
+						+each('[0,1,2,3,4] as _')
+							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg")
+						| “{t.quote}”
+					.flex.items-center.gap-3
+						Avatar(name!="{t.name}" size="md")
+						div
+							.text-sm.font-semibold {t.name}
+							.text-xs(class="text-fg-muted") {t.role}
+
+//- ============================================================
+//- FAQ
+//- ============================================================
+section(class="bg-bg-subtle/40")
+	.max-w-3xl.mx-auto.px-6.py-20
+		.text-center.mb-10
+			Badge(variant="info" class="mb-3") FAQ
+			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Common questions
+		+snippet('faq1')
+			p.text-sm(class="text-fg-muted")
+				| Yes. Norns sits on top of SvelteKit — every adapter, hook, and form action keeps working.
+				| You can use
+				code .svelte
+				| and
+				code .n
+				| files side-by-side in the same app.
+		+snippet('faq2')
+			p.text-sm(class="text-fg-muted")
+				| Civet compiles to standard ESM, so Svelte 5's runes, derived state, and effects work without preprocessing tricks.
+		+snippet('faq3')
+			p.text-sm(class="text-fg-muted")
+				| MIT. Use it commercially, fork it, vendor it — no strings attached.
+		+snippet('faq4')
+			p.text-sm(class="text-fg-muted")
+				| You can. The
+				code &lt;Btn href="/url"&gt;
+				| polymorphic pattern, role-token CSS, and behaviors module are usable as plain Svelte+TS too.
+		+snippet('faq5')
+			p.text-sm(class="text-fg-muted")
+				| Hooks are wired up but the production deploy story is still firming up. Stable 1.0 is targeted later this year.
+		Accordion(items!="{faqItems(faq1, faq2, faq3, faq4, faq5)}")
+
+//- ============================================================
+//- NEWSLETTER / CTA
+//- ============================================================
+section
+	.max-w-5xl.mx-auto.px-6.py-20
+		Card(class="text-center" padded!="{false}")
+			div(class="p-10 md:p-16 relative overflow-hidden")
+				.absolute.inset-0.opacity-50(
+					style="background: radial-gradient(50% 60% at 50% 100%, color-mix(in oklab, var(--color-primary-500) 22%, transparent), transparent 70%);"
+				)
+				.relative
+					h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Stay in the loop
+					p.text-base.max-w-xl.mx-auto.mb-6(class="text-fg-muted")
+						| One short email a month with release notes, recipes, and the occasional postmortem.
+					form(onsubmit!="{onSubscribe}" class="max-w-md mx-auto")
+						.flex.flex-col.gap-3(class="sm:flex-row")
+							Field(name="email" class="flex-1")
+								Input(name="email" type="email" placeholder="you@your-domain.com" required bind:value!="{email}")
+							Btn(variant="primary" type="submit" icon="lucide:send") Subscribe
+					p.text-xs.mt-3(class="text-fg-subtle") We never share your email. Unsubscribe in one click.
+
+//- ============================================================
+//- FOOTER
+//- ============================================================
+section.border-t.border-border.mt-10
+	.max-w-6xl.mx-auto.px-6.py-12
+		.grid.gap-8(class="md:grid-cols-4")
+			div(class="md:col-span-2")
+				.flex.items-center.gap-2.mb-3
+					.size-7.rounded.flex.items-center.justify-center.text-white.font-bold.text-sm(style="background: var(--color-primary-600)") N
+					span.text-lg.font-bold.tracking-tight Norns
+				p.text-sm.max-w-sm(class="text-fg-muted") The batteries-included meta-framework for Svelte. Open source, MIT licensed.
+				.flex.items-center.gap-2.mt-4
+					a.btn-icon(href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener" aria-label="GitHub")
+						Icon(name="lucide:github" size="size-4")
+					a.btn-icon(href="#" aria-label="X")
+						Icon(name="lucide:twitter" size="size-4")
+					a.btn-icon(href="#" aria-label="YouTube")
+						Icon(name="lucide:youtube" size="size-4")
+					a.btn-icon(href="#" aria-label="Discord")
+						Icon(name="lucide:message-circle" size="size-4")
+			div
+				h3.text-sm.font-semibold.mb-3 Product
+				ul.list-none.p-0.space-y-2.text-sm
+					li
+						a.nav-link.px-0.py-0(href="/examples/ui") Components
+					li
+						a.nav-link.px-0.py-0(href="/examples") Examples
+					li
+						a.nav-link.px-0.py-0(href="#") Roadmap
+					li
+						a.nav-link.px-0.py-0(href="#") Changelog
+			div
+				h3.text-sm.font-semibold.mb-3 Resources
+				ul.list-none.p-0.space-y-2.text-sm
+					li
+						a.nav-link.px-0.py-0(href="#") Docs
+					li
+						a.nav-link.px-0.py-0(href="#") Guides
+					li
+						a.nav-link.px-0.py-0(href="#") API reference
+					li
+						a.nav-link.px-0.py-0(href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") GitHub
+		.flex.items-center.justify-between.mt-10.pt-6.border-t.border-border.text-xs(class="text-fg-subtle")
+			div © {new Date().getFullYear()} Human Synthesis · Made with norns-ui
+			div Built with Svelte 5 + Tailwind v4
+
+<script>
+	import { toast } from '@human-synthesis/norns-ui/toast'
+	import { addCollection } from '@iconify/svelte'
+	import lucideIcons from '@iconify-json/lucide/icons.json'
+
+	// Motion-driven components live in the opt-in /motion subpath so they
+	// don't get auto-bundled into pages that don't need them.
+	import AnimatedNumber from '@human-synthesis/norns-ui/motion/AnimatedNumber.n'
+	import Sparkles from '@human-synthesis/norns-ui/motion/Sparkles.n'
+
+	addCollection lucideIcons
+
+	email .= $state ''
+
+	onSubscribe := (e) =>
+		e.preventDefault()
+		return unless email
+		toast `Thanks! We'll send the next issue to ${email}.`, { variant: 'success' }
+		email = ''
+
+	// Build the Accordion items list in JS rather than as an inline literal
+	// in a Pug attribute — keeps the template tidy and the quoting sane.
+	faqItems := (f1, f2, f3, f4, f5) => [
+		{ value: 'a', title: 'Can I use it with existing SvelteKit apps?', content: f1 }
+		{ value: 'b', title: 'Why Civet on top of Svelte?', content: f2 }
+		{ value: 'c', title: "What's the license?", content: f3 }
+		{ value: 'd', title: 'Can I use norns-ui without Civet?', content: f4 }
+		{ value: 'e', title: 'Is it production-ready?', content: f5 }
+	]
+
+	stepperSteps := [
+		{ label: 'Clone the starter',  description: 'One npm create, two questions. Done in 30 seconds.' }
+		{ label: 'Compose features',   description: 'Drop feature folders under src/lib/norns/<name>/. Norns wires them up.' }
+		{ label: 'Ship a route',       description: '+page.n + +page.server.c. Validated by valibot at the boundary.' }
+		{ label: 'Deploy',             description: 'Cloudflare, Node, Vercel — pick your adapter. Migrations run first.' }
+	]
+
+	testimonials := [
+		{ name: 'Ada Lovelace',    role: 'Founding engineer, Loomstack',  quote: 'I went from blank repo to a deployed app with auth + a DB in one evening. Norns just gets out of the way.' }
+		{ name: 'Grace Hopper',    role: 'Staff engineer, Cobol Cloud',   quote: 'Pug + Civet sounded like a meme until I tried it. Now every spare line in our codebase feels noisy.' }
+		{ name: 'Donald Knuth',    role: 'Maintainer, TeXLetters',        quote: 'The type-shim drift detector caught three bugs in our first migration. The migration ran in 12ms.' }
+		{ name: 'Linus Torvalds',  role: 'Engineer, Pengwin Labs',         quote: 'Tailwind + role tokens means I stopped writing CSS. The design team is suspicious — in a good way.' }
+		{ name: 'Anders Hejlsberg',role: 'PL person, Strongly Typed Ltd', quote: "It's Svelte but it feels like one person built the whole stack on purpose. Coherent." }
+		{ name: 'Margaret Hamilton', role: 'CTO, Trajectory.io',           quote: 'Production-ready feature folders, DI, valibot. We deleted half our app code.' }
+	]
+</script>

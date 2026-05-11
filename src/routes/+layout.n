@@ -15,8 +15,11 @@
 
 	{ children } := $props()
 
-	// The UI showcase needs room for 2- and 3-column grids; the rest of the
-	// app is reading-width content, so keep it narrow.
-	isShowcase := $derived page.url.pathname.startsWith '/examples/ui'
-	mainClasses := $derived isShowcase ? 'max-w-[1600px] sm:px-8 lg:px-12' : 'max-w-3xl sm:px-8 lg:px-10'
+	// The UI showcase + landing example need room for multi-column sections;
+	// the rest of the app is reading-width content, so keep it narrow.
+	isWide := $derived (
+		page.url.pathname.startsWith('/examples/ui') ||
+		page.url.pathname.startsWith('/examples/landing')
+	)
+	mainClasses := $derived isWide ? 'max-w-[1600px] sm:px-8 lg:px-12' : 'max-w-3xl sm:px-8 lg:px-10'
 </script>
