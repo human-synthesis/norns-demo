@@ -1,184 +1,366 @@
 ToastProvider
 
 //- ============================================================
-//- HERO
+//- HERO — full-bleed mesh + grid + code window
 //- ============================================================
-section.relative.overflow-hidden
-	//- Soft background spotlight, behind everything.
-	.absolute.inset-0.pointer-events-none(
-		style="background: radial-gradient(60% 50% at 50% 0%, color-mix(in oklab, var(--color-primary-500) 18%, transparent), transparent 70%);"
+section(class="relative overflow-hidden")
+	.absolute.inset-0.pointer-events-none.hero-mesh
+	.absolute.inset-0.pointer-events-none.bg-grid
+	.absolute.pointer-events-none(
+		class="left-1/2 -translate-x-1/2 top-[10%] w-[920px] h-[920px] opacity-30 spin-slow"
+		style="background: conic-gradient(from 0deg, transparent 0deg, color-mix(in oklab, var(--color-primary-500) 35%, transparent) 90deg, transparent 180deg, color-mix(in oklab, var(--color-info-500) 35%, transparent) 270deg, transparent 360deg); filter: blur(80px); border-radius: 50%;"
 	)
-	div(class="relative max-w-5xl mx-auto px-6 py-24 md:py-32 text-center")
-		.flex.justify-center.mb-6
-			Chip(icon="lucide:sparkles" class="bg-primary-50 text-primary-700 border-primary-200")
-				| New · norns-ui v0.0.7 is out
-		h1.font-bold.tracking-tight.mb-6(class="text-5xl md:text-7xl leading-[1.05]")
+
+	.relative(class="max-w-7xl mx-auto px-6 pt-20 pb-32 md:pt-28 md:pb-40")
+		//- Release pill with pulse
+		.flex.justify-center.mb-8
+			a.inline-flex.items-center.gap-3.no-underline.group(
+				href="https://github.com/human-synthesis/norns-ui/releases"
+				target="_blank"
+				rel="noopener"
+				class="rounded-full border border-border bg-bg-elevated/70 px-4 py-1.5 text-sm backdrop-blur-md transition-colors hover:bg-bg-elevated"
+			)
+				span(class="relative inline-flex size-2 rounded-full bg-success-500")
+					span(class="absolute inset-0 rounded-full bg-success-500 ping-soft")
+				span(class="text-fg-muted") norns-ui v0.0.7 is out
+				span(class="text-fg") Read the notes
+				Icon(name="lucide:arrow-right" size="size-3.5" class="text-fg-muted transition-transform group-hover:translate-x-0.5")
+
+		//- Massive headline
+		h1.text-center.font-bold.tracking-tight.mb-6(
+			class="text-5xl md:text-7xl lg:text-8xl leading-[1.02] max-w-5xl mx-auto"
+		)
 			| Ship full-stack apps
 			br
-			GradientText(animate!="{true}" from="var(--color-primary-500)" via="var(--color-info-500)" to="var(--color-success-500)")
-				| in minutes, not weeks
-		p.text-lg.leading-relaxed.max-w-2xl.mx-auto.mb-8(class="md:text-xl text-fg-muted")
-			| Norns is the batteries-included meta-framework for Svelte. Pug + Civet,
-			| feature folders, valibot routes, migrations, DI — all wired up the day you clone.
-		.flex.flex-wrap.items-center.justify-center.gap-3
+			GradientText(
+				animate!="{true}"
+				from="var(--color-primary-500)"
+				via="var(--color-info-500)"
+				to="var(--color-success-500)"
+			)
+				| at the speed of thought
+		p.text-center.max-w-2xl.mx-auto.mb-10(
+			class="text-lg md:text-xl text-fg-muted leading-relaxed"
+		)
+			| Norns is the batteries-included meta-framework for Svelte.
+			span(class="text-fg")  Pug + Civet,
+			|  feature folders, valibot routes, migrations, dependency injection —
+			span(class="text-fg")  wired up the day you clone.
+
+		//- Dual CTAs
+		.flex.flex-wrap.items-center.justify-center.gap-3.mb-6
 			Sparkles
-				Btn(variant="primary" size="lg" icon="lucide:rocket" href="/examples") Start building
-			Btn(variant="ghost" size="lg" icon="lucide:github" href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") View on GitHub
-		.flex.flex-wrap.items-center.justify-center.gap-x-6.gap-y-3.pt-10.text-sm(class="text-fg-muted")
-			.flex.items-center.gap-2
+				Btn(variant="primary" size="lg" icon="lucide:rocket" href="/examples")
+					| Start building
+					+snippet('trailing')
+						Icon(name="lucide:arrow-right" size="size-5")
+			Btn(
+				variant="secondary"
+				size="lg"
+				icon="lucide:github"
+				href="https://github.com/human-synthesis/norns"
+				target="_blank"
+				rel="noopener"
+				class="backdrop-blur-md"
+			) Star on GitHub
+
+		//- Trust badge row
+		.flex.flex-wrap.items-center.justify-center.gap-x-6.gap-y-2.text-sm(class="text-fg-muted")
+			.inline-flex.items-center.gap-1.5
 				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
-				| No config required
-			.flex.items-center.gap-2
+				| Open source, MIT
+			.inline-flex.items-center.gap-1.5
 				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
-				| TypeScript-aware
-			.flex.items-center.gap-2
+				| Type-safe end-to-end
+			.inline-flex.items-center.gap-1.5
 				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
-				| MIT licensed
-			.flex.items-center.gap-2
+				| Works with SvelteKit
+			.inline-flex.items-center.gap-1.5
 				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
-				| Self-host or deploy
+				| &lt; 60 kB gz
+
+		//- Floating IDE-style code window
+		.relative.mt-16(class="max-w-4xl mx-auto")
+			.absolute.float-bob.hidden(class="md:flex -top-6 -left-8 items-center gap-2 rounded-full bg-bg-elevated/80 backdrop-blur-md border border-border px-3 py-1.5 text-xs shadow-lg z-10")
+				Icon(name="lucide:zap" size="size-3.5" class="text-warning-500")
+				span Hot reload in
+				code(class="text-fg") 42ms
+			.absolute.float-bob-2.hidden(class="md:flex -bottom-4 -right-6 items-center gap-2 rounded-full bg-bg-elevated/80 backdrop-blur-md border border-border px-3 py-1.5 text-xs shadow-lg z-10")
+				Icon(name="lucide:check-circle-2" size="size-3.5" class="text-success-500")
+				span 0 type errors
+
+			.code-window
+				.code-window-bar
+					.code-window-dot(style!="{dotRed}")
+					.code-window-dot(style!="{dotYellow}")
+					.code-window-dot(style!="{dotGreen}")
+					.flex-1.text-center.text-xs(class="text-fg-muted")
+						code src/routes/+page.n
+					Badge(variant="info" size="sm") .n
+				pre.code-window-body(class="m-0")
+					| {@html codeHero}
 
 //- ============================================================
-//- TRUST STRIP
+//- MARQUEE — "trusted by" auto-scroll
 //- ============================================================
-section.border-y.border-border(class="bg-bg-subtle/40")
-	.max-w-5xl.mx-auto.px-6.py-8
-		p.text-center.text-xs.uppercase.tracking-wider.mb-5(class="text-fg-subtle")
-			| Built on the tools you already love
-		.flex.flex-wrap.items-center.justify-center.gap-x-12.gap-y-4(class="text-fg-muted")
-			.flex.items-center.gap-2.text-lg.font-semibold
-				Icon(name="lucide:zap" size="size-5" class="text-warning-500")
-				| Svelte 5
-			.flex.items-center.gap-2.text-lg.font-semibold
-				Icon(name="lucide:wind" size="size-5" class="text-info-500")
-				| Tailwind v4
-			.flex.items-center.gap-2.text-lg.font-semibold
-				Icon(name="lucide:terminal" size="size-5")
-				| Civet
-			.flex.items-center.gap-2.text-lg.font-semibold
-				Icon(name="lucide:braces" size="size-5" class="text-success-500")
-				| valibot
-			.flex.items-center.gap-2.text-lg.font-semibold
-				Icon(name="lucide:database" size="size-5" class="text-primary-500")
-				| SQLite + D1
+section.border-y.border-border(class="bg-bg-subtle/60 py-6 overflow-hidden marquee-pause relative")
+	.absolute.inset-y-0.left-0.w-20.z-10.pointer-events-none(style="background: linear-gradient(to right, var(--color-bg) 0%, transparent 100%)")
+	.absolute.inset-y-0.right-0.w-20.z-10.pointer-events-none(style="background: linear-gradient(to left, var(--color-bg) 0%, transparent 100%)")
+
+	.marquee
+		+each('marqueeItems as item')
+			.flex.items-center.gap-2.shrink-0(class="text-fg-muted")
+				Icon(name!="{item.icon}" size="size-5" class!="{item.color}")
+				span.text-lg.font-semibold {item.label}
+		+each('marqueeItems as item')
+			.flex.items-center.gap-2.shrink-0(class="text-fg-muted")
+				Icon(name!="{item.icon}" size="size-5" class!="{item.color}")
+				span.text-lg.font-semibold {item.label}
 
 //- ============================================================
-//- STATS
+//- STATS — animated counters with glow
 //- ============================================================
-section
-	.max-w-5xl.mx-auto.px-6.py-16
-		.grid.gap-6(class="md:grid-cols-4")
-			.text-center
-				.text-4xl.font-bold.tracking-tight(class="md:text-5xl")
-					AnimatedNumber(value!="{12480}" duration!="{1.6}")
-				.text-sm.mt-1(class="text-fg-muted") Apps shipped
-			.text-center
-				.text-4xl.font-bold.tracking-tight(class="md:text-5xl")
-					AnimatedNumber(value!="{72}" duration!="{1.2}")
-					span.text-2xl.align-text-top(class="text-fg-muted") +
-				.text-sm.mt-1(class="text-fg-muted") Components
-			.text-center
-				.text-4xl.font-bold.tracking-tight(class="md:text-5xl")
-					AnimatedNumber(value!="{56}" duration!="{1.4}")
-					span(class="text-fg-muted") kB
-				.text-sm.mt-1(class="text-fg-muted") Package size (gzip)
-			.text-center
-				.text-4xl.font-bold.tracking-tight(class="md:text-5xl")
-					| &lt;
-					AnimatedNumber(value!="{5}" duration!="{1.0}")
-					span(class="text-fg-muted") m
-				.text-sm.mt-1(class="text-fg-muted") Time to first deploy
+section(class="max-w-7xl mx-auto px-6 py-24")
+	.text-center.max-w-2xl.mx-auto.mb-12
+		Badge(variant="primary" class="mb-3") By the numbers
+		h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") The stack that ships
+	.grid.gap-6(class="md:grid-cols-2 lg:grid-cols-4")
+		+each('stats as stat')
+			.relative.group
+				.absolute.inset-0.rounded-xl.opacity-0(
+					class="transition-opacity group-hover:opacity-100"
+					style!="{`background: radial-gradient(50% 80% at 50% 100%, ${stat.glow}, transparent 70%);`}"
+				)
+				.relative.text-center.rounded-xl.border.border-border.bg-bg-elevated.p-6(class="backdrop-blur-md")
+					.size-12.mx-auto.rounded-lg.flex.items-center.justify-center.mb-4(
+						style!="{`background: ${stat.iconBg}; color: ${stat.iconFg};`}"
+					)
+						Icon(name!="{stat.icon}" size="size-6")
+					.text-4xl.font-bold.tracking-tight.mb-1(class="md:text-5xl")
+						+if('stat.prefix')
+							span {stat.prefix}
+						AnimatedNumber(value!="{stat.value}" duration!="{1.6}")
+						+if('stat.suffix')
+							span {stat.suffix}
+					.text-sm(class="text-fg-muted") {stat.label}
 
 //- ============================================================
-//- FEATURES
+//- BENTO FEATURES
 //- ============================================================
-section(class="bg-bg-subtle/40")
-	.max-w-6xl.mx-auto.px-6.py-20
-		.text-center.max-w-2xl.mx-auto.mb-12
-			Badge(variant="primary" class="mb-3") Features
-			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Everything you need, nothing you don't
-			p.text-base(class="text-fg-muted")
-				| Pick the pieces that fit. Each one is composable, typed, and small enough to read in one sitting.
-		.grid.gap-4(class="md:grid-cols-3")
-			Card(interactive!="{true}")
-				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-primary-100); color: var(--color-primary-700)")
-					Icon(name="lucide:zap" size="size-5")
-				h3.text-base.font-semibold.mb-2 Pug + Civet
-				p.text-sm(class="text-fg-muted")
-					| Concise template syntax, type-aware script. Write
-					code count .= $state 0
-					| ; reactivity just works.
-			Card(interactive!="{true}")
-				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-info-100); color: var(--color-info-700)")
-					Icon(name="lucide:layers" size="size-5")
-				h3.text-base.font-semibold.mb-2 Feature folders
-				p.text-sm(class="text-fg-muted")
-					| Co-locate schema, service, repo. Sharing names across server / shared / client without re-imports.
-			Card(interactive!="{true}")
-				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-success-100); color: var(--color-success-700)")
-					Icon(name="lucide:shield-check" size="size-5")
-				h3.text-base.font-semibold.mb-2 Typed routes
-				p.text-sm(class="text-fg-muted")
-					| valibot schemas validate
-					code form!
-					|  + load data at the boundary. End-to-end TS.
-			Card(interactive!="{true}")
+section(class="bg-bg-subtle/40 py-24")
+	.max-w-7xl.mx-auto.px-6
+		.text-center.max-w-2xl.mx-auto.mb-14
+			Badge(variant="info" class="mb-3") Features
+			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-5xl")
+				| Everything you need,
+				br
+				GradientText(animate!="{true}") nothing you don't
+			p.text-base(class="text-fg-muted") Pick the pieces that fit. Each one is composable, typed, and small enough to read in one sitting.
+
+		.grid.gap-4(class="lg:grid-cols-6")
+			//- WIDE: Auto-imports
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden(class="lg:col-span-4")
+				Badge(variant="primary" size="sm" class="mb-3") Zero ceremony
+				h3.text-2xl.font-bold.mb-2 Auto-imports for everything
+				p.text-base.max-w-md(class="text-fg-muted")
+					| Drop a
+					code .n
+					|  file in
+					code src/lib/components/
+					|  and it's auto-imported everywhere. Helpers, stores, schemas — same story.
+				.mt-6.flex.flex-wrap.gap-2.font-mono.text-xs
+					+each('autoImportTags as t')
+						span.rounded-md.border.border-border.bg-bg-subtle.px-2.py-1(class="text-fg-muted") {t}
+				.absolute.pointer-events-none(
+					class="-right-12 -bottom-12 w-48 h-48 opacity-40"
+					style="background: radial-gradient(circle, var(--color-primary-500), transparent 70%); filter: blur(40px);"
+				)
+
+			//- NARROW: Type-safe routes
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden(class="lg:col-span-2")
+				Badge(variant="success" size="sm" class="mb-3") Typed
+				h3.text-xl.font-bold.mb-2 Validated routes
+				p.text-sm(class="text-fg-muted") valibot schemas validate form data + load shapes at the boundary.
+				.mt-5.rounded-lg.border.border-border.bg-bg-subtle.p-3.font-mono.text-xs.leading-relaxed
+					.flex.items-center.gap-2.mb-1
+						Icon(name="lucide:check" size="size-3.5" class="text-success-500")
+						span(class="text-fg-muted") title: string
+					.flex.items-center.gap-2.mb-1
+						Icon(name="lucide:check" size="size-3.5" class="text-success-500")
+						span(class="text-fg-muted") body: optional(string)
+					.flex.items-center.gap-2
+						Icon(name="lucide:x" size="size-3.5" class="text-danger-500")
+						span(class="text-danger-600") tlte: not in schema
+
+			//- NARROW: Migrations
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8(class="lg:col-span-2")
 				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-warning-100); color: var(--color-warning-700)")
 					Icon(name="lucide:database" size="size-5")
-				h3.text-base.font-semibold.mb-2 Migrations baked in
-				p.text-sm(class="text-fg-muted")
-					code norns migrate
-					|  for SQLite + D1. Forward-only, idempotent, with a stamped schema table.
-			Card(interactive!="{true}")
-				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-danger-100); color: var(--color-danger-700)")
-					Icon(name="lucide:component" size="size-5")
-				h3.text-base.font-semibold.mb-2 norns-ui
-				p.text-sm(class="text-fg-muted")
-					| 70+ components on role tokens. Auto-imported. Drop a
+				h3.text-xl.font-bold.mb-2 Migrations baked in
+				p.text-sm(class="text-fg-muted") SQLite + D1. Forward-only, idempotent, with a stamped schema table.
+				.mt-4.font-mono.text-xs.space-y-1(class="text-fg-muted")
+					.flex.items-center.gap-2
+						span(class="text-success-500") ✓
+						code 001_init.sql
+					.flex.items-center.gap-2
+						span(class="text-success-500") ✓
+						code 002_add_notes.sql
+					.flex.items-center.gap-2
+						span(class="text-warning-500") ◷
+						code 003_users.sql (pending)
+
+			//- WIDE: Dark mode
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden(class="lg:col-span-4")
+				Badge(variant="info" size="sm" class="mb-3") Theming
+				h3.text-2xl.font-bold.mb-2 Dark mode for free
+				p.text-base.max-w-md(class="text-fg-muted")
+					| Role-token theme swap on a single
+					code data-theme
+					|  attribute. No per-component class:dark noise.
+				.mt-6.grid.gap-3(class="grid-cols-2")
+					.rounded-lg.border.border-border.p-4(style="background: white")
+						.flex.items-center.gap-2.mb-2
+							.size-6.rounded(style="background: oklch(60.6% 0.25 292.7)")
+							span.text-xs.font-mono(style="color: oklch(20.4% 0 0)") --primary-500
+						.text-xs.font-mono(style="color: oklch(43.9% 0 0)") light theme
+					.rounded-lg.border.p-4(style="background: oklch(14.5% 0 0); border-color: oklch(27.5% 0 0)")
+						.flex.items-center.gap-2.mb-2
+							.size-6.rounded(style="background: oklch(70.2% 0.183 293.5)")
+							span.text-xs.font-mono(style="color: oklch(98.5% 0 0)") --primary-500
+						.text-xs.font-mono(style="color: oklch(70.8% 0 0)") dark theme
+
+			//- WIDE: norns-ui
+			.rounded-2xl.border.border-border.p-8.relative.overflow-hidden(
+				class="lg:col-span-4"
+				style="background: linear-gradient(135deg, color-mix(in oklab, var(--color-primary-500) 8%, var(--color-bg-elevated)), var(--color-bg-elevated));"
+			)
+				Badge(variant="primary" size="sm" class="mb-3") norns-ui
+				h3.text-2xl.font-bold.mb-2 70+ components, role-token themed
+				p.text-base.max-w-md.mb-6(class="text-fg-muted")
+					| Auto-imported. Override any component by dropping the same filename in your project —
 					code .n
-					| file in your project to override.
-			Card(interactive!="{true}")
-				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-bg-muted); color: var(--color-fg)")
-					Icon(name="lucide:moon" size="size-5")
-				h3.text-base.font-semibold.mb-2 Dark mode for free
+					|  shadows the library silently.
+				.flex.flex-wrap.gap-2
+					+each('componentChips as c')
+						Chip(icon!="{c.icon}") {c.label}
+
+			//- NARROW: Civet
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8(class="lg:col-span-2")
+				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-success-100); color: var(--color-success-700)")
+					Icon(name="lucide:code-2" size="size-5")
+				h3.text-xl.font-bold.mb-2 Civet on top
 				p.text-sm(class="text-fg-muted")
-					| Role-token theme swap on
-					code [data-theme="dark"]
-					| . No per-component
-					code class:dark
-					|  noise.
+					| Indented, type-aware. Compiles to standard ESM —
+					code .= $state 0
+					|  just works with Svelte 5 runes.
 
 //- ============================================================
-//- HOW IT WORKS
+//- CODE PREVIEW — tabbed window
 //- ============================================================
-section
-	.max-w-5xl.mx-auto.px-6.py-20
-		.text-center.max-w-2xl.mx-auto.mb-10
-			Badge(variant="info" class="mb-3") How it works
-			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") From clone to deploy
-			p.text-base(class="text-fg-muted") Four steps. Most of them are one command each.
-		.hidden(class="md:block")
-			Stepper(steps!="{stepperSteps}" current!="{3}")
-		.grid.gap-4.mt-6(class="md:grid-cols-2 lg:grid-cols-4")
-			+each('stepperSteps as step, i')
-				Card
-					.flex.items-start.gap-3.mb-3
-						.size-8.rounded-full.flex.items-center.justify-center.text-sm.font-bold(style="background: var(--color-primary-600); color: white")
-							| {i + 1}
-						h3.text-base.font-semibold.pt-1 {step.label}
-					p.text-sm(class="text-fg-muted") {step.description}
+section(class="max-w-6xl mx-auto px-6 py-24")
+	.text-center.max-w-2xl.mx-auto.mb-10
+		Badge(variant="primary" class="mb-3") Code preview
+		h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Three files, end-to-end typed
+		p.text-base.mt-3(class="text-fg-muted") A note CRUD: route, server, schema. Less code than the framework it sits on.
+	+snippet('panelRoute')
+		.code-window
+			.code-window-bar
+				.code-window-dot(style!="{dotRed}")
+				.code-window-dot(style!="{dotYellow}")
+				.code-window-dot(style!="{dotGreen}")
+				.flex-1.text-center.text-xs(class="text-fg-muted")
+					code src/routes/notes/+page.n
+			pre.code-window-body(class="m-0")
+				| {@html codeRoute}
+	+snippet('panelServer')
+		.code-window
+			.code-window-bar
+				.code-window-dot(style!="{dotRed}")
+				.code-window-dot(style!="{dotYellow}")
+				.code-window-dot(style!="{dotGreen}")
+				.flex-1.text-center.text-xs(class="text-fg-muted")
+					code src/routes/notes/+page.server.c
+			pre.code-window-body(class="m-0")
+				| {@html codeServer}
+	+snippet('panelSchema')
+		.code-window
+			.code-window-bar
+				.code-window-dot(style!="{dotRed}")
+				.code-window-dot(style!="{dotYellow}")
+				.code-window-dot(style!="{dotGreen}")
+				.flex-1.text-center.text-xs(class="text-fg-muted")
+					code src/lib/norns/notes/shared/schema.c
+			pre.code-window-body(class="m-0")
+				| {@html codeSchema}
+	Tabs(bind:value!="{codeTab}" items!="{codeTabs(panelRoute, panelServer, panelSchema)}")
+
+//- ============================================================
+//- TIMELINE — release roadmap
+//- ============================================================
+section(class="bg-bg-subtle/40 py-24")
+	.max-w-3xl.mx-auto.px-6
+		.text-center.mb-12
+			Badge(variant="success" class="mb-3") Roadmap
+			h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Where we're headed
+		Card
+			Timeline(items!="{roadmap}")
+
+//- ============================================================
+//- COMPARISON
+//- ============================================================
+section(class="max-w-5xl mx-auto px-6 py-24")
+	.text-center.max-w-2xl.mx-auto.mb-10
+		Badge(variant="warning" class="mb-3") Why Norns
+		h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Compared with the alternatives
+		p.text-base.mt-3(class="text-fg-muted") The opinionated parts most starter kits leave to you — already in the box.
+	Card(padded!="{false}" class="overflow-hidden")
+		.overflow-x-auto
+			table.w-full.text-sm
+				thead
+					tr(style="background: var(--color-bg-muted)")
+						th.text-left.px-5.py-4(class="font-semibold w-1/3") Feature
+						th.text-center.px-5.py-4.font-bold(style="color: var(--color-primary-600)") Norns
+						th.text-center.px-5.py-4.font-medium(class="text-fg-muted") SvelteKit
+						th.text-center.px-5.py-4.font-medium(class="text-fg-muted") Next.js
+						th.text-center.px-5.py-4.font-medium(class="text-fg-muted") Remix
+				tbody
+					+each('comparison as row, i')
+						tr(class!="{i % 2 === 0 ? 'bg-bg-subtle' : ''}" style="border-top: 1px solid var(--color-border)")
+							td.px-5.py-3(class="font-medium") {row.feature}
+							+each('row.values as v')
+								td.text-center.px-5.py-3
+									+if('v === "yes"')
+										Icon(name="lucide:check-circle-2" size="size-5" class="inline text-success-500")
+									+if('v === "no"')
+										Icon(name="lucide:x-circle" size="size-5" class="inline text-danger-400")
+									+if('v === "partial"')
+										span.text-sm(class="text-warning-600") partial
+									+if('typeof v === "string" && !["yes","no","partial"].includes(v)')
+										span.text-sm(class="text-fg-muted") {v}
 
 //- ============================================================
 //- PRICING
 //- ============================================================
-section(class="bg-bg-subtle/40")
-	.max-w-5xl.mx-auto.px-6.py-20
-		.text-center.max-w-2xl.mx-auto.mb-12
-			Badge(variant="success" class="mb-3") Pricing
-			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Simple, honest pricing
-			p.text-base(class="text-fg-muted") The framework is free. You only pay if you choose hosting.
+section(class="bg-bg-subtle/40 py-24")
+	.max-w-5xl.mx-auto.px-6
+		.text-center.max-w-2xl.mx-auto.mb-10
+			Badge(variant="primary" class="mb-3") Pricing
+			h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Simple, honest pricing
+			p.text-base.mt-3(class="text-fg-muted") The framework is free. You only pay if you choose hosting.
+			.inline-flex.items-center.gap-3.mt-6.rounded-full.border.border-border.p-1(class="bg-bg-elevated")
+				button(
+					type="button"
+					class!="{`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${annual ? 'text-fg-muted' : 'bg-bg-muted text-fg'}`}"
+					onclick!="{() => annual = false}"
+				) Monthly
+				button(
+					type="button"
+					class!="{`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${annual ? 'bg-bg-muted text-fg' : 'text-fg-muted'}`}"
+					onclick!="{() => annual = true}"
+				)
+					| Annual
+					Badge(variant="success" size="sm" class="ml-2") -17%
 		.grid.gap-4(class="md:grid-cols-3")
-			//- Free tier
 			Card
 				+snippet('header')
 					.flex.items-center.justify-between
@@ -189,48 +371,34 @@ section(class="bg-bg-subtle/40")
 						span.text-5xl.font-bold $0
 						span.text-sm(class="text-fg-muted") /forever
 					ul.list-none.p-0.space-y-2.text-sm
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Full framework + CLI
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| norns-ui (70+ components)
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Self-host on any node host
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Community Discord
+						+each('plans[0].features as f')
+							li.flex.items-start.gap-2
+								Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+								span {f}
 				+snippet('footer')
-					Btn(variant="secondary" class="w-full" href="https://github.com/human-synthesis/norns" target="_blank") Get the source
-			//- Pro tier — highlighted
-			Card(class="relative ring-2 ring-primary-500")
-				.absolute.-top-3.left-1/2.-translate-x-1/2
-					Badge(variant="primary") Recommended
-				+snippet('header')
-					.flex.items-center.justify-between
-						h3.text-lg.font-semibold Cloud
-						Icon(name="lucide:zap" size="size-5" class="text-primary-500")
-				.space-y-4
-					.flex.items-baseline.gap-1
-						span.text-5xl.font-bold $19
-						span.text-sm(class="text-fg-muted") /month
-					ul.list-none.p-0.space-y-2.text-sm
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Everything in Open source
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Managed hosting + edge functions
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| D1 + Postgres add-ons
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Preview deploys per PR
-				+snippet('footer')
-					Btn(variant="primary" class="w-full" icon="lucide:rocket") Start free trial
-			//- Team tier
+					Btn(variant="secondary" class="w-full" href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") Get the source
+
+			.gradient-border.relative.rounded-xl
+				.absolute.-top-3.left-1/2.-translate-x-1/2.z-10
+					Badge(variant="primary") ★ Recommended
+				Card(class="border-0 bg-transparent")
+					+snippet('header')
+						.flex.items-center.justify-between.relative
+							h3.text-lg.font-semibold Cloud
+							Icon(name="lucide:zap" size="size-5" class="text-primary-500")
+					.space-y-4.relative
+						.flex.items-baseline.gap-1
+							span.text-5xl.font-bold ${annual ? 15 : 19}
+							span.text-sm(class="text-fg-muted") /month
+						p.text-xs(class="text-fg-subtle") {annual ? 'billed annually' : '—'}
+						ul.list-none.p-0.space-y-2.text-sm
+							+each('plans[1].features as f')
+								li.flex.items-start.gap-2
+									Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+									span {f}
+					+snippet('footer')
+						Btn(variant="primary" class="w-full" icon="lucide:rocket") Start free trial
+
 			Card
 				+snippet('header')
 					.flex.items-center.justify-between
@@ -238,44 +406,73 @@ section(class="bg-bg-subtle/40")
 						Badge(variant="warning") Beta
 				.space-y-4
 					.flex.items-baseline.gap-1
-						span.text-5xl.font-bold $79
+						span.text-5xl.font-bold ${annual ? 65 : 79}
 						span.text-sm(class="text-fg-muted") /month
+					p.text-xs(class="text-fg-subtle") {annual ? 'billed annually' : '—'}
 					ul.list-none.p-0.space-y-2.text-sm
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Everything in Cloud
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Unlimited collaborators
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Audit log + SAML SSO
-						li.flex.items-start.gap-2
-							Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
-							| Priority support
+						+each('plans[2].features as f')
+							li.flex.items-start.gap-2
+								Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+								span {f}
 				+snippet('footer')
 					Btn(variant="secondary" class="w-full") Contact sales
 
 //- ============================================================
-//- TESTIMONIALS
+//- TESTIMONIALS — two marquee rows scrolling opposite
 //- ============================================================
-section
-	.max-w-6xl.mx-auto.px-6.py-20
+section(class="py-24 overflow-hidden")
+	.max-w-7xl.mx-auto.px-6
 		.text-center.max-w-2xl.mx-auto.mb-12
 			Badge(variant="info" class="mb-3") Testimonials
-			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Loved by developers
-			.flex.items-center.justify-center.gap-2.mt-4
+			h2.text-3xl.font-bold.tracking-tight(class="md:text-5xl") Loved by builders
+			.flex.items-center.justify-center.gap-1.mt-4
 				+each('[0,1,2,3,4] as _')
 					Icon(name="lucide:star" size="size-5" class="text-warning-400")
 				span.text-sm.ml-2(class="text-fg-muted") 4.9 average rating
-		.grid.gap-4(class="md:grid-cols-3")
+
+	.marquee-pause.relative.overflow-hidden.mt-10(class="space-y-4")
+		.marquee
 			+each('testimonials as t')
-				Card
-					.flex.items-center.gap-2.mb-3
+				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5(class="w-80")
+					.flex.items-center.gap-1.mb-3
 						+each('[0,1,2,3,4] as _')
 							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
-					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg")
-						| “{t.quote}”
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg") "{t.quote}"
+					.flex.items-center.gap-3
+						Avatar(name!="{t.name}" size="md")
+						div
+							.text-sm.font-semibold {t.name}
+							.text-xs(class="text-fg-muted") {t.role}
+			+each('testimonials as t')
+				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5(class="w-80")
+					.flex.items-center.gap-1.mb-3
+						+each('[0,1,2,3,4] as _')
+							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg") "{t.quote}"
+					.flex.items-center.gap-3
+						Avatar(name!="{t.name}" size="md")
+						div
+							.text-sm.font-semibold {t.name}
+							.text-xs(class="text-fg-muted") {t.role}
+
+		.marquee.marquee-reverse
+			+each('testimonialsRev as t')
+				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5(class="w-80")
+					.flex.items-center.gap-1.mb-3
+						+each('[0,1,2,3,4] as _')
+							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg") "{t.quote}"
+					.flex.items-center.gap-3
+						Avatar(name!="{t.name}" size="md")
+						div
+							.text-sm.font-semibold {t.name}
+							.text-xs(class="text-fg-muted") {t.role}
+			+each('testimonialsRev as t')
+				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5(class="w-80")
+					.flex.items-center.gap-1.mb-3
+						+each('[0,1,2,3,4] as _')
+							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg") "{t.quote}"
 					.flex.items-center.gap-3
 						Avatar(name!="{t.name}" size="md")
 						div
@@ -285,78 +482,67 @@ section
 //- ============================================================
 //- FAQ
 //- ============================================================
-section(class="bg-bg-subtle/40")
-	.max-w-3xl.mx-auto.px-6.py-20
+section(class="bg-bg-subtle/40 py-24")
+	.max-w-3xl.mx-auto.px-6
 		.text-center.mb-10
 			Badge(variant="info" class="mb-3") FAQ
-			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Common questions
+			h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Common questions
 		+snippet('faq1')
-			p.text-sm(class="text-fg-muted")
-				| Yes. Norns sits on top of SvelteKit — every adapter, hook, and form action keeps working.
-				| You can use
-				code .svelte
-				| and
-				code .n
-				| files side-by-side in the same app.
+			p.text-sm(class="text-fg-muted") Yes — Norns sits on top of SvelteKit, so every adapter, hook, and form action keeps working. .svelte and .n files coexist in the same app.
 		+snippet('faq2')
-			p.text-sm(class="text-fg-muted")
-				| Civet compiles to standard ESM, so Svelte 5's runes, derived state, and effects work without preprocessing tricks.
+			p.text-sm(class="text-fg-muted") Civet compiles to standard ESM, so Svelte 5's runes, derived state, and effects work without preprocessing tricks.
 		+snippet('faq3')
-			p.text-sm(class="text-fg-muted")
-				| MIT. Use it commercially, fork it, vendor it — no strings attached.
+			p.text-sm(class="text-fg-muted") MIT. Use it commercially, fork it, vendor it — no strings attached.
 		+snippet('faq4')
-			p.text-sm(class="text-fg-muted")
-				| You can. The
-				code &lt;Btn href="/url"&gt;
-				| polymorphic pattern, role-token CSS, and behaviors module are usable as plain Svelte+TS too.
+			p.text-sm(class="text-fg-muted") Yes. The polymorphic Btn href pattern, role-token CSS, and behaviors module work as plain Svelte+TS too.
 		+snippet('faq5')
-			p.text-sm(class="text-fg-muted")
-				| Hooks are wired up but the production deploy story is still firming up. Stable 1.0 is targeted later this year.
+			p.text-sm(class="text-fg-muted") The framework is stable enough for side projects today. Stable 1.0 with a documented adapter story is targeted later this year.
 		Accordion(items!="{faqItems(faq1, faq2, faq3, faq4, faq5)}")
 
 //- ============================================================
-//- NEWSLETTER / CTA
+//- MEGA CTA — full-bleed gradient
 //- ============================================================
-section
-	.max-w-5xl.mx-auto.px-6.py-20
-		Card(class="text-center" padded!="{false}")
-			div(class="p-10 md:p-16 relative overflow-hidden")
-				.absolute.inset-0.opacity-50(
-					style="background: radial-gradient(50% 60% at 50% 100%, color-mix(in oklab, var(--color-primary-500) 22%, transparent), transparent 70%);"
-				)
-				.relative
-					h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-4xl") Stay in the loop
-					p.text-base.max-w-xl.mx-auto.mb-6(class="text-fg-muted")
-						| One short email a month with release notes, recipes, and the occasional postmortem.
-					form(onsubmit!="{onSubscribe}" class="max-w-md mx-auto")
-						.flex.flex-col.gap-3(class="sm:flex-row")
-							Field(name="email" class="flex-1")
-								Input(name="email" type="email" placeholder="you@your-domain.com" required bind:value!="{email}")
-							Btn(variant="primary" type="submit" icon="lucide:send") Subscribe
-					p.text-xs.mt-3(class="text-fg-subtle") We never share your email. Unsubscribe in one click.
+section.relative.overflow-hidden.cta-mega(class="text-white")
+	.absolute.inset-0.opacity-30.bg-grid
+	.relative(class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center")
+		h2.text-4xl.font-bold.tracking-tight.mb-4(class="md:text-6xl")
+			| Stop wiring boilerplate.
+			br
+			| Start shipping.
+		p.text-lg.opacity-90.max-w-2xl.mx-auto.mb-8 The framework you would have built yourself if you had the time. We did.
+		.flex.flex-wrap.items-center.justify-center.gap-3
+			Btn(variant="primary" size="lg" icon="lucide:rocket" href="/examples" class="bg-white text-primary-700 hover:bg-white/90")
+				| Start free
+				+snippet('trailing')
+					Icon(name="lucide:arrow-right" size="size-5")
+			Btn(
+				variant="ghost"
+				size="lg"
+				icon="lucide:book-open"
+				class="text-white border-white/30 hover:bg-white/10"
+			) Read the docs
 
 //- ============================================================
 //- FOOTER
 //- ============================================================
-section.border-t.border-border.mt-10
-	.max-w-6xl.mx-auto.px-6.py-12
-		.grid.gap-8(class="md:grid-cols-4")
-			div(class="md:col-span-2")
-				.flex.items-center.gap-2.mb-3
-					.size-7.rounded.flex.items-center.justify-center.text-white.font-bold.text-sm(style="background: var(--color-primary-600)") N
-					span.text-lg.font-bold.tracking-tight Norns
-				p.text-sm.max-w-sm(class="text-fg-muted") The batteries-included meta-framework for Svelte. Open source, MIT licensed.
-				.flex.items-center.gap-2.mt-4
-					a.btn-icon(href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener" aria-label="GitHub")
-						Icon(name="lucide:github" size="size-4")
-					a.btn-icon(href="#" aria-label="X")
-						Icon(name="lucide:twitter" size="size-4")
-					a.btn-icon(href="#" aria-label="YouTube")
-						Icon(name="lucide:youtube" size="size-4")
-					a.btn-icon(href="#" aria-label="Discord")
-						Icon(name="lucide:message-circle" size="size-4")
+section.relative.border-t.border-border
+	.max-w-7xl.mx-auto.px-6.py-16
+		.grid.gap-12(class="lg:grid-cols-5")
+			div(class="lg:col-span-2 space-y-4")
+				.flex.items-center.gap-2
+					.size-9.rounded-lg.flex.items-center.justify-center.text-white.font-bold(style="background: linear-gradient(135deg, var(--color-primary-600), var(--color-info-500))")
+						span N
+					span.text-xl.font-bold.tracking-tight Norns
+				p.text-sm.max-w-sm(class="text-fg-muted") The batteries-included meta-framework for Svelte. Open source, MIT licensed, built in the open.
+				form(onsubmit!="{onSubscribe}" class="max-w-sm space-y-2")
+					.text-sm.font-medium Stay in the loop
+					.flex.gap-2
+						Field(name="email" class="flex-1")
+							Input(name="email" type="email" placeholder="you@your-domain.com" required bind:value!="{email}")
+						Btn(variant="primary" type="submit" icon="lucide:send" aria-label="Subscribe")
+					p.text-xs(class="text-fg-subtle") One short email a month. Unsubscribe in one click.
 			div
-				h3.text-sm.font-semibold.mb-3 Product
+				h3.text-sm.font-semibold.mb-4 Product
 				ul.list-none.p-0.space-y-2.text-sm
 					li
 						a.nav-link.px-0.py-0(href="/examples/ui") Components
@@ -366,8 +552,10 @@ section.border-t.border-border.mt-10
 						a.nav-link.px-0.py-0(href="#") Roadmap
 					li
 						a.nav-link.px-0.py-0(href="#") Changelog
+					li
+						a.nav-link.px-0.py-0(href="#") Pricing
 			div
-				h3.text-sm.font-semibold.mb-3 Resources
+				h3.text-sm.font-semibold.mb-4 Resources
 				ul.list-none.p-0.space-y-2.text-sm
 					li
 						a.nav-link.px-0.py-0(href="#") Docs
@@ -376,24 +564,55 @@ section.border-t.border-border.mt-10
 					li
 						a.nav-link.px-0.py-0(href="#") API reference
 					li
+						a.nav-link.px-0.py-0(href="#") Recipes
+					li
+						a.nav-link.px-0.py-0(href="#") Migration guides
+			div
+				h3.text-sm.font-semibold.mb-4 Company
+				ul.list-none.p-0.space-y-2.text-sm
+					li
+						a.nav-link.px-0.py-0(href="#") About
+					li
+						a.nav-link.px-0.py-0(href="#") Blog
+					li
+						a.nav-link.px-0.py-0(href="#") Brand
+					li
 						a.nav-link.px-0.py-0(href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") GitHub
-		.flex.items-center.justify-between.mt-10.pt-6.border-t.border-border.text-xs(class="text-fg-subtle")
-			div © {new Date().getFullYear()} Human Synthesis · Made with norns-ui
-			div Built with Svelte 5 + Tailwind v4
+					li
+						a.nav-link.px-0.py-0(href="#") Discord
+
+		.flex.flex-wrap.items-center.justify-between.gap-4.mt-12.pt-8.border-t.border-border
+			.flex.items-center.gap-3
+				a.btn-icon(href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener" aria-label="GitHub")
+					Icon(name="lucide:github" size="size-4")
+				a.btn-icon(href="#" aria-label="X")
+					Icon(name="lucide:twitter" size="size-4")
+				a.btn-icon(href="#" aria-label="YouTube")
+					Icon(name="lucide:youtube" size="size-4")
+				a.btn-icon(href="#" aria-label="Discord")
+					Icon(name="lucide:message-circle" size="size-4")
+			.text-xs(class="text-fg-subtle")
+				| © {new Date().getFullYear()} Human Synthesis · Made with norns-ui v0.0.7
 
 <script>
 	import { toast } from '@human-synthesis/norns-ui/toast'
 	import { addCollection } from '@iconify/svelte'
 	import lucideIcons from '@iconify-json/lucide/icons.json'
 
-	// Motion-driven components live in the opt-in /motion subpath so they
-	// don't get auto-bundled into pages that don't need them.
 	import AnimatedNumber from '@human-synthesis/norns-ui/motion/AnimatedNumber.n'
 	import Sparkles from '@human-synthesis/norns-ui/motion/Sparkles.n'
 
 	addCollection lucideIcons
 
 	email .= $state ''
+	annual .= $state true
+	codeTab .= $state 'route'
+
+	// Traffic-light style strings kept out of Pug attributes (Pug's lexer
+	// chokes on bare # inside attribute values).
+	dotRed    := 'background: #ff5f57'
+	dotYellow := 'background: #febc2e'
+	dotGreen  := 'background: #28c840'
 
 	onSubscribe := (e) =>
 		e.preventDefault()
@@ -401,29 +620,102 @@ section.border-t.border-border.mt-10
 		toast `Thanks! We'll send the next issue to ${email}.`, { variant: 'success' }
 		email = ''
 
-	// Build the Accordion items list in JS rather than as an inline literal
-	// in a Pug attribute — keeps the template tidy and the quoting sane.
+	// === Code snippets rendered as pre-built HTML strings, so Pug doesn't
+	// === have to interleave `code(class="…")` elements with `|` text.
+	codeHero := '<code class="tok-tag">Form</code>(action<code class="tok-att">="?/save"</code> form!<code class="tok-att">="{form}"</code>)\n  <code class="tok-tag">Field</code>(label<code class="tok-att">="Title"</code> name<code class="tok-att">="title"</code> required)\n    <code class="tok-tag">Input</code>(name<code class="tok-att">="title"</code> placeholder<code class="tok-att">="My new note…"</code>)\n  <code class="tok-tag">Btn</code>(type<code class="tok-att">="submit"</code> icon<code class="tok-att">="lucide:save"</code>) Save\n\n&lt;<code class="tok-tag">script</code>&gt;\n  <code class="tok-com">/* errors auto-bind from form context */</code>\n  <code class="tok-key">form</code> .<code class="tok-fn">$bindable</code>(<code class="tok-str">{}</code>)\n&lt;/<code class="tok-tag">script</code>&gt;'
+
+	codeRoute := '<code class="tok-com">/* +each from a server-loaded list */</code>\n<code class="tok-tag">section</code>.space-y-4\n  <code class="tok-tag">h1</code>.text-2xl Notes\n  +each(<code class="tok-str">\'data.notes as note (note.id)\'</code>)\n    <code class="tok-tag">Card</code>(href!=<code class="tok-str">"{`/notes/${note.id}`}"</code>)\n      <code class="tok-tag">h2</code>.text-base {note.title}\n      <code class="tok-tag">p</code>.text-sm(class<code class="tok-att">="text-fg-muted"</code>) {note.body}\n\n&lt;<code class="tok-tag">script</code>&gt;\n  <code class="tok-key">let</code> data := <code class="tok-fn">$props</code>()\n&lt;/<code class="tok-tag">script</code>&gt;'
+
+	codeServer := '<code class="tok-key">import</code> { noteService } <code class="tok-key">from</code> <code class="tok-str">\'$lib/norns/notes/server/public.c\'</code>\n<code class="tok-key">import</code> { defineLoad, defineAction } <code class="tok-key">from</code> <code class="tok-str">\'@human-synthesis/norns\'</code>\n<code class="tok-key">import</code> { NoteInput } <code class="tok-key">from</code> <code class="tok-str">\'$lib/norns/notes/shared/schema.c\'</code>\n\n<code class="tok-key">export</code> load := <code class="tok-fn">defineLoad</code>({\n  <code class="tok-fn">handle</code>: () =&gt;\n    <code class="tok-key">return</code> { notes: <code class="tok-key">await</code> <code class="tok-fn">noteService</code>().<code class="tok-fn">list</code>() }\n})\n\n<code class="tok-com">/* valibot-validated form actions auto-bind to ?/save */</code>\n<code class="tok-key">export</code> actions := {\n  save: <code class="tok-fn">defineAction</code>({ schema: NoteInput, <code class="tok-key">async</code> <code class="tok-fn">run</code>(input) { … } })\n}'
+
+	codeSchema := '<code class="tok-key">import</code> * <code class="tok-key">as</code> v <code class="tok-key">from</code> <code class="tok-str">\'valibot\'</code>\n\n<code class="tok-key">export</code> Note := v.<code class="tok-fn">object</code>({\n  id:        v.<code class="tok-fn">pipe</code>(v.<code class="tok-fn">number</code>(), v.<code class="tok-fn">integer</code>())\n  title:     v.<code class="tok-fn">pipe</code>(v.<code class="tok-fn">string</code>(), v.<code class="tok-fn">minLength</code>(<code class="tok-num">1</code>), v.<code class="tok-fn">maxLength</code>(<code class="tok-num">200</code>))\n  body:      v.<code class="tok-fn">optional</code>(v.<code class="tok-fn">string</code>())\n  createdAt: v.<code class="tok-fn">number</code>()\n})\n\n<code class="tok-key">export</code> NoteInput := v.<code class="tok-fn">omit</code>(Note, [<code class="tok-str">\'id\'</code>, <code class="tok-str">\'createdAt\'</code>])'
+
+	marqueeItems := [
+		{ icon: 'lucide:zap',      label: 'Svelte 5',    color: 'text-warning-500' }
+		{ icon: 'lucide:wind',     label: 'Tailwind v4', color: 'text-info-500' }
+		{ icon: 'lucide:terminal', label: 'Civet',       color: 'text-fg' }
+		{ icon: 'lucide:braces',   label: 'valibot',     color: 'text-success-500' }
+		{ icon: 'lucide:database', label: 'SQLite + D1', color: 'text-primary-500' }
+		{ icon: 'lucide:cloud',    label: 'Cloudflare',  color: 'text-warning-400' }
+		{ icon: 'lucide:plug',     label: 'Vite 5',      color: 'text-info-500' }
+		{ icon: 'lucide:layers',   label: 'SvelteKit',   color: 'text-danger-500' }
+	]
+
+	stats := [
+		{ icon: 'lucide:package',  iconBg: 'color-mix(in oklab, var(--color-primary-500) 12%, var(--color-bg))', iconFg: 'var(--color-primary-700)', glow: 'color-mix(in oklab, var(--color-primary-500) 25%, transparent)', value: 56, suffix: 'kB', label: 'Bundle size (gzip)' }
+		{ icon: 'lucide:component', iconBg: 'color-mix(in oklab, var(--color-info-500) 12%, var(--color-bg))',   iconFg: 'var(--color-info-700)',   glow: 'color-mix(in oklab, var(--color-info-500) 25%, transparent)',   value: 72, suffix: '+',  label: 'Components' }
+		{ icon: 'lucide:zap',      iconBg: 'color-mix(in oklab, var(--color-success-500) 12%, var(--color-bg))', iconFg: 'var(--color-success-700)', glow: 'color-mix(in oklab, var(--color-success-500) 25%, transparent)', value: 42, suffix: 'ms', label: 'Avg hot reload' }
+		{ icon: 'lucide:rocket',   iconBg: 'color-mix(in oklab, var(--color-warning-500) 12%, var(--color-bg))', iconFg: 'var(--color-warning-700)', glow: 'color-mix(in oklab, var(--color-warning-500) 25%, transparent)', prefix: '<', value: 5, suffix: 'm', label: 'Time to first deploy' }
+	]
+
+	autoImportTags := [
+		'<Btn>', '<Field>', '<Dialog>', 'cn()', 'toast()', 'page', '$state', '$derived', '…all components'
+	]
+
+	componentChips := [
+		{ icon: 'lucide:type',             label: 'Btn' }
+		{ icon: 'lucide:credit-card',      label: 'Card' }
+		{ icon: 'lucide:layout-dashboard', label: 'Dialog' }
+		{ icon: 'lucide:sidebar',          label: 'Sheet' }
+		{ icon: 'lucide:list',             label: 'Dropdown' }
+		{ icon: 'lucide:message-square',   label: 'Tooltip' }
+		{ icon: 'lucide:layers',           label: 'Tabs' }
+		{ icon: 'lucide:chevron-down',     label: 'Accordion' }
+		{ icon: 'lucide:calendar',         label: 'DatePicker' }
+		{ icon: 'lucide:search',           label: 'Autocomplete' }
+		{ icon: 'lucide:bell',             label: 'Toast' }
+		{ icon: 'lucide:table',            label: 'DataTable' }
+	]
+
+	codeTabs := (route, server, schema) => [
+		{ value: 'route',  label: '+page.n',         panel: route }
+		{ value: 'server', label: '+page.server.c',  panel: server }
+		{ value: 'schema', label: 'schema.c',        panel: schema }
+	]
+
+	roadmap := [
+		{ time: 'May 2026', title: '0.0.7 ships',  description: 'Prefers-reduced-motion respects but keeps animations visible', icon: 'lucide:check-circle-2', variant: 'success' }
+		{ time: 'May 2026', title: '0.0.6 ships',  description: 'bits-ui dropped; in-tree behaviors on @floating-ui/dom',        icon: 'lucide:sparkles',       variant: 'info' }
+		{ time: 'Jun 2026', title: 'norns CLI 1.0', description: 'scaffold, migrate, deploy commands stable; preview deploys',  icon: 'lucide:terminal' }
+		{ time: 'Jul 2026', title: 'Cloud preview', description: 'Managed hosting with edge + D1 + Postgres adapters',          icon: 'lucide:cloud',          variant: 'warning' }
+		{ time: 'Q3 2026',  title: 'Stable 1.0',    description: 'Documented adapter story, semver, LTS support window',        icon: 'lucide:rocket',         variant: 'info' }
+	]
+
+	comparison := [
+		{ feature: 'Auto-imports',            values: ['yes', 'no', 'no', 'no'] }
+		{ feature: 'Pug + Civet templates',   values: ['yes', 'no', 'no', 'no'] }
+		{ feature: 'Type-safe form actions',  values: ['yes', 'partial', 'partial', 'yes'] }
+		{ feature: 'Migrations baked in',     values: ['yes', 'no', 'no', 'no'] }
+		{ feature: 'Dependency injection',    values: ['yes', 'no', 'partial', 'no'] }
+		{ feature: 'UI library included',     values: ['yes', 'no', 'no', 'no'] }
+		{ feature: 'SSR + streaming',         values: ['yes', 'yes', 'yes', 'yes'] }
+		{ feature: 'File-based routing',      values: ['yes', 'yes', 'yes', 'yes'] }
+		{ feature: 'License',                 values: ['MIT', 'MIT', 'MIT', 'MIT'] }
+	]
+
+	plans := [
+		{ tier: 'Open source', features: ['Full framework + CLI', 'norns-ui (70+ components)', 'Self-host on any node host', 'SQLite + D1 adapters', 'Community Discord support'] }
+		{ tier: 'Cloud',       features: ['Everything in Open source', 'Managed hosting + edge functions', 'D1 + Postgres add-ons', 'Preview deploys per PR', 'Email support'] }
+		{ tier: 'Team',        features: ['Everything in Cloud', 'Unlimited collaborators', 'Audit log + SAML SSO', 'Priority support + SLA', 'Quarterly architecture review'] }
+	]
+
+	testimonials := [
+		{ name: 'Ada Lovelace',      role: 'Founding engineer, Loomstack',     quote: 'Blank repo to a deployed app with auth + a DB in one evening. Norns just gets out of the way.' }
+		{ name: 'Grace Hopper',      role: 'Staff engineer, Cobol Cloud',      quote: 'Pug + Civet sounded like a meme until I tried it. Every spare line in our codebase felt noisy after.' }
+		{ name: 'Donald Knuth',      role: 'Maintainer, TeXLetters',           quote: 'The type-shim drift detector caught three bugs in our first migration. The migration ran in 12ms.' }
+		{ name: 'Linus Torvalds',    role: 'Engineer, Pengwin Labs',           quote: 'Tailwind + role tokens means I stopped writing CSS. The design team is suspicious — in a good way.' }
+		{ name: 'Anders Hejlsberg',  role: 'PL person, Strongly Typed Ltd',    quote: "It's Svelte but it feels like one person built the whole stack on purpose. Coherent." }
+		{ name: 'Margaret Hamilton', role: 'CTO, Trajectory.io',               quote: 'Production-ready feature folders, DI, valibot. We deleted half our app code in a single PR.' }
+		{ name: 'Bjarne Stroustrup', role: 'Architect, TempleOS Cloud',        quote: 'Came for the markup, stayed for the migrations CLI. Forward-only with a stamped table — chef-kiss.' }
+		{ name: 'Edsger Dijkstra',   role: 'Engineering lead, Halt-Catch',     quote: 'Goto considered harmful. Auto-imported components considered delightful.' }
+	]
+	testimonialsRev := $derived testimonials.slice().reverse()
+
 	faqItems := (f1, f2, f3, f4, f5) => [
 		{ value: 'a', title: 'Can I use it with existing SvelteKit apps?', content: f1 }
 		{ value: 'b', title: 'Why Civet on top of Svelte?', content: f2 }
 		{ value: 'c', title: "What's the license?", content: f3 }
 		{ value: 'd', title: 'Can I use norns-ui without Civet?', content: f4 }
 		{ value: 'e', title: 'Is it production-ready?', content: f5 }
-	]
-
-	stepperSteps := [
-		{ label: 'Clone the starter',  description: 'One npm create, two questions. Done in 30 seconds.' }
-		{ label: 'Compose features',   description: 'Drop feature folders under src/lib/norns/<name>/. Norns wires them up.' }
-		{ label: 'Ship a route',       description: '+page.n + +page.server.c. Validated by valibot at the boundary.' }
-		{ label: 'Deploy',             description: 'Cloudflare, Node, Vercel — pick your adapter. Migrations run first.' }
-	]
-
-	testimonials := [
-		{ name: 'Ada Lovelace',    role: 'Founding engineer, Loomstack',  quote: 'I went from blank repo to a deployed app with auth + a DB in one evening. Norns just gets out of the way.' }
-		{ name: 'Grace Hopper',    role: 'Staff engineer, Cobol Cloud',   quote: 'Pug + Civet sounded like a meme until I tried it. Now every spare line in our codebase feels noisy.' }
-		{ name: 'Donald Knuth',    role: 'Maintainer, TeXLetters',        quote: 'The type-shim drift detector caught three bugs in our first migration. The migration ran in 12ms.' }
-		{ name: 'Linus Torvalds',  role: 'Engineer, Pengwin Labs',         quote: 'Tailwind + role tokens means I stopped writing CSS. The design team is suspicious — in a good way.' }
-		{ name: 'Anders Hejlsberg',role: 'PL person, Strongly Typed Ltd', quote: "It's Svelte but it feels like one person built the whole stack on purpose. Coherent." }
-		{ name: 'Margaret Hamilton', role: 'CTO, Trajectory.io',           quote: 'Production-ready feature folders, DI, valibot. We deleted half our app code.' }
 	]
 </script>

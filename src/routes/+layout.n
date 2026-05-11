@@ -1,25 +1,30 @@
 .min-h-screen.flex.flex-col
 	AppHeader
-	//- Both classes referenced verbatim below so Tailwind v4's content scanner
-	//- generates the rules; the `$derived` only chooses between them.
-	.hidden(class="max-w-[1600px] max-w-3xl sm:px-8 lg:px-10 lg:px-12")
-	main.flex-1.w-full.mx-auto.px-6.py-16(class!="{mainClasses}")
+	//- Both class strings referenced verbatim below so Tailwind v4's content
+	//- scanner generates the rules; the `$derived` only chooses between them.
+	.hidden(class="max-w-[1600px] max-w-3xl sm:px-8 lg:px-10 lg:px-12 px-6 py-16")
+	main.flex-1.w-full.mx-auto(class!="{mainClasses}")
 		| {@render children?.()}
-	.flex.justify-center.pb-10.pt-4
-		.inline-flex.items-center.gap-2.text-xs.text-neutral-400.font-mono
-			span.w-2.h-2.rounded-full(class="bg-violet-400 animate-pulse")
-			| norns-ui v0.0.7 · early access
+	+if('!isLanding')
+		.flex.justify-center.pb-10.pt-4
+			.inline-flex.items-center.gap-2.text-xs.text-neutral-400.font-mono
+				span.w-2.h-2.rounded-full(class="bg-violet-400 animate-pulse")
+				| norns-ui v0.0.7 · early access
 
 <script>
 	import { page } from '$app/state'
 
 	{ children } := $props()
 
-	// The UI showcase + landing example need room for multi-column sections;
-	// the rest of the app is reading-width content, so keep it narrow.
-	isWide := $derived (
-		page.url.pathname.startsWith('/examples/ui') ||
-		page.url.pathname.startsWith('/examples/landing')
+	// Three width modes:
+	//   - landing: edge-to-edge (sections constrain themselves internally)
+	//   - showcase: 1600px cap for the catalog's 2- and 3-col grids
+	//   - default: reading-width 3xl for the framework pages
+	isLanding := $derived page.url.pathname.startsWith '/examples/landing'
+	isShowcase := $derived page.url.pathname.startsWith '/examples/ui'
+
+	mainClasses := $derived isLanding ? '' : (
+		isShowcase ? 'max-w-[1600px] px-6 py-16 sm:px-8 lg:px-12'
+		           : 'max-w-3xl px-6 py-16 sm:px-8 lg:px-10'
 	)
-	mainClasses := $derived isWide ? 'max-w-[1600px] sm:px-8 lg:px-12' : 'max-w-3xl sm:px-8 lg:px-10'
 </script>

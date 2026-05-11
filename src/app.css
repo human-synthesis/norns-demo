@@ -119,3 +119,183 @@
 		transform: translateY(0);
 	}
 }
+
+/* === Landing-page-only motion ============================================ */
+
+/* Auto-scrolling rows (logos, testimonials). Content is duplicated so the
+ * keyframe can translate by -50% for a seamless loop. */
+@keyframes marquee-left {
+	from { transform: translateX(0); }
+	to { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+	from { transform: translateX(-50%); }
+	to { transform: translateX(0); }
+}
+.marquee {
+	display: flex;
+	gap: 2.5rem;
+	width: max-content;
+	animation: marquee-left 35s linear infinite;
+}
+.marquee-reverse {
+	animation: marquee-right 50s linear infinite;
+}
+.marquee-pause:hover .marquee {
+	animation-play-state: paused;
+}
+
+/* Pulsing release ping for the "New" badge. */
+@keyframes ping-soft {
+	0%   { transform: scale(1);   opacity: 0.6; }
+	75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+.ping-soft::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: currentColor;
+	animation: ping-soft 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+/* Slow conic-gradient rotation for the hero halo. */
+@keyframes spin-slow {
+	to { transform: rotate(1turn); }
+}
+.spin-slow {
+	animation: spin-slow 30s linear infinite;
+}
+
+/* Subtle bobbing for floating decorations. */
+@keyframes float-bob {
+	0%, 100% { transform: translateY(0); }
+	50%      { transform: translateY(-8px); }
+}
+.float-bob   { animation: float-bob 6s ease-in-out infinite; }
+.float-bob-2 { animation: float-bob 7.5s ease-in-out infinite -2s; }
+
+/* Hero mesh-gradient background: layered radial spotlights that drift. */
+@keyframes mesh-drift {
+	0%, 100% { background-position: 0% 0%, 100% 0%, 50% 100%; }
+	50%      { background-position: 100% 50%, 0% 50%, 50% 0%; }
+}
+.hero-mesh {
+	background-image:
+		radial-gradient(45% 50% at 0% 0%,   color-mix(in oklab, var(--color-primary-500) 25%, transparent), transparent 70%),
+		radial-gradient(45% 50% at 100% 0%, color-mix(in oklab, var(--color-info-500)    20%, transparent), transparent 70%),
+		radial-gradient(60% 60% at 50% 100%, color-mix(in oklab, var(--color-success-500) 15%, transparent), transparent 70%);
+	background-size: 200% 200%;
+	animation: mesh-drift 22s ease-in-out infinite;
+}
+
+/* CSS grid-paper pattern for the hero backdrop. */
+.bg-grid {
+	background-image:
+		linear-gradient(to right, color-mix(in oklab, var(--color-fg) 6%, transparent) 1px, transparent 1px),
+		linear-gradient(to bottom, color-mix(in oklab, var(--color-fg) 6%, transparent) 1px, transparent 1px);
+	background-size: 56px 56px;
+	mask-image: radial-gradient(70% 60% at 50% 30%, black 30%, transparent 80%);
+	-webkit-mask-image: radial-gradient(70% 60% at 50% 30%, black 30%, transparent 80%);
+}
+
+/* Glass card: semi-transparent surface with backdrop blur. */
+.glass {
+	background-color: color-mix(in oklab, var(--color-bg-elevated) 60%, transparent);
+	backdrop-filter: blur(14px) saturate(140%);
+	-webkit-backdrop-filter: blur(14px) saturate(140%);
+	border: 1px solid color-mix(in oklab, var(--color-fg) 10%, transparent);
+}
+
+/* Conic gradient ring around the highlighted pricing card. */
+@keyframes gradient-rotate {
+	to { --angle: 360deg; }
+}
+@property --angle {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
+}
+.gradient-border {
+	position: relative;
+	background: var(--color-bg-elevated);
+	border-radius: var(--ui-radius-lg);
+}
+.gradient-border::before {
+	content: '';
+	position: absolute;
+	inset: -2px;
+	border-radius: inherit;
+	padding: 2px;
+	background: conic-gradient(
+		from var(--angle, 0deg),
+		var(--color-primary-500),
+		var(--color-info-500),
+		var(--color-success-500),
+		var(--color-warning-500),
+		var(--color-primary-500)
+	);
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	animation: gradient-rotate 7s linear infinite;
+	z-index: -1;
+}
+
+/* CTA mega-banner: animated radial sweep. */
+@keyframes cta-sweep {
+	0%, 100% { background-position: 0% 50%; }
+	50%      { background-position: 100% 50%; }
+}
+.cta-mega {
+	background-image: linear-gradient(
+		120deg,
+		var(--color-primary-700),
+		var(--color-info-600),
+		var(--color-primary-500),
+		var(--color-success-500),
+		var(--color-primary-700)
+	);
+	background-size: 200% 200%;
+	animation: cta-sweep 14s ease-in-out infinite;
+}
+
+/* IDE-style code window: macOS traffic lights + monospaced body. */
+.code-window {
+	background: var(--color-bg-elevated);
+	border: 1px solid var(--color-border);
+	border-radius: var(--ui-radius-lg);
+	box-shadow: 0 24px 64px -16px oklch(0% 0 0 / 0.25), 0 6px 16px -8px oklch(0% 0 0 / 0.15);
+	overflow: hidden;
+	font-family: var(--font-mono);
+}
+[data-theme='dark'] .code-window {
+	box-shadow: 0 24px 64px -16px oklch(0% 0 0 / 0.7), 0 6px 16px -8px oklch(0% 0 0 / 0.5);
+}
+.code-window-bar {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	padding: 0.75rem 1rem;
+	background: color-mix(in oklab, var(--color-bg-muted) 80%, transparent);
+	border-bottom: 1px solid var(--color-border);
+}
+.code-window-dot {
+	width: 0.75rem;
+	height: 0.75rem;
+	border-radius: 9999px;
+}
+.code-window-body {
+	padding: 1rem 1.25rem;
+	font-size: 0.875rem;
+	line-height: 1.6;
+	overflow-x: auto;
+}
+.code-window-body .tok-key { color: oklch(70% 0.18 290); }
+.code-window-body .tok-str { color: oklch(74% 0.13 60); }
+.code-window-body .tok-com { color: var(--color-fg-subtle); font-style: italic; }
+.code-window-body .tok-num { color: oklch(74% 0.15 145); }
+.code-window-body .tok-tag { color: oklch(68% 0.16 350); }
+.code-window-body .tok-att { color: oklch(70% 0.15 210); }
+.code-window-body .tok-fn  { color: oklch(72% 0.17 200); }
