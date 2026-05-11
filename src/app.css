@@ -8,6 +8,18 @@
  * the demo's `.n` files. */
 @source "./**/*.n";
 
+/* Safelist for utilities used only via Pug shorthand that ends in `(`.
+ * Tailwind v4's extractor treats `gap-6(` as one non-class token, so the
+ * class never reaches the candidate set. The shorthand-then-attribute form
+ * `.grid.gap-6(class="…")` is idiomatic in our codebase, so safelist them
+ * explicitly here. */
+@source inline("justify-center justify-end justify-between");
+@source inline("gap-2 gap-3 gap-5 gap-6 gap-10 gap-12 gap-x-6 gap-y-2");
+@source inline("px-5 py-5");
+@source inline("mt-10 mt-16 mr-10");
+@source inline("space-y-1 space-y-3 space-y-6");
+@source inline("text-center");
+
 /*
  * App-wide styles.
  *
@@ -132,11 +144,19 @@
 	from { transform: translateX(-50%); }
 	to { transform: translateX(0); }
 }
+/* Per-item right margin instead of flex `gap` — `gap` adds spacing BETWEEN
+ * items but not after the last one, which means the duplicated content's
+ * total width is `2*(N*item + (N-1)*gap)`. Translating -50% of that lands
+ * half a gap before the start of the second copy, so the loop visibly
+ * jumps. Using `margin-right` makes each item self-contained, so the total
+ * is exactly `2*N*(item + margin)` and -50% is a clean seam. */
 .marquee {
 	display: flex;
-	gap: 2.5rem;
 	width: max-content;
 	animation: marquee-left 35s linear infinite;
+}
+.marquee > * {
+	margin-right: 2.5rem;
 }
 .marquee-reverse {
 	animation: marquee-right 50s linear infinite;
@@ -207,40 +227,38 @@
 	border: 1px solid color-mix(in oklab, var(--color-fg) 10%, transparent);
 }
 
-/* Conic gradient ring around the highlighted pricing card. */
-@keyframes gradient-rotate {
-	to { --angle: 360deg; }
-}
+/* Conic-gradient "ring" around the highlighted pricing card.
+ *
+ * The browser-portable way to do a gradient border is to paint a gradient
+ * on the OUTER element's background and let an INNER element cover the
+ * center with the surface color, leaving a `padding`-thick ring visible.
+ * (The `::before` + `mask: exclude` technique requires modern mask
+ * compositing that not every Safari respects.) */
 @property --angle {
 	syntax: '<angle>';
 	initial-value: 0deg;
 	inherits: false;
 }
-.gradient-border {
-	position: relative;
-	background: var(--color-bg-elevated);
-	border-radius: var(--ui-radius-lg);
+@keyframes gradient-rotate {
+	to { --angle: 360deg; }
 }
-.gradient-border::before {
-	content: '';
-	position: absolute;
-	inset: -2px;
-	border-radius: inherit;
+.gradient-border {
 	padding: 2px;
+	border-radius: var(--ui-radius-lg);
 	background: conic-gradient(
-		from var(--angle, 0deg),
+		from var(--angle),
 		var(--color-primary-500),
 		var(--color-info-500),
 		var(--color-success-500),
 		var(--color-warning-500),
 		var(--color-primary-500)
 	);
-	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-	-webkit-mask-composite: xor;
-	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-	mask-composite: exclude;
 	animation: gradient-rotate 7s linear infinite;
-	z-index: -1;
+	box-shadow: 0 16px 40px -16px color-mix(in oklab, var(--color-primary-500) 40%, transparent);
+}
+.gradient-border > .card {
+	background-color: var(--color-bg-elevated);
+	border-radius: calc(var(--ui-radius-lg) - 2px);
 }
 
 /* CTA mega-banner: animated radial sweep. */
