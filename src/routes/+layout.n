@@ -1,12 +1,22 @@
 .min-h-screen.flex.flex-col
 	AppHeader
-	main.flex-1.w-full.max-w-3xl.mx-auto.px-6.py-16(class="sm:px-8 lg:px-10")
+	//- Both classes referenced verbatim below so Tailwind v4's content scanner
+	//- generates the rules; the `$derived` only chooses between them.
+	.hidden(class="max-w-[1600px] max-w-3xl sm:px-8 lg:px-10 lg:px-12")
+	main.flex-1.w-full.mx-auto.px-6.py-16(class!="{mainClasses}")
 		| {@render children?.()}
 	.flex.justify-center.pb-10.pt-4
 		.inline-flex.items-center.gap-2.text-xs.text-neutral-400.font-mono
 			span.w-2.h-2.rounded-full(class="bg-violet-400 animate-pulse")
-			| v0.0.5 · early access
+			| norns-ui v0.0.6 · early access
 
 <script>
+	import { page } from '$app/state'
+
 	{ children } := $props()
+
+	// The UI showcase needs room for 2- and 3-column grids; the rest of the
+	// app is reading-width content, so keep it narrow.
+	isShowcase := $derived page.url.pathname.startsWith '/examples/ui'
+	mainClasses := $derived isShowcase ? 'max-w-[1600px] sm:px-8 lg:px-12' : 'max-w-3xl sm:px-8 lg:px-10'
 </script>

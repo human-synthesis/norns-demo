@@ -2,6 +2,12 @@
 @import '@fontsource-variable/outfit';
 @import '@human-synthesis/norns-ui/styles';
 
+/* Tailwind's default extension list doesn't include `.n` (norns Pug+Civet
+ * files), so utility classes used inline in `.n` source — including Pug's
+ * `.class-shorthand` form — wouldn't be generated. Point the scanner at
+ * the demo's `.n` files. */
+@source "./**/*.n";
+
 /*
  * App-wide styles.
  *
