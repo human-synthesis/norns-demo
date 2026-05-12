@@ -2,23 +2,21 @@
 @import '@fontsource-variable/outfit';
 @import '@human-synthesis/norns-ui/styles';
 
-/* Tailwind's default extension list doesn't include `.n` (norns Pug+Civet
- * files), so utility classes used inline in `.n` source — including Pug's
- * `.class-shorthand` form — wouldn't be generated. Point the scanner at
- * the demo's `.n` files. */
+/* Two sources of Tailwind candidates from `.n` files:
+ *
+ * 1. The raw scan via the `*.n` glob. Tailwind's extractor handles Pug
+ *    class shorthand fine when chains end at whitespace or a child block.
+ *
+ * 2. The sidecar safelist emitted by `vite/pug-tailwind-extract.js`. The
+ *    plugin walks every `.n` file for Pug `.cls.cls` chains and writes
+ *    each class into a single `<div class="…">` here. That covers the
+ *    extractor's blind spot — `.cls(` (shorthand immediately followed by
+ *    an attribute paren) tokenizes the class as `cls(` and drops it.
+ *
+ * The sidecar file is auto-generated on dev start and on every `.n`
+ * change. Do not edit it; it's in `.gitignore`. */
 @source "./**/*.n";
-
-/* Safelist for utilities used only via Pug shorthand that ends in `(`.
- * Tailwind v4's extractor treats `gap-6(` as one non-class token, so the
- * class never reaches the candidate set. The shorthand-then-attribute form
- * `.grid.gap-6(class="…")` is idiomatic in our codebase, so safelist them
- * explicitly here. */
-@source inline("justify-center justify-end justify-between");
-@source inline("gap-2 gap-3 gap-5 gap-6 gap-10 gap-12 gap-x-6 gap-y-2");
-@source inline("px-5 py-5");
-@source inline("mt-10 mt-16 mr-10");
-@source inline("space-y-1 space-y-3 space-y-6");
-@source inline("text-center");
+@source "./.tailwind-pug-classes.html";
 
 /*
  * App-wide styles.
