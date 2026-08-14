@@ -1,10 +1,21 @@
 .min-h-screen.flex.flex-col
 	AppHeader
-	//- Both class strings referenced verbatim below so Tailwind v4's content
-	//- scanner generates the rules; the `$derived` only chooses between them.
-	.hidden(class="max-w-[1600px] max-w-3xl sm:px-8 lg:px-10 lg:px-12 px-6 py-16")
-	main.flex-1.w-full.mx-auto(class!="{mainClasses}")
-		| {@render children?.()}
+	//- Three width modes:
+	//-   - landing: edge-to-edge (sections constrain themselves internally)
+	//-   - showcase: 1600px cap for the catalog's 2- and 3-col grids
+	//-   - default:  reading-width 3xl for the framework pages
+	//- All classes live in Pug shorthand so the pugTailwindExtract plugin
+	//- picks them up. The one arbitrary width (1600px) goes via inline style
+	//- — Tailwind can't infer that from a JS-string expression.
+	+if('isLanding')
+		main.flex-1.w-full
+			| {@render children?.()}
+	+if('isShowcase')
+		main.flex-1.w-full.mx-auto.px-6.py-16.sm:px-8.lg:px-12(style="max-width: 1600px")
+			| {@render children?.()}
+	+if('!isLanding && !isShowcase')
+		main.flex-1.w-full.mx-auto.px-6.py-16.max-w-3xl.sm:px-8.lg:px-10
+			| {@render children?.()}
 	+if('!isLanding')
 		.flex.justify-center.pb-10.pt-4
 			.inline-flex.items-center.gap-2.text-xs.text-neutral-400.font-mono
@@ -16,15 +27,6 @@
 
 	{ children } := $props()
 
-	// Three width modes:
-	//   - landing: edge-to-edge (sections constrain themselves internally)
-	//   - showcase: 1600px cap for the catalog's 2- and 3-col grids
-	//   - default: reading-width 3xl for the framework pages
 	isLanding := $derived page.url.pathname.startsWith '/examples/landing'
 	isShowcase := $derived page.url.pathname.startsWith '/examples/ui'
-
-	mainClasses := $derived isLanding ? '' : (
-		isShowcase ? 'max-w-[1600px] px-6 py-16 sm:px-8 lg:px-12'
-		           : 'max-w-3xl px-6 py-16 sm:px-8 lg:px-10'
-	)
 </script>

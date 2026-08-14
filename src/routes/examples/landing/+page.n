@@ -3,7 +3,7 @@ ToastProvider
 //- ============================================================
 //- HERO — full-bleed mesh + grid + code window
 //- ============================================================
-section(class="relative overflow-hidden")
+section.relative.overflow-hidden
 	.absolute.inset-0.pointer-events-none.hero-mesh
 	.absolute.inset-0.pointer-events-none.bg-grid
 	.absolute.pointer-events-none(
@@ -11,7 +11,7 @@ section(class="relative overflow-hidden")
 		style="background: conic-gradient(from 0deg, transparent 0deg, color-mix(in oklab, var(--color-primary-500) 35%, transparent) 90deg, transparent 180deg, color-mix(in oklab, var(--color-info-500) 35%, transparent) 270deg, transparent 360deg); filter: blur(80px); border-radius: 50%;"
 	)
 
-	.relative(class="max-w-7xl mx-auto px-6 pt-20 pb-32 md:pt-28 md:pb-40")
+	.relative.max-w-7xl.mx-auto.px-6.pt-20.pb-32.md:pt-28.md:pb-40
 		//- Release pill with pulse
 		.flex.justify-center.mb-8
 			a.inline-flex.items-center.gap-3.no-underline.group(
@@ -20,11 +20,11 @@ section(class="relative overflow-hidden")
 				rel="noopener"
 				class="rounded-full border border-border bg-bg-elevated/70 px-4 py-1.5 text-sm backdrop-blur-md transition-colors hover:bg-bg-elevated"
 			)
-				span(class="relative inline-flex size-2 rounded-full bg-success-500")
-					span(class="absolute inset-0 rounded-full bg-success-500 ping-soft")
-				span(class="text-fg-muted") norns-ui v0.0.7 is out
-				span(class="text-fg") Read the notes
-				Icon(name="lucide:arrow-right" size="size-3.5" class="text-fg-muted transition-transform group-hover:translate-x-0.5")
+				span.relative.inline-flex.size-2.rounded-full.bg-success-500
+					span.absolute.inset-0.rounded-full.bg-success-500.ping-soft
+				span.text-fg-muted norns-ui v0.0.7 is out
+				span.text-fg Read the notes
+				Icon.text-fg-muted.transition-transform.group-hover:translate-x-0.5(name="lucide:arrow-right" size="size-3.5")
 
 		//- Massive headline
 		h1.text-center.font-bold.tracking-tight.mb-6(
@@ -43,9 +43,9 @@ section(class="relative overflow-hidden")
 			class="text-lg md:text-xl text-fg-muted leading-relaxed"
 		)
 			| Norns is the batteries-included meta-framework for Svelte.
-			span(class="text-fg")  Pug + Civet,
+			span.text-fg  Pug + Civet,
 			|  feature folders, valibot routes, migrations, dependency injection —
-			span(class="text-fg")  wired up the day you clone.
+			span.text-fg  wired up the day you clone.
 
 		//- Dual CTAs
 		.flex.flex-wrap.items-center.justify-center.gap-3.mb-6
@@ -65,28 +65,28 @@ section(class="relative overflow-hidden")
 			) Star on GitHub
 
 		//- Trust badge row
-		.flex.flex-wrap.items-center.justify-center.gap-x-6.gap-y-2.text-sm(class="text-fg-muted")
+		.flex.flex-wrap.items-center.justify-center.gap-x-6.gap-y-2.text-sm.text-fg-muted
 			.inline-flex.items-center.gap-1.5
-				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
+				Icon.text-success-500(name="lucide:check-circle-2" size="size-4")
 				| Open source, MIT
 			.inline-flex.items-center.gap-1.5
-				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
+				Icon.text-success-500(name="lucide:check-circle-2" size="size-4")
 				| Type-safe end-to-end
 			.inline-flex.items-center.gap-1.5
-				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
+				Icon.text-success-500(name="lucide:check-circle-2" size="size-4")
 				| Works with SvelteKit
 			.inline-flex.items-center.gap-1.5
-				Icon(name="lucide:check-circle-2" size="size-4" class="text-success-500")
+				Icon.text-success-500(name="lucide:check-circle-2" size="size-4")
 				| &lt; 60 kB gz
 
 		//- Floating IDE-style code window
-		.relative.mt-16(class="max-w-4xl mx-auto")
-			.absolute.float-bob.hidden(class="md:flex -top-6 -left-8 items-center gap-2 rounded-full bg-bg-elevated/80 backdrop-blur-md border border-border px-3 py-1.5 text-xs shadow-lg z-10")
-				Icon(name="lucide:zap" size="size-3.5" class="text-warning-500")
+		.relative.mt-16.max-w-4xl.mx-auto
+			.absolute.float-bob.hidden.md:flex.-top-6.-left-8.items-center.gap-2.rounded-full.bg-bg-elevated/80.backdrop-blur-md.border.border-border.px-3.py-1.5.text-xs.shadow-lg.z-10
+				Icon.text-warning-500(name="lucide:zap" size="size-3.5")
 				span Hot reload in
-				code(class="text-fg") 42ms
-			.absolute.float-bob-2.hidden(class="md:flex -bottom-4 -right-6 items-center gap-2 rounded-full bg-bg-elevated/80 backdrop-blur-md border border-border px-3 py-1.5 text-xs shadow-lg z-10")
-				Icon(name="lucide:check-circle-2" size="size-3.5" class="text-success-500")
+				code.text-fg 42ms
+			.absolute.float-bob-2.hidden.md:flex.-bottom-4.-right-6.items-center.gap-2.rounded-full.bg-bg-elevated/80.backdrop-blur-md.border.border-border.px-3.py-1.5.text-xs.shadow-lg.z-10
+				Icon.text-success-500(name="lucide:check-circle-2" size="size-3.5")
 				span 0 type errors
 
 			.code-window
@@ -94,75 +94,75 @@ section(class="relative overflow-hidden")
 					.code-window-dot(style!="{dotRed}")
 					.code-window-dot(style!="{dotYellow}")
 					.code-window-dot(style!="{dotGreen}")
-					.flex-1.text-center.text-xs(class="text-fg-muted")
+					.flex-1.text-center.text-xs.text-fg-muted
 						code src/routes/+page.n
 					Badge(variant="info" size="sm") .n
-				pre.code-window-body(class="m-0")
+				pre.code-window-body.m-0
 					| {@html codeHero}
 
 //- ============================================================
 //- MARQUEE — "trusted by" auto-scroll
 //- ============================================================
-section.border-y.border-border(class="bg-bg-subtle/60 py-6 overflow-hidden marquee-pause relative")
+section.border-y.border-border.bg-bg-subtle/60.py-6.overflow-hidden.marquee-pause.relative
 	.absolute.inset-y-0.left-0.w-20.z-10.pointer-events-none(style="background: linear-gradient(to right, var(--color-bg) 0%, transparent 100%)")
 	.absolute.inset-y-0.right-0.w-20.z-10.pointer-events-none(style="background: linear-gradient(to left, var(--color-bg) 0%, transparent 100%)")
 
 	.marquee
 		+each('marqueeItems as item')
-			.flex.items-center.gap-2.shrink-0(class="text-fg-muted")
+			.flex.items-center.gap-2.shrink-0.text-fg-muted
 				Icon(name!="{item.icon}" size="size-5" class!="{item.color}")
 				span.text-lg.font-semibold {item.label}
 		+each('marqueeItems as item')
-			.flex.items-center.gap-2.shrink-0(class="text-fg-muted")
+			.flex.items-center.gap-2.shrink-0.text-fg-muted
 				Icon(name!="{item.icon}" size="size-5" class!="{item.color}")
 				span.text-lg.font-semibold {item.label}
 
 //- ============================================================
 //- STATS — animated counters with glow
 //- ============================================================
-section(class="max-w-7xl mx-auto px-6 py-24")
+section.max-w-7xl.mx-auto.px-6.py-24
 	.text-center.max-w-2xl.mx-auto.mb-12
-		Badge(variant="primary" class="mb-3") By the numbers
-		h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") The stack that ships
-	.grid.gap-6(class="md:grid-cols-2 lg:grid-cols-4")
+		Badge.mb-3(variant="primary") By the numbers
+		h2.text-3xl.font-bold.tracking-tight.md:text-4xl The stack that ships
+	.grid.gap-6.md:grid-cols-2.lg:grid-cols-4
 		+each('stats as stat')
 			.relative.group
 				.absolute.inset-0.rounded-xl.opacity-0(
 					class="transition-opacity group-hover:opacity-100"
 					style!="{`background: radial-gradient(50% 80% at 50% 100%, ${stat.glow}, transparent 70%);`}"
 				)
-				.relative.text-center.rounded-xl.border.border-border.bg-bg-elevated.p-6(class="backdrop-blur-md")
+				.relative.text-center.rounded-xl.border.border-border.bg-bg-elevated.p-6.backdrop-blur-md
 					.size-12.mx-auto.rounded-lg.flex.items-center.justify-center.mb-4(
 						style!="{`background: ${stat.iconBg}; color: ${stat.iconFg};`}"
 					)
 						Icon(name!="{stat.icon}" size="size-6")
-					.text-4xl.font-bold.tracking-tight.mb-1(class="md:text-5xl")
+					.text-4xl.font-bold.tracking-tight.mb-1.md:text-5xl
 						+if('stat.prefix')
 							span {stat.prefix}
 						AnimatedNumber(value!="{stat.value}" duration!="{1.6}")
 						+if('stat.suffix')
 							span {stat.suffix}
-					.text-sm(class="text-fg-muted") {stat.label}
+					.text-sm.text-fg-muted {stat.label}
 
 //- ============================================================
 //- BENTO FEATURES
 //- ============================================================
-section(class="bg-bg-subtle/40 py-24")
+section.bg-bg-subtle/40.py-24
 	.max-w-7xl.mx-auto.px-6
 		.text-center.max-w-2xl.mx-auto.mb-14
-			Badge(variant="info" class="mb-3") Features
-			h2.text-3xl.font-bold.tracking-tight.mb-3(class="md:text-5xl")
+			Badge.mb-3(variant="info") Features
+			h2.text-3xl.font-bold.tracking-tight.mb-3.md:text-5xl
 				| Everything you need,
 				br
 				GradientText(animate!="{true}") nothing you don't
-			p.text-base(class="text-fg-muted") Pick the pieces that fit. Each one is composable, typed, and small enough to read in one sitting.
+			p.text-base.text-fg-muted Pick the pieces that fit. Each one is composable, typed, and small enough to read in one sitting.
 
-		.grid.gap-4(class="lg:grid-cols-6")
+		.grid.gap-4.lg:grid-cols-6
 			//- WIDE: Auto-imports
-			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden(class="lg:col-span-4")
-				Badge(variant="primary" size="sm" class="mb-3") Zero ceremony
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden.lg:col-span-4
+				Badge.mb-3(variant="primary" size="sm") Zero ceremony
 				h3.text-2xl.font-bold.mb-2 Auto-imports for everything
-				p.text-base.max-w-md(class="text-fg-muted")
+				p.text-base.max-w-md.text-fg-muted
 					| Drop a
 					code .n
 					|  file in
@@ -170,54 +170,54 @@ section(class="bg-bg-subtle/40 py-24")
 					|  and it's auto-imported everywhere. Helpers, stores, schemas — same story.
 				.mt-6.flex.flex-wrap.gap-2.font-mono.text-xs
 					+each('autoImportTags as t')
-						span.rounded-md.border.border-border.bg-bg-subtle.px-2.py-1(class="text-fg-muted") {t}
+						span.rounded-md.border.border-border.bg-bg-subtle.px-2.py-1.text-fg-muted {t}
 				.absolute.pointer-events-none(
 					class="-right-12 -bottom-12 w-48 h-48 opacity-40"
 					style="background: radial-gradient(circle, var(--color-primary-500), transparent 70%); filter: blur(40px);"
 				)
 
 			//- NARROW: Type-safe routes
-			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden(class="lg:col-span-2")
-				Badge(variant="success" size="sm" class="mb-3") Typed
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden.lg:col-span-2
+				Badge.mb-3(variant="success" size="sm") Typed
 				h3.text-xl.font-bold.mb-2 Validated routes
-				p.text-sm(class="text-fg-muted") valibot schemas validate form data + load shapes at the boundary.
+				p.text-sm.text-fg-muted valibot schemas validate form data + load shapes at the boundary.
 				.mt-5.rounded-lg.border.border-border.bg-bg-subtle.p-3.font-mono.text-xs.leading-relaxed
 					.flex.items-center.gap-2.mb-1
-						Icon(name="lucide:check" size="size-3.5" class="text-success-500")
-						span(class="text-fg-muted") title: string
+						Icon.text-success-500(name="lucide:check" size="size-3.5")
+						span.text-fg-muted title: string
 					.flex.items-center.gap-2.mb-1
-						Icon(name="lucide:check" size="size-3.5" class="text-success-500")
-						span(class="text-fg-muted") body: optional(string)
+						Icon.text-success-500(name="lucide:check" size="size-3.5")
+						span.text-fg-muted body: optional(string)
 					.flex.items-center.gap-2
-						Icon(name="lucide:x" size="size-3.5" class="text-danger-500")
-						span(class="text-danger-600") tlte: not in schema
+						Icon.text-danger-500(name="lucide:x" size="size-3.5")
+						span.text-danger-600 tlte: not in schema
 
 			//- NARROW: Migrations
-			.rounded-2xl.border.border-border.bg-bg-elevated.p-8(class="lg:col-span-2")
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.lg:col-span-2
 				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-warning-100); color: var(--color-warning-700)")
 					Icon(name="lucide:database" size="size-5")
 				h3.text-xl.font-bold.mb-2 Migrations baked in
-				p.text-sm(class="text-fg-muted") SQLite + D1. Forward-only, idempotent, with a stamped schema table.
-				.mt-4.font-mono.text-xs.space-y-1(class="text-fg-muted")
+				p.text-sm.text-fg-muted SQLite + D1. Forward-only, idempotent, with a stamped schema table.
+				.mt-4.font-mono.text-xs.space-y-1.text-fg-muted
 					.flex.items-center.gap-2
-						span(class="text-success-500") ✓
+						span.text-success-500 ✓
 						code 001_init.sql
 					.flex.items-center.gap-2
-						span(class="text-success-500") ✓
+						span.text-success-500 ✓
 						code 002_add_notes.sql
 					.flex.items-center.gap-2
-						span(class="text-warning-500") ◷
+						span.text-warning-500 ◷
 						code 003_users.sql (pending)
 
 			//- WIDE: Dark mode
-			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden(class="lg:col-span-4")
-				Badge(variant="info" size="sm" class="mb-3") Theming
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.relative.overflow-hidden.lg:col-span-4
+				Badge.mb-3(variant="info" size="sm") Theming
 				h3.text-2xl.font-bold.mb-2 Dark mode for free
-				p.text-base.max-w-md(class="text-fg-muted")
+				p.text-base.max-w-md.text-fg-muted
 					| Role-token theme swap on a single
 					code data-theme
 					|  attribute. No per-component class:dark noise.
-				.mt-6.grid.gap-3(class="grid-cols-2")
+				.mt-6.grid.gap-3.grid-cols-2
 					.rounded-lg.border.border-border.p-4(style="background: white")
 						.flex.items-center.gap-2.mb-2
 							.size-6.rounded(style="background: oklch(60.6% 0.25 292.7)")
@@ -234,9 +234,9 @@ section(class="bg-bg-subtle/40 py-24")
 				class="lg:col-span-4"
 				style="background: linear-gradient(135deg, color-mix(in oklab, var(--color-primary-500) 8%, var(--color-bg-elevated)), var(--color-bg-elevated));"
 			)
-				Badge(variant="primary" size="sm" class="mb-3") norns-ui
+				Badge.mb-3(variant="primary" size="sm") norns-ui
 				h3.text-2xl.font-bold.mb-2 70+ components, role-token themed
-				p.text-base.max-w-md.mb-6(class="text-fg-muted")
+				p.text-base.max-w-md.mb-6.text-fg-muted
 					| Auto-imported. Override any component by dropping the same filename in your project —
 					code .n
 					|  shadows the library silently.
@@ -245,11 +245,11 @@ section(class="bg-bg-subtle/40 py-24")
 						Chip(icon!="{c.icon}") {c.label}
 
 			//- NARROW: Civet
-			.rounded-2xl.border.border-border.bg-bg-elevated.p-8(class="lg:col-span-2")
+			.rounded-2xl.border.border-border.bg-bg-elevated.p-8.lg:col-span-2
 				.size-10.rounded-lg.flex.items-center.justify-center.mb-4(style="background: var(--color-success-100); color: var(--color-success-700)")
 					Icon(name="lucide:code-2" size="size-5")
 				h3.text-xl.font-bold.mb-2 Civet on top
-				p.text-sm(class="text-fg-muted")
+				p.text-sm.text-fg-muted
 					| Indented, type-aware. Compiles to standard ESM —
 					code .= $state 0
 					|  just works with Svelte 5 runes.
@@ -257,20 +257,20 @@ section(class="bg-bg-subtle/40 py-24")
 //- ============================================================
 //- CODE PREVIEW — tabbed window
 //- ============================================================
-section(class="max-w-6xl mx-auto px-6 py-24")
+section.max-w-6xl.mx-auto.px-6.py-24
 	.text-center.max-w-2xl.mx-auto.mb-10
-		Badge(variant="primary" class="mb-3") Code preview
-		h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Three files, end-to-end typed
-		p.text-base.mt-3(class="text-fg-muted") A note CRUD: route, server, schema. Less code than the framework it sits on.
+		Badge.mb-3(variant="primary") Code preview
+		h2.text-3xl.font-bold.tracking-tight.md:text-4xl Three files, end-to-end typed
+		p.text-base.mt-3.text-fg-muted A note CRUD: route, server, schema. Less code than the framework it sits on.
 	+snippet('panelRoute')
 		.code-window
 			.code-window-bar
 				.code-window-dot(style!="{dotRed}")
 				.code-window-dot(style!="{dotYellow}")
 				.code-window-dot(style!="{dotGreen}")
-				.flex-1.text-center.text-xs(class="text-fg-muted")
+				.flex-1.text-center.text-xs.text-fg-muted
 					code src/routes/notes/+page.n
-			pre.code-window-body(class="m-0")
+			pre.code-window-body.m-0
 				| {@html codeRoute}
 	+snippet('panelServer')
 		.code-window
@@ -278,9 +278,9 @@ section(class="max-w-6xl mx-auto px-6 py-24")
 				.code-window-dot(style!="{dotRed}")
 				.code-window-dot(style!="{dotYellow}")
 				.code-window-dot(style!="{dotGreen}")
-				.flex-1.text-center.text-xs(class="text-fg-muted")
+				.flex-1.text-center.text-xs.text-fg-muted
 					code src/routes/notes/+page.server.c
-			pre.code-window-body(class="m-0")
+			pre.code-window-body.m-0
 				| {@html codeServer}
 	+snippet('panelSchema')
 		.code-window
@@ -288,66 +288,66 @@ section(class="max-w-6xl mx-auto px-6 py-24")
 				.code-window-dot(style!="{dotRed}")
 				.code-window-dot(style!="{dotYellow}")
 				.code-window-dot(style!="{dotGreen}")
-				.flex-1.text-center.text-xs(class="text-fg-muted")
+				.flex-1.text-center.text-xs.text-fg-muted
 					code src/lib/norns/notes/shared/schema.c
-			pre.code-window-body(class="m-0")
+			pre.code-window-body.m-0
 				| {@html codeSchema}
 	Tabs(bind:value!="{codeTab}" items!="{codeTabs(panelRoute, panelServer, panelSchema)}")
 
 //- ============================================================
 //- TIMELINE — release roadmap
 //- ============================================================
-section(class="bg-bg-subtle/40 py-24")
+section.bg-bg-subtle/40.py-24
 	.max-w-3xl.mx-auto.px-6
 		.text-center.mb-12
-			Badge(variant="success" class="mb-3") Roadmap
-			h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Where we're headed
+			Badge.mb-3(variant="success") Roadmap
+			h2.text-3xl.font-bold.tracking-tight.md:text-4xl Where we're headed
 		Card
 			Timeline(items!="{roadmap}")
 
 //- ============================================================
 //- COMPARISON
 //- ============================================================
-section(class="max-w-5xl mx-auto px-6 py-24")
+section.max-w-5xl.mx-auto.px-6.py-24
 	.text-center.max-w-2xl.mx-auto.mb-10
-		Badge(variant="warning" class="mb-3") Why Norns
-		h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Compared with the alternatives
-		p.text-base.mt-3(class="text-fg-muted") The opinionated parts most starter kits leave to you — already in the box.
-	Card(padded!="{false}" class="overflow-hidden")
+		Badge.mb-3(variant="warning") Why Norns
+		h2.text-3xl.font-bold.tracking-tight.md:text-4xl Compared with the alternatives
+		p.text-base.mt-3.text-fg-muted The opinionated parts most starter kits leave to you — already in the box.
+	Card.overflow-hidden(padded!="{false}")
 		.overflow-x-auto
 			table.w-full.text-sm
 				thead
 					tr(style="background: var(--color-bg-muted)")
-						th.text-left.px-5.py-4(class="font-semibold w-1/3") Feature
+						th.text-left.px-5.py-4.font-semibold.w-1/3 Feature
 						th.text-center.px-5.py-4.font-bold(style="color: var(--color-primary-600)") Norns
-						th.text-center.px-5.py-4.font-medium(class="text-fg-muted") SvelteKit
-						th.text-center.px-5.py-4.font-medium(class="text-fg-muted") Next.js
-						th.text-center.px-5.py-4.font-medium(class="text-fg-muted") Remix
+						th.text-center.px-5.py-4.font-medium.text-fg-muted SvelteKit
+						th.text-center.px-5.py-4.font-medium.text-fg-muted Next.js
+						th.text-center.px-5.py-4.font-medium.text-fg-muted Remix
 				tbody
 					+each('comparison as row, i')
 						tr(class!="{i % 2 === 0 ? 'bg-bg-subtle' : ''}" style="border-top: 1px solid var(--color-border)")
-							td.px-5.py-3(class="font-medium") {row.feature}
+							td.px-5.py-3.font-medium {row.feature}
 							+each('row.values as v')
 								td.text-center.px-5.py-3
 									+if('v === "yes"')
-										Icon(name="lucide:check-circle-2" size="size-5" class="inline text-success-500")
+										Icon.inline.text-success-500(name="lucide:check-circle-2" size="size-5")
 									+if('v === "no"')
-										Icon(name="lucide:x-circle" size="size-5" class="inline text-danger-400")
+										Icon.inline.text-danger-400(name="lucide:x-circle" size="size-5")
 									+if('v === "partial"')
-										span.text-sm(class="text-warning-600") partial
+										span.text-sm.text-warning-600 partial
 									+if('typeof v === "string" && !["yes","no","partial"].includes(v)')
-										span.text-sm(class="text-fg-muted") {v}
+										span.text-sm.text-fg-muted {v}
 
 //- ============================================================
 //- PRICING
 //- ============================================================
-section(class="bg-bg-subtle/40 py-24")
+section.bg-bg-subtle/40.py-24
 	.max-w-5xl.mx-auto.px-6
 		.text-center.max-w-2xl.mx-auto.mb-10
-			Badge(variant="primary" class="mb-3") Pricing
-			h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Simple, honest pricing
-			p.text-base.mt-3(class="text-fg-muted") The framework is free. You only pay if you choose hosting.
-			.inline-flex.items-center.gap-3.mt-6.rounded-full.border.border-border.p-1(class="bg-bg-elevated")
+			Badge.mb-3(variant="primary") Pricing
+			h2.text-3xl.font-bold.tracking-tight.md:text-4xl Simple, honest pricing
+			p.text-base.mt-3.text-fg-muted The framework is free. You only pay if you choose hosting.
+			.inline-flex.items-center.gap-3.mt-6.rounded-full.border.border-border.p-1.bg-bg-elevated
 				button(
 					type="button"
 					class!="{`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${annual ? 'text-fg-muted' : 'bg-bg-muted text-fg'}`}"
@@ -359,8 +359,8 @@ section(class="bg-bg-subtle/40 py-24")
 					onclick!="{() => annual = true}"
 				)
 					| Annual
-					Badge(variant="success" size="sm" class="ml-2") -17%
-		.grid.gap-4(class="md:grid-cols-3")
+					Badge.ml-2(variant="success" size="sm") -17%
+		.grid.gap-4.md:grid-cols-3
 			Card
 				+snippet('header')
 					.flex.items-center.justify-between
@@ -369,35 +369,35 @@ section(class="bg-bg-subtle/40 py-24")
 				.space-y-4
 					.flex.items-baseline.gap-1
 						span.text-5xl.font-bold $0
-						span.text-sm(class="text-fg-muted") /forever
+						span.text-sm.text-fg-muted /forever
 					ul.list-none.p-0.space-y-2.text-sm
 						+each('plans[0].features as f')
 							li.flex.items-start.gap-2
-								Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+								Icon.text-success-500.shrink-0.mt-0.5(name="lucide:check" size="size-4")
 								span {f}
 				+snippet('footer')
-					Btn(variant="secondary" class="w-full" href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") Get the source
+					Btn.w-full(variant="secondary" href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") Get the source
 
 			.gradient-border.relative.rounded-xl
 				.absolute.-top-3.left-1/2.-translate-x-1/2.z-10
 					Badge(variant="primary") ★ Recommended
-				Card(class="border-0 bg-transparent")
+				Card.border-0.bg-transparent
 					+snippet('header')
 						.flex.items-center.justify-between.relative
 							h3.text-lg.font-semibold Cloud
-							Icon(name="lucide:zap" size="size-5" class="text-primary-500")
+							Icon.text-primary-500(name="lucide:zap" size="size-5")
 					.space-y-4.relative
 						.flex.items-baseline.gap-1
 							span.text-5xl.font-bold ${annual ? 15 : 19}
-							span.text-sm(class="text-fg-muted") /month
-						p.text-xs(class="text-fg-subtle") {annual ? 'billed annually' : '—'}
+							span.text-sm.text-fg-muted /month
+						p.text-xs.text-fg-subtle {annual ? 'billed annually' : '—'}
 						ul.list-none.p-0.space-y-2.text-sm
 							+each('plans[1].features as f')
 								li.flex.items-start.gap-2
-									Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+									Icon.text-success-500.shrink-0.mt-0.5(name="lucide:check" size="size-4")
 									span {f}
 					+snippet('footer')
-						Btn(variant="primary" class="w-full" icon="lucide:rocket") Start free trial
+						Btn.w-full(variant="primary" icon="lucide:rocket") Start free trial
 
 			Card
 				+snippet('header')
@@ -407,111 +407,111 @@ section(class="bg-bg-subtle/40 py-24")
 				.space-y-4
 					.flex.items-baseline.gap-1
 						span.text-5xl.font-bold ${annual ? 65 : 79}
-						span.text-sm(class="text-fg-muted") /month
-					p.text-xs(class="text-fg-subtle") {annual ? 'billed annually' : '—'}
+						span.text-sm.text-fg-muted /month
+					p.text-xs.text-fg-subtle {annual ? 'billed annually' : '—'}
 					ul.list-none.p-0.space-y-2.text-sm
 						+each('plans[2].features as f')
 							li.flex.items-start.gap-2
-								Icon(name="lucide:check" size="size-4" class="text-success-500 shrink-0 mt-0.5")
+								Icon.text-success-500.shrink-0.mt-0.5(name="lucide:check" size="size-4")
 								span {f}
 				+snippet('footer')
-					Btn(variant="secondary" class="w-full") Contact sales
+					Btn.w-full(variant="secondary") Contact sales
 
 //- ============================================================
 //- TESTIMONIALS — two marquee rows scrolling opposite
 //- ============================================================
-section(class="py-24 overflow-hidden")
+section.py-24.overflow-hidden
 	.max-w-7xl.mx-auto.px-6
 		.text-center.max-w-2xl.mx-auto.mb-12
-			Badge(variant="info" class="mb-3") Testimonials
-			h2.text-3xl.font-bold.tracking-tight(class="md:text-5xl") Loved by builders
+			Badge.mb-3(variant="info") Testimonials
+			h2.text-3xl.font-bold.tracking-tight.md:text-5xl Loved by builders
 			.flex.items-center.justify-center.gap-1.mt-4
 				+each('[0,1,2,3,4] as _')
-					Icon(name="lucide:star" size="size-5" class="text-warning-400")
-				span.text-sm.ml-2(class="text-fg-muted") 4.9 average rating
+					Icon.text-warning-400(name="lucide:star" size="size-5")
+				span.text-sm.ml-2.text-fg-muted 4.9 average rating
 
-	.marquee-pause.relative.overflow-hidden.mt-10(class="space-y-4")
+	.marquee-pause.relative.overflow-hidden.mt-10.space-y-4
 		.marquee
 			+each('testimonials as t')
-				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5(class="w-80")
+				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5.w-80
 					.flex.items-center.gap-1.mb-3
 						+each('[0,1,2,3,4] as _')
-							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
-					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg") "{t.quote}"
+							Icon.text-warning-400(name="lucide:star" size="size-3.5")
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0.text-fg "{t.quote}"
 					.flex.items-center.gap-3
 						Avatar(name!="{t.name}" size="md")
 						div
 							.text-sm.font-semibold {t.name}
-							.text-xs(class="text-fg-muted") {t.role}
+							.text-xs.text-fg-muted {t.role}
 			+each('testimonials as t')
-				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5(class="w-80")
+				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5.w-80
 					.flex.items-center.gap-1.mb-3
 						+each('[0,1,2,3,4] as _')
-							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
-					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg") "{t.quote}"
+							Icon.text-warning-400(name="lucide:star" size="size-3.5")
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0.text-fg "{t.quote}"
 					.flex.items-center.gap-3
 						Avatar(name!="{t.name}" size="md")
 						div
 							.text-sm.font-semibold {t.name}
-							.text-xs(class="text-fg-muted") {t.role}
+							.text-xs.text-fg-muted {t.role}
 
 		.marquee.marquee-reverse
 			+each('testimonialsRev as t')
-				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5(class="w-80")
+				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5.w-80
 					.flex.items-center.gap-1.mb-3
 						+each('[0,1,2,3,4] as _')
-							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
-					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg") "{t.quote}"
+							Icon.text-warning-400(name="lucide:star" size="size-3.5")
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0.text-fg "{t.quote}"
 					.flex.items-center.gap-3
 						Avatar(name!="{t.name}" size="md")
 						div
 							.text-sm.font-semibold {t.name}
-							.text-xs(class="text-fg-muted") {t.role}
+							.text-xs.text-fg-muted {t.role}
 			+each('testimonialsRev as t')
-				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5(class="w-80")
+				.shrink-0.rounded-xl.border.border-border.bg-bg-elevated.p-5.w-80
 					.flex.items-center.gap-1.mb-3
 						+each('[0,1,2,3,4] as _')
-							Icon(name="lucide:star" size="size-3.5" class="text-warning-400")
-					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0(class="text-fg") "{t.quote}"
+							Icon.text-warning-400(name="lucide:star" size="size-3.5")
+					blockquote.text-sm.leading-relaxed.italic.mb-4.pl-0.text-fg "{t.quote}"
 					.flex.items-center.gap-3
 						Avatar(name!="{t.name}" size="md")
 						div
 							.text-sm.font-semibold {t.name}
-							.text-xs(class="text-fg-muted") {t.role}
+							.text-xs.text-fg-muted {t.role}
 
 //- ============================================================
 //- FAQ
 //- ============================================================
-section(class="bg-bg-subtle/40 py-24")
+section.bg-bg-subtle/40.py-24
 	.max-w-3xl.mx-auto.px-6
 		.text-center.mb-10
-			Badge(variant="info" class="mb-3") FAQ
-			h2.text-3xl.font-bold.tracking-tight(class="md:text-4xl") Common questions
+			Badge.mb-3(variant="info") FAQ
+			h2.text-3xl.font-bold.tracking-tight.md:text-4xl Common questions
 		+snippet('faq1')
-			p.text-sm(class="text-fg-muted") Yes — Norns sits on top of SvelteKit, so every adapter, hook, and form action keeps working. .svelte and .n files coexist in the same app.
+			p.text-sm.text-fg-muted Yes — Norns sits on top of SvelteKit, so every adapter, hook, and form action keeps working. .svelte and .n files coexist in the same app.
 		+snippet('faq2')
-			p.text-sm(class="text-fg-muted") Civet compiles to standard ESM, so Svelte 5's runes, derived state, and effects work without preprocessing tricks.
+			p.text-sm.text-fg-muted Civet compiles to standard ESM, so Svelte 5's runes, derived state, and effects work without preprocessing tricks.
 		+snippet('faq3')
-			p.text-sm(class="text-fg-muted") MIT. Use it commercially, fork it, vendor it — no strings attached.
+			p.text-sm.text-fg-muted MIT. Use it commercially, fork it, vendor it — no strings attached.
 		+snippet('faq4')
-			p.text-sm(class="text-fg-muted") Yes. The polymorphic Btn href pattern, role-token CSS, and behaviors module work as plain Svelte+TS too.
+			p.text-sm.text-fg-muted Yes. The polymorphic Btn href pattern, role-token CSS, and behaviors module work as plain Svelte+TS too.
 		+snippet('faq5')
-			p.text-sm(class="text-fg-muted") The framework is stable enough for side projects today. Stable 1.0 with a documented adapter story is targeted later this year.
+			p.text-sm.text-fg-muted The framework is stable enough for side projects today. Stable 1.0 with a documented adapter story is targeted later this year.
 		Accordion(items!="{faqItems(faq1, faq2, faq3, faq4, faq5)}")
 
 //- ============================================================
 //- MEGA CTA — full-bleed gradient
 //- ============================================================
-section.relative.overflow-hidden.cta-mega(class="text-white")
+section.relative.overflow-hidden.cta-mega.text-white
 	.absolute.inset-0.opacity-30.bg-grid
-	.relative(class="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center")
-		h2.text-4xl.font-bold.tracking-tight.mb-4(class="md:text-6xl")
+	.relative.max-w-4xl.mx-auto.px-6.py-24.md:py-32.text-center
+		h2.text-4xl.font-bold.tracking-tight.mb-4.md:text-6xl
 			| Stop wiring boilerplate.
 			br
 			| Start shipping.
 		p.text-lg.opacity-90.max-w-2xl.mx-auto.mb-8 The framework you would have built yourself if you had the time. We did.
 		.flex.flex-wrap.items-center.justify-center.gap-3
-			Btn(variant="primary" size="lg" icon="lucide:rocket" href="/examples" class="bg-white text-primary-700 hover:bg-white/90")
+			Btn.bg-white.text-primary-700.hover:bg-white/90(variant="primary" size="lg" icon="lucide:rocket" href="/examples")
 				| Start free
 				+snippet('trailing')
 					Icon(name="lucide:arrow-right" size="size-5")
@@ -527,20 +527,20 @@ section.relative.overflow-hidden.cta-mega(class="text-white")
 //- ============================================================
 section.relative.border-t.border-border
 	.max-w-7xl.mx-auto.px-6.py-16
-		.grid.gap-12(class="lg:grid-cols-5")
-			div(class="lg:col-span-2 space-y-4")
+		.grid.gap-12.lg:grid-cols-5
+			div.lg:col-span-2.space-y-4
 				.flex.items-center.gap-2
 					.size-9.rounded-lg.flex.items-center.justify-center.text-white.font-bold(style="background: linear-gradient(135deg, var(--color-primary-600), var(--color-info-500))")
 						span N
 					span.text-xl.font-bold.tracking-tight Norns
-				p.text-sm.max-w-sm(class="text-fg-muted") The batteries-included meta-framework for Svelte. Open source, MIT licensed, built in the open.
-				form(onsubmit!="{onSubscribe}" class="max-w-sm space-y-2")
+				p.text-sm.max-w-sm.text-fg-muted The batteries-included meta-framework for Svelte. Open source, MIT licensed, built in the open.
+				form.max-w-sm.space-y-2(onsubmit!="{onSubscribe}")
 					.text-sm.font-medium Stay in the loop
 					.flex.gap-2
-						Field(name="email" class="flex-1")
+						Field.flex-1(name="email")
 							Input(name="email" type="email" placeholder="you@your-domain.com" required bind:value!="{email}")
 						Btn(variant="primary" type="submit" icon="lucide:send" aria-label="Subscribe")
-					p.text-xs(class="text-fg-subtle") One short email a month. Unsubscribe in one click.
+					p.text-xs.text-fg-subtle One short email a month. Unsubscribe in one click.
 			div
 				h3.text-sm.font-semibold.mb-4 Product
 				ul.list-none.p-0.space-y-2.text-sm
@@ -591,7 +591,7 @@ section.relative.border-t.border-border
 					Icon(name="lucide:youtube" size="size-4")
 				a.btn-icon(href="#" aria-label="Discord")
 					Icon(name="lucide:message-circle" size="size-4")
-			.text-xs(class="text-fg-subtle")
+			.text-xs.text-fg-subtle
 				| © {new Date().getFullYear()} Human Synthesis · Made with norns-ui v0.0.7
 
 <script>

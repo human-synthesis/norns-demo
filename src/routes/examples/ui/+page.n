@@ -5,7 +5,7 @@ section.animate-in.flex.items-start.justify-between.gap-4
 		a.nav-link.text-sm.inline-flex.items-center.gap-1(href="/examples") ← examples
 		h1.text-5xl.font-bold.tracking-tight.leading-none
 			span.gradient-text norns-ui
-		p.text-base.max-w-prose.leading-relaxed(class="text-fg-muted")
+		p.text-base.max-w-prose.leading-relaxed.text-fg-muted
 			| Every component in
 			code @human-synthesis/norns-ui
 			| with its variants. Toggle the theme to verify dark-mode contrast.
@@ -16,7 +16,7 @@ section.animate-in.flex.items-start.justify-between.gap-4
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Typography
-	p.text-sm(class="text-fg-muted") Bare HTML elements pick up the library defaults. No wrapper components needed.
+	p.text-sm.text-fg-muted Bare HTML elements pick up the library defaults. No wrapper components needed.
 	Card
 		.space-y-4
 			h1 Heading 1
@@ -30,7 +30,7 @@ section.pt-12.space-y-3
 				| , default
 				code font-family
 				| , default contrast role tokens.
-			p(class="text-fg-muted") Muted paragraph using
+			p.text-fg-muted Muted paragraph using
 				code .text-fg-muted
 				| utility — for secondary copy.
 			p
@@ -42,7 +42,7 @@ section.pt-12.space-y-3
 			pre
 				| {codeSample}
 			hr
-			blockquote.pl-4.italic(class="border-l-4 border-border text-fg-muted")
+			blockquote.pl-4.italic.border-l-4.border-border.text-fg-muted
 				| “Programs must be written for people to read, and only incidentally for machines to execute.”
 
 //- ============================================================
@@ -50,7 +50,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Colors
-	p.text-sm(class="text-fg-muted")
+	p.text-sm.text-fg-muted
 		| Five oklch scales (50–950) for
 		code primary
 		| ,
@@ -69,13 +69,13 @@ section.pt-12.space-y-3
 		code border-&lt;name&gt;-&lt;step&gt;
 		| .
 	Card
-		div(class="space-y-6")
+		div.space-y-6
 			+each('paletteRows as row')
-				div(class="space-y-2")
-					div(class="flex items-baseline justify-between")
-						div(class="text-sm font-mono font-semibold text-fg") {row.name}
-						div(class="text-xs font-mono text-fg-subtle") 50 — 950
-					div(class="grid items-stretch grid-cols-11 gap-1.5")
+				div.space-y-2
+					div.flex.items-baseline.justify-between
+						div.text-sm.font-mono.font-semibold.text-fg {row.name}
+						div.text-xs.font-mono.text-fg-subtle 50 — 950
+					div.grid.items-stretch.grid-cols-11.gap-1.5
 						+each('palette as step')
 							div(
 								class="h-28 rounded-md flex flex-col items-center justify-between font-mono transition-transform cursor-pointer text-[10px] py-1.5 hover:scale-105"
@@ -83,36 +83,36 @@ section.pt-12.space-y-3
 								title!="{`var(--color-${row.name}-${step})`}"
 							)
 								| {step}
-								span(class="opacity-70") {row.name.slice(0, 1).toUpperCase()}
+								span.opacity-70 {row.name.slice(0, 1).toUpperCase()}
 
 //- ============================================================
 //- ROLE TOKENS (contrast probe)
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Role tokens
-	p.text-sm(class="text-fg-muted") What atoms reference. Swap themes — these are the cells that change.
-	.grid.gap-3(class="sm:grid-cols-3")
-		div(class="p-3 rounded bg-bg text-fg border border-border") fg on bg
-		div(class="p-3 rounded bg-bg-muted text-fg") fg on bg-muted
-		div(class="p-3 rounded bg-bg-elevated text-fg border border-border") fg on bg-elevated
-		div(class="p-3 rounded bg-bg text-fg-muted border border-border") fg-muted on bg
-		div(class="p-3 rounded bg-bg text-fg-subtle border border-border") fg-subtle on bg
-		div(class="p-3 rounded bg-primary-600 text-white") white on primary-600
-		div(class="p-3 rounded bg-success-bg text-success-fg border border-success-border") success
-		div(class="p-3 rounded bg-warning-bg text-warning-fg border border-warning-border") warning
-		div(class="p-3 rounded bg-danger-bg text-danger-fg border border-danger-border") danger
+	p.text-sm.text-fg-muted What atoms reference. Swap themes — these are the cells that change.
+	.grid.gap-3.sm:grid-cols-3
+		div.p-3.rounded.bg-bg.text-fg.border.border-border fg on bg
+		div.p-3.rounded.bg-bg-muted.text-fg fg on bg-muted
+		div.p-3.rounded.bg-bg-elevated.text-fg.border.border-border fg on bg-elevated
+		div.p-3.rounded.bg-bg.text-fg-muted.border.border-border fg-muted on bg
+		div.p-3.rounded.bg-bg.text-fg-subtle.border.border-border fg-subtle on bg
+		div.p-3.rounded.bg-primary-600.text-white white on primary-600
+		div.p-3.rounded.bg-success-bg.text-success-fg.border.border-success-border success
+		div.p-3.rounded.bg-warning-bg.text-warning-fg.border.border-warning-border warning
+		div.p-3.rounded.bg-danger-bg.text-danger-fg.border.border-danger-border danger
 
 //- ============================================================
 //- ICON
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Icon
-	p.text-sm(class="text-fg-muted") Iconify wrapper. Default collection is
+	p.text-sm.text-fg-muted Iconify wrapper. Default collection is
 		code lucide
 		| ; install + register more via
 		code addCollection
 		| .
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Common glyphs
@@ -133,29 +133,29 @@ section.pt-12.space-y-3
 			+snippet('header')
 				h3.text-base.font-semibold Sizes / tinted
 			.flex.flex-wrap.items-center.gap-4
-				Icon(name="lucide:zap" size="size-4" class="text-fg-muted")
-				Icon(name="lucide:zap" size="size-5" class="text-warning-500")
-				Icon(name="lucide:zap" size="size-6" class="text-warning-600")
-				Icon(name="lucide:zap" size="size-7" class="text-warning-700")
+				Icon.text-fg-muted(name="lucide:zap" size="size-4")
+				Icon.text-warning-500(name="lucide:zap" size="size-5")
+				Icon.text-warning-600(name="lucide:zap" size="size-6")
+				Icon.text-warning-700(name="lucide:zap" size="size-7")
 			.flex.flex-wrap.items-center.gap-4.mt-3
-				Icon(name="lucide:check-circle-2" size="size-5" class="text-success-500")
-				Icon(name="lucide:alert-triangle" size="size-5" class="text-warning-500")
-				Icon(name="lucide:x-circle" size="size-5" class="text-danger-500")
-				Icon(name="lucide:info" size="size-5" class="text-info-500")
-				Icon(name="lucide:sparkles" size="size-6" class="text-primary-500")
-				Icon(name="lucide:rocket" size="size-7" class="text-primary-600")
+				Icon.text-success-500(name="lucide:check-circle-2" size="size-5")
+				Icon.text-warning-500(name="lucide:alert-triangle" size="size-5")
+				Icon.text-danger-500(name="lucide:x-circle" size="size-5")
+				Icon.text-info-500(name="lucide:info" size="size-5")
+				Icon.text-primary-500(name="lucide:sparkles" size="size-6")
+				Icon.text-primary-600(name="lucide:rocket" size="size-7")
 
 //- ============================================================
 //- BUTTONS
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Btn
-	p.text-sm(class="text-fg-muted") Variants, sizes, loading state, icon prop, snippet slots. Polymorphic — pass
+	p.text-sm.text-fg-muted Variants, sizes, loading state, icon prop, snippet slots. Polymorphic — pass
 		code href
 		| to render an
 		code &lt;a&gt;
 		| instead.
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Variants
@@ -199,21 +199,21 @@ section.pt-12.space-y-3
 					+snippet('leading')
 						Icon(name="lucide:filter" size="size-4")
 					| filters
-		Card(class="md:col-span-2")
+		Card.md:col-span-2
 			+snippet('header')
 				h3.text-base.font-semibold Full-width / link buttons
 			.space-y-3
-				Btn(variant="primary" class="w-full" icon="lucide:rocket") full-width primary
-				Btn(variant="secondary" class="w-full" icon="lucide:github" href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") rendered as &lt;a&gt; via href
+				Btn.w-full(variant="primary" icon="lucide:rocket") full-width primary
+				Btn.w-full(variant="secondary" icon="lucide:github" href="https://github.com/human-synthesis/norns" target="_blank" rel="noopener") rendered as &lt;a&gt; via href
 
 //- ============================================================
 //- INPUTS
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Input / Textarea / Select
-	p.text-sm(class="text-fg-muted") Form controls. Field wraps with label, help, error.
+	p.text-sm.text-fg-muted Form controls. Field wraps with label, help, error.
 	Card
-		.grid.gap-6(class="sm:grid-cols-2")
+		.grid.gap-6.sm:grid-cols-2
 			Field(label="Default")
 				Input(name="a" placeholder="type here…")
 			Field(label="With error" error="this field is required")
@@ -238,11 +238,11 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Checkbox / Radio / Switch
-	p.text-sm(class="text-fg-muted") Native form controls; accent color comes from
+	p.text-sm.text-fg-muted Native form controls; accent color comes from
 		code --color-primary-600
 		| .
 	Card
-		.grid.gap-6(class="sm:grid-cols-3")
+		.grid.gap-6.sm:grid-cols-3
 			Field(label="Checkbox")
 				label.field-row
 					Checkbox(name="agree")
@@ -268,12 +268,12 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Card / Surface
-	p.text-sm(class="text-fg-muted") Surface primitives. Card has structural header / body / footer slots; Surface is a bare panel. Card is polymorphic — pass
+	p.text-sm.text-fg-muted Surface primitives. Card has structural header / body / footer slots; Surface is a bare panel. Card is polymorphic — pass
 		code href
 		| to render as an
 		code &lt;a&gt;
 		| .
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Header + footer
@@ -288,21 +288,21 @@ section.pt-12.space-y-3
 		Card(href="/examples" interactive!="{true}")
 			.flex.items-start.justify-between.gap-3.mb-2
 				h3.text-base.font-semibold Link card
-				Icon(name="lucide:arrow-up-right" size="size-4" class="text-fg-muted")
-			p.text-sm(class="text-fg-muted") Rendered as
+				Icon.text-fg-muted(name="lucide:arrow-up-right" size="size-4")
+			p.text-sm.text-fg-muted Rendered as
 				code &lt;a&gt;
 				| via
 				code href
 				| — click anywhere on the card.
 		Card(padded!="{false}")
 			.p-3.rounded-t-lg(style="background: var(--color-primary-100)")
-				.text-xs.font-mono(class="text-primary-900") padded={'{'}false{'}'}
+				.text-xs.font-mono.text-primary-900 padded={'{'}false{'}'}
 			.p-5
 				p.text-sm.m-0 Unpadded card lets you bleed custom regions to the edge.
 		Surface
 			h3.text-base.font-semibold.mb-1 Surface
 			p.text-sm.opacity-80 Bare elevated panel — same role tokens, no structural slots.
-		Surface(tone="glass" class="backdrop-blur-md")
+		Surface.backdrop-blur-md(tone="glass")
 			h3.text-base.font-semibold.mb-1 Surface glass
 			p.text-sm.opacity-80 Same atom with
 				code tone="glass"
@@ -313,8 +313,8 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Banner
-	p.text-sm(class="text-fg-muted") Variants, optional icon, optional actions. Inline tinted surface for non-blocking messages.
-	.grid.gap-3(class="md:grid-cols-2")
+	p.text-sm.text-fg-muted Variants, optional icon, optional actions. Inline tinted surface for non-blocking messages.
+	.grid.gap-3.md:grid-cols-2
 		Banner(variant="info" icon="lucide:info")
 			| Heads up — this is informational.
 		Banner(variant="success" icon="lucide:check-circle-2")
@@ -332,15 +332,15 @@ section.pt-12.space-y-3
 		Banner(variant="success" icon="lucide:check-circle-2")
 			.space-y-1
 				.font-medium All clear
-				p.text-xs(class="text-fg-muted") Multi-line banner with a heading + description.
+				p.text-xs.text-fg-muted Multi-line banner with a heading + description.
 
 //- ============================================================
 //- BADGES + CHIPS
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Badge / Chip
-	p.text-sm(class="text-fg-muted") Compact status indicators. Badge is read-only; Chip is interactive (filter, removable).
-	.grid.gap-4(class="md:grid-cols-2")
+	p.text-sm.text-fg-muted Compact status indicators. Badge is read-only; Chip is interactive (filter, removable).
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Badge
@@ -372,19 +372,19 @@ section.pt-12.space-y-3
 				.flex.flex-wrap.items-center.gap-2
 					Chip(icon="lucide:filter") filter
 					Chip(icon="lucide:globe") public
-					Chip(icon="lucide:check" class="bg-success-bg text-success-fg border-success-border") active
+					Chip.bg-success-bg.text-success-fg.border-success-border(icon="lucide:check") active
 
 //- ============================================================
 //- AVATARS
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Avatar
-	p.text-sm(class="text-fg-muted") Falls back from
+	p.text-sm.text-fg-muted Falls back from
 		code src
 		| → initials → a lucide
 		code user
 		| glyph.
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Sizes
@@ -409,8 +409,8 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Skeleton / Progress
-	p.text-sm(class="text-fg-muted") Loading placeholders + linear / circular determinate / indeterminate bars.
-	.grid.gap-4(class="md:grid-cols-2")
+	p.text-sm.text-fg-muted Loading placeholders + linear / circular determinate / indeterminate bars.
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Skeleton
@@ -443,12 +443,12 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Tree
-	p.text-sm(class="text-fg-muted") Recursive nodes; click to expand or select. Bind
+	p.text-sm.text-fg-muted Recursive nodes; click to expand or select. Bind
 		code expanded
 		| (array of ids) and
 		code selected
 		| .
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Files
@@ -466,8 +466,8 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Breadcrumbs / Pagination
-	p.text-sm(class="text-fg-muted") Wayfinding pair — trail of the current location plus paged navigation.
-	.grid.gap-4(class="md:grid-cols-2")
+	p.text-sm.text-fg-muted Wayfinding pair — trail of the current location plus paged navigation.
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Breadcrumbs
@@ -478,14 +478,14 @@ section.pt-12.space-y-3
 			+snippet('header')
 				h3.text-base.font-semibold Pagination
 			Pagination(bind:page!="{pageNum}" total!="{183}" pageSize!="{10}")
-			p.mt-3.text-xs(class="text-fg-muted") Page {pageNum} of 19
+			p.mt-3.text-xs.text-fg-muted Page {pageNum} of 19
 
 //- ============================================================
 //- STEPPER + ACCORDION
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Stepper / Accordion
-	p.text-sm(class="text-fg-muted") Step-by-step progress paired with collapsible details. Accordion uses native
+	p.text-sm.text-fg-muted Step-by-step progress paired with collapsible details. Accordion uses native
 		code &lt;details&gt;
 		| ; pass
 		code multiple
@@ -496,7 +496,7 @@ section.pt-12.space-y-3
 		p Polyphonic notes layered through ratio-based wave folding.
 	+snippet('a3')
 		p Knobs are smooth-detented; macros bind via shift-click.
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Stepper
@@ -518,7 +518,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Carousel
-	p.text-sm(class="text-fg-muted") Default
+	p.text-sm.text-fg-muted Default
 		code aspect="video"
 		| ; pass
 		code aspect="square"
@@ -527,7 +527,7 @@ section.pt-12.space-y-3
 		| , or override with
 		code class="aspect-[…]"
 		| .
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold 16:9 video (default)
@@ -542,7 +542,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Header
-	p.text-sm(class="text-fg-muted") Site header — brand / nav / actions slots.
+	p.text-sm.text-fg-muted Site header — brand / nav / actions slots.
 	Header
 		+snippet('brand')
 			.size-7.rounded.flex.items-center.justify-center.text-white.font-bold.text-sm(style="background: var(--color-primary-600)") N
@@ -560,10 +560,10 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 HeroBanner
-	p.text-sm(class="text-fg-muted") Page-opening banner with title / description / actions slots.
+	p.text-sm.text-fg-muted Page-opening banner with title / description / actions slots.
 		code align="center"
 		| flips to centered.
-	.grid.gap-4(class="lg:grid-cols-2")
+	.grid.gap-4.lg:grid-cols-2
 		HeroBanner(title="Build apps you can read in five minutes." description="Pug + Civet on top of Svelte 5. Feature folders, DI, valibot." align="left")
 			+snippet('actions')
 				Btn(variant="primary" icon="lucide:rocket") Get started
@@ -578,7 +578,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Dialog / Sheet
-	p.text-sm(class="text-fg-muted") Portal + focus trap + scroll lock + escape, on the shared behaviors module. Sheet covers all four sides; the
+	p.text-sm.text-fg-muted Portal + focus trap + scroll lock + escape, on the shared behaviors module. Sheet covers all four sides; the
 		code side="left"
 		| variant replaces the old
 		code Drawer
@@ -595,12 +595,12 @@ section.pt-12.space-y-3
 			+snippet('trigger')
 				Icon(name="lucide:panel-left" size="size-4")
 				| Sheet left
-			p.text-sm(class="text-fg-muted") Slides in from the left edge.
+			p.text-sm.text-fg-muted Slides in from the left edge.
 		Sheet(bind:open!="{sheetRight}" side="right" title="Right sheet" triggerClass="btn btn-secondary")
 			+snippet('trigger')
 				Icon(name="lucide:panel-right" size="size-4")
 				| Sheet right
-			p.text-sm(class="text-fg-muted") Slides in from the right edge.
+			p.text-sm.text-fg-muted Slides in from the right edge.
 		Sheet(bind:open!="{sheetBottom}" side="bottom" title="Bottom sheet" triggerClass="btn btn-secondary")
 			+snippet('trigger')
 				Icon(name="lucide:panel-bottom" size="size-4")
@@ -611,7 +611,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Popover / Dropdown / Tooltip
-	p.text-sm(class="text-fg-muted") Floating overlays — positioned with
+	p.text-sm.text-fg-muted Floating overlays — positioned with
 		code @floating-ui/dom
 		| , portaled to
 		code &lt;body&gt;
@@ -645,11 +645,11 @@ section.pt-12.space-y-3
 section.pt-12.space-y-3
 	h2 Tabs
 	+snippet('panelOverview')
-		p.text-sm(class="text-fg-muted") Overview content. Keyboard nav (←/→, Home, End) and aria roles wired.
+		p.text-sm.text-fg-muted Overview content. Keyboard nav (←/→, Home, End) and aria roles wired.
 	+snippet('panelDetails')
-		p.text-sm(class="text-fg-muted") Details content.
+		p.text-sm.text-fg-muted Details content.
 	+snippet('panelSettings')
-		p.text-sm(class="text-fg-muted") Settings content. The disabled tab is skipped on keyboard nav.
+		p.text-sm.text-fg-muted Settings content. The disabled tab is skipped on keyboard nav.
 	Tabs(bind:value!="{tab}" items!="{[{ value: 'overview', label: 'Overview', panel: panelOverview }, { value: 'details', label: 'Details', panel: panelDetails }, { value: 'settings', label: 'Settings', panel: panelSettings, disabled: true }]}")
 
 //- ============================================================
@@ -657,12 +657,12 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Toast
-	p.text-sm(class="text-fg-muted") Imperative API:
+	p.text-sm.text-fg-muted Imperative API:
 		code toast(msg, opts)
 		| . Bottom-right region;
 		code duration: 0
 		| stays until dismissed.
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Variants
@@ -684,7 +684,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 DataTable
-	p.text-sm(class="text-fg-muted") Styled minimal table — sticky header, optional striping, sortable columns.
+	p.text-sm.text-fg-muted Styled minimal table — sticky header, optional striping, sortable columns.
 	DataTable(
 		columns!="{tableColumns}"
 		rows!="{tableRows}"
@@ -698,8 +698,8 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 DatePicker / DateRangePicker / TimePicker
-	p.text-sm(class="text-fg-muted") All three are Popover + a custom Calendar / time grid — no external date library.
-	.grid.gap-4(class="md:grid-cols-3")
+	p.text-sm.text-fg-muted All three are Popover + a custom Calendar / time grid — no external date library.
+	.grid.gap-4.md:grid-cols-3
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold DatePicker
@@ -718,8 +718,8 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Autocomplete / MultiSelect / TagsInput
-	p.text-sm(class="text-fg-muted") Custom combobox + listbox — arrow keys / Home / End navigate, Enter selects, Esc closes.
-	.grid.gap-4(class="md:grid-cols-3")
+	p.text-sm.text-fg-muted Custom combobox + listbox — arrow keys / Home / End navigate, Enter selects, Esc closes.
+	.grid.gap-4.md:grid-cols-3
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Autocomplete
@@ -741,8 +741,8 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 NumberInput / OtpField / ColorPicker
-	p.text-sm(class="text-fg-muted") Specialised inputs — clamped integers, segmented one-time-passwords, and a hex+swatch combo.
-	.grid.gap-4(class="md:grid-cols-3")
+	p.text-sm.text-fg-muted Specialised inputs — clamped integers, segmented one-time-passwords, and a hex+swatch combo.
+	.grid.gap-4.md:grid-cols-3
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold NumberInput
@@ -753,7 +753,7 @@ section.pt-12.space-y-3
 				h3.text-base.font-semibold OtpField
 			Field(label="6-digit code")
 				OtpField(bind:value!="{otpValue}" length!="{6}")
-			p.text-xs.mt-2(class="text-fg-muted") value: {otpValue || '∅'}
+			p.text-xs.mt-2.text-fg-muted value: {otpValue || '∅'}
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold ColorPicker
@@ -765,7 +765,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Uploader
-	p.text-sm(class="text-fg-muted") Drag and drop or click. Multi-file by default.
+	p.text-sm.text-fg-muted Drag and drop or click. Multi-file by default.
 	Uploader(bind:files!="{uploadFiles}" helper="Up to 10MB each")
 
 //- ============================================================
@@ -773,10 +773,10 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Toggles / ButtonGroup / Toolbar / Separator
-	p.text-sm(class="text-fg-muted") ToggleButton is
+	p.text-sm.text-fg-muted ToggleButton is
 		code .btn-secondary[data-pressed]
 		| — same visual language as buttons, just with a pressed state.
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold ToggleButton + ToggleButtonGroup
@@ -798,10 +798,10 @@ section.pt-12.space-y-3
 					Btn(variant="ghost" size="sm" icon="lucide:bold")
 					Btn(variant="ghost" size="sm" icon="lucide:italic")
 					Btn(variant="ghost" size="sm" icon="lucide:underline")
-					Separator(orientation="vertical" class="mx-1")
+					Separator.mx-1(orientation="vertical")
 					Btn(variant="ghost" size="sm" icon="lucide:list")
 					Btn(variant="ghost" size="sm" icon="lucide:list-ordered")
-					Separator(orientation="vertical" class="mx-1")
+					Separator.mx-1(orientation="vertical")
 					Btn(variant="ghost" size="sm" icon="lucide:link")
 
 //- ============================================================
@@ -809,18 +809,18 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Collapsible / Tooltip (rich)
-	p.text-sm(class="text-fg-muted") Collapsible is one section of expand-collapse (use Accordion for many).
+	p.text-sm.text-fg-muted Collapsible is one section of expand-collapse (use Accordion for many).
 		code rich
 		| swaps Tooltip's compact dark style for a surface-elevated card; ideal for previewing user cards or links.
-	.grid.gap-4(class="md:grid-cols-3")
+	.grid.gap-4.md:grid-cols-3
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Collapsible
 			.space-y-2
 				Collapsible(title="Show details")
-					p.text-sm(class="text-fg-muted") Inline expand-collapse for one section. Use Accordion for many.
+					p.text-sm.text-fg-muted Inline expand-collapse for one section. Use Accordion for many.
 				Collapsible(title="More info")
-					p.text-sm(class="text-fg-muted") Each instance is independent.
+					p.text-sm.text-fg-muted Each instance is independent.
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Tooltip (rich)
@@ -833,7 +833,7 @@ section.pt-12.space-y-3
 						Avatar(name="Ada Lovelace" size="md")
 						.text-sm
 							.font-semibold Ada Lovelace
-							p.text-xs(class="text-fg-muted") First programmer.
+							p.text-xs.text-fg-muted First programmer.
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Tooltip on a link
@@ -845,27 +845,27 @@ section.pt-12.space-y-3
 						a(href="https://svelte.dev" target="_blank" rel="noreferrer") Svelte link
 					.text-sm
 						.font-semibold svelte.dev
-						p.text-xs.mt-1(class="text-fg-muted") Cybernetically enhanced web apps.
+						p.text-xs.mt-1.text-fg-muted Cybernetically enhanced web apps.
 
 //- ============================================================
 //- CONTEXT MENU / HIERARCHICAL / MEGA MENU
 //- ============================================================
 section.pt-12.space-y-3
 	h2 ContextMenu / HierarchicalMenu / MegaMenu
-	p.text-sm(class="text-fg-muted") Right-click + horizontal nav patterns. Hierarchical opens on hover/focus; ContextMenu anchors to the pointer.
+	p.text-sm.text-fg-muted Right-click + horizontal nav patterns. Hierarchical opens on hover/focus; ContextMenu anchors to the pointer.
 	Card
 		+snippet('header')
 			h3.text-base.font-semibold ContextMenu (right-click)
 		ContextMenu(items!="{ctxItems}")
 			+snippet('trigger')
-				.surface.p-6.text-center.text-sm(class="text-fg-muted") Right-click anywhere in this box
+				.surface.p-6.text-center.text-sm.text-fg-muted Right-click anywhere in this box
 
-	Card(class="mt-4")
+	Card.mt-4
 		+snippet('header')
 			h3.text-base.font-semibold HierarchicalMenu
 		HierarchicalMenu(items!="{hierItems}")
 
-	Card(class="mt-4")
+	Card.mt-4
 		+snippet('header')
 			h3.text-base.font-semibold MegaMenu
 		MegaMenu(sections!="{megaSections}")
@@ -875,31 +875,31 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 ScrollArea
-	p.text-sm(class="text-fg-muted") Constrained-height region with native scrollbars. Pass
+	p.text-sm.text-fg-muted Constrained-height region with native scrollbars. Pass
 		code horizontal
 		| for x-axis scroll instead.
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Vertical (default)
-			ScrollArea(class="h-48")
+			ScrollArea.h-48
 				.p-2.space-y-1
 					+each('scrollList as i')
-						.px-3.py-1.5.rounded.text-sm(class="bg-bg-muted") Item {i}
+						.px-3.py-1.5.rounded.text-sm.bg-bg-muted Item {i}
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Horizontal
-			ScrollArea(horizontal!="{true}" class="h-32")
+			ScrollArea.h-32(horizontal!="{true}")
 				.flex.gap-2.p-2
 					+each('scrollList as i')
-						.shrink-0.px-4.py-3.rounded.text-sm.font-medium(class="bg-bg-muted") Card {i}
+						.shrink-0.px-4.py-3.rounded.text-sm.font-medium.bg-bg-muted Card {i}
 
 //- ============================================================
 //- TIMELINE
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Timeline
-	p.text-sm(class="text-fg-muted") Vertical event list with colored dots — pass
+	p.text-sm.text-fg-muted Vertical event list with colored dots — pass
 		code variant
 		| per item to tint.
 	Card
@@ -910,16 +910,16 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.pb-24.space-y-3
 	h2 Image / Audio / Video
-	p.text-sm(class="text-fg-muted") Thin wrappers around the native elements — aspect ratio, loading state, sensible defaults.
-	.grid.gap-4(class="md:grid-cols-3")
+	p.text-sm.text-fg-muted Thin wrappers around the native elements — aspect ratio, loading state, sensible defaults.
+	.grid.gap-4.md:grid-cols-3
 		Card(padded!="{false}")
-			Image(src="https://picsum.photos/id/1043/600/400" alt="Sample" class="aspect-video")
-			.p-3.text-xs(class="text-fg-muted") Image with aspect-video
+			Image.aspect-video(src="https://picsum.photos/id/1043/600/400" alt="Sample")
+			.p-3.text-xs.text-fg-muted Image with aspect-video
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Audio
 			Audio(src="https://www.w3.org/2010/05/sound/sound.mp3")
-			p.text-xs.mt-2(class="text-fg-muted") Native
+			p.text-xs.mt-2.text-fg-muted Native
 				code &lt;audio&gt;
 				| with controls
 		Card(padded!="{false}")
@@ -928,7 +928,7 @@ section.pt-12.pb-24.space-y-3
 				muted!="{true}"
 				class="aspect-video"
 			)
-			.p-3.text-xs(class="text-fg-muted") Native
+			.p-3.text-xs.text-fg-muted Native
 				code &lt;video&gt;
 				| , muted
 
@@ -937,7 +937,7 @@ section.pt-12.pb-24.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 AvatarGroup
-	p.text-sm(class="text-fg-muted") Overlapping avatars with hover lift; truncates to
+	p.text-sm.text-fg-muted Overlapping avatars with hover lift; truncates to
 		code +N
 		| once max is reached.
 	Card
@@ -951,25 +951,25 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 GradientText / AnimatedNumber
-	p.text-sm(class="text-fg-muted") GradientText is CSS-only and free.
+	p.text-sm.text-fg-muted GradientText is CSS-only and free.
 		code AnimatedNumber
 		| lives in the
 		code /motion
 		| subpath since it pulls in Motion One.
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold GradientText
 			.text-3xl.font-bold.tracking-tight
 				GradientText Build for the web — beautifully.
-			p.text-sm.mt-3(class="text-fg-muted") Animated background-position; CSS-only.
+			p.text-sm.mt-3.text-fg-muted Animated background-position; CSS-only.
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold AnimatedNumber
 			.flex.items-end.gap-3
 				.text-5xl.font-bold.leading-none
 					AnimatedNumber(value!="{counter}" duration!="{1.2}")
-				span.text-sm.pb-1(class="text-fg-muted") downloads
+				span.text-sm.pb-1.text-fg-muted downloads
 			.flex.gap-2.mt-4
 				Btn(variant="secondary" size="sm" onclick!="{() => counter += 312}") +312
 				Btn(variant="secondary" size="sm" onclick!="{() => counter = 12345}") set 12 345
@@ -980,7 +980,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 CopyButton / ShinyButton / RippleButton / LiquidButton
-	p.text-sm(class="text-fg-muted") Decorative button variants. The first three are CSS-only; LiquidButton lives in the
+	p.text-sm.text-fg-muted Decorative button variants. The first three are CSS-only; LiquidButton lives in the
 		code /motion
 		| subpath.
 	Card
@@ -995,17 +995,17 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Reveal / Sparkles / GradientBackground
-	p.text-sm(class="text-fg-muted") All three live in the
+	p.text-sm.text-fg-muted All three live in the
 		code /motion
 		| subpath. Free to remix; pause on
 		code prefers-reduced-motion
 		| .
-	.grid.gap-4(class="md:grid-cols-2")
+	.grid.gap-4.md:grid-cols-2
 		Card
 			+snippet('header')
 				h3.text-base.font-semibold Reveal
-			.h-32(class="overflow-hidden")
-				p.text-sm(class="text-fg-muted") Scroll the page — wrappers fade up when entering the viewport.
+			.h-32.overflow-hidden
+				p.text-sm.text-fg-muted Scroll the page — wrappers fade up when entering the viewport.
 			Reveal(direction="up" delay!="{0.1}")
 				.text-base.mt-2 Hello — I revealed myself.
 			Reveal(direction="up" delay!="{0.25}")
@@ -1018,9 +1018,9 @@ section.pt-12.space-y-3
 			.flex.justify-center.py-4
 				Sparkles
 					Btn(variant="primary" icon="lucide:zap") I have sparkles
-	GradientBackground(class="rounded-lg overflow-hidden p-8 mt-4 text-white")
+	GradientBackground.rounded-lg.overflow-hidden.p-8.mt-4.text-white
 		h3.text-2xl.font-semibold GradientBackground
-		p.text-sm.mt-2(class="opacity-90") Looping color-stop animation. CSS-driven; pauses off-screen via IntersectionObserver.
+		p.text-sm.mt-2.opacity-90 Looping color-stop animation. CSS-driven; pauses off-screen via IntersectionObserver.
 
 <script>
 	import { toast } from '@human-synthesis/norns-ui/toast'

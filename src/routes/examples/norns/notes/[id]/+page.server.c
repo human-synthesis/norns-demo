@@ -1,3 +1,6 @@
+import { notes } from '$lib/norns/notes/server/public'
+import { updateNoteSchema } from '$lib/norns/notes/shared/schema'
+
 export load := page.load
 	handler: ({ container, params }) =>
 		id := Number params.id

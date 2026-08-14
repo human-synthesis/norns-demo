@@ -14,11 +14,20 @@ export default defineConfig({
 		// Closes Tailwind v4's extractor blind spot on `.cls(` chains.
 		pugTailwindExtract(),
 		nornsCivetPlugin(),
+		// exportDirs was removed in @human-synthesis/norns 0.0.11 — feature
+		// exports (notes, schemas, services) are imported explicitly now.
 		nornsAutoImport({
-			exportDirs: ['src/lib', 'src/routes'],
 			components: ui.components
 		}),
 		tailwindcss(),
 		sveltekit()
-	]
+	],
+	// In workspace mode @human-synthesis/norns is a symlink into the kit fork,
+	// which has its own @sveltejs/kit under pnpm. Left external, its server
+	// modules would load THAT copy (realpath resolution) and crash with
+	// "Could not get the request store" — two kit instances, two
+	// AsyncLocalStorage worlds. Bundling norns through Vite dedupes its kit
+	// imports onto the app's single copy.
+	resolve: { dedupe: ['@sveltejs/kit'] },
+	ssr: { noExternal: ['@human-synthesis/norns'] }
 });

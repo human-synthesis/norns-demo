@@ -3,6 +3,8 @@ import { mkdirSync } from 'node:fs'
 import { dirname } from 'node:path'
 
 import type { Container } from '@human-synthesis/norns/server'
+import { NotesRepo } from './repo'
+import { NotesService } from './service'
 
 DB_PATH := 'data/notes.db'
 
