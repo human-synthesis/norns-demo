@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+
+/* Pug-shorthand class sidecar — see norns-app/src/app.css for details. */
+@source "../node_modules/.cache/norns/tailwind-pug-classes.html";
+
+@import '@human-synthesis/norns-ui/styles';

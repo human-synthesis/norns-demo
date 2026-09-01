@@ -1,0 +1,1 @@
+{ "dialect": "d1", "name": "crm", "modules": ["companies", "contacts", "deals", "activities"] }

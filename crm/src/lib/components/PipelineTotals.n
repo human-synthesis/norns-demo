@@ -1,0 +1,64 @@
+.pipeline-totals
+	+each('rows as row (row.key)')
+		.pipeline-total(data-status!="{row.key}")
+			span.pipeline-total-label {row.label}
+			span.pipeline-total-count {row.count}
+			span.pipeline-total-amount {row.formatted}
+	.pipeline-total.pipeline-total-all(data-status="all")
+		span.pipeline-total-label Total
+		span.pipeline-total-count {allCount}
+		span.pipeline-total-amount {allFormatted}
+
+<script>
+	{ data = {} } .= $props()
+
+	fmt := new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
+
+	labelOf := (key) => {
+		const spaced = String(key).replace(/[_-]+/g, ' ')
+		return spaced.charAt(0).toUpperCase() + spaced.slice(1)
+	}
+
+	grouped := $derived (data && typeof data === 'object' && !Array.isArray(data)) ? data : {}
+
+	rows := $derived.by => {
+		return Object.entries(grouped).map ([key, cards]) =>
+			const list = Array.isArray(cards) ? cards : []
+			const total = list.reduce(((sum, card) => sum + (Number(card?.amount) || 0)), 0)
+			{ key, label: labelOf(key), count: list.length, total, formatted: fmt.format(total) }
+	}
+
+	allCount := $derived rows.reduce(((sum, row) => sum + row.count), 0)
+	allFormatted := $derived fmt.format(rows.reduce(((sum, row) => sum + row.total), 0))
+</script>
+
+<style>
+	.pipeline-totals {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-3, 0.75rem);
+		margin-block-end: var(--spacing-3, 0.75rem);
+	}
+	.pipeline-total {
+		display: flex;
+		align-items: baseline;
+		gap: var(--spacing-2, 0.5rem);
+		border: 1px solid var(--color-border, color-mix(in oklab, currentColor 12%, transparent));
+		border-radius: var(--radius-md, 0.375rem);
+		padding: var(--spacing-1, 0.25rem) var(--spacing-3, 0.75rem);
+		font-size: 0.8125rem;
+	}
+	.pipeline-total-label {
+		font-weight: 600;
+	}
+	.pipeline-total-count {
+		opacity: 0.6;
+		font-variant-numeric: tabular-nums;
+	}
+	.pipeline-total-amount {
+		font-variant-numeric: tabular-nums;
+	}
+	.pipeline-total-all {
+		background: var(--color-surface-2, color-mix(in oklab, currentColor 4%, transparent));
+	}
+</style>
