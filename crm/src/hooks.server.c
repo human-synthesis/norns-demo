@@ -74,7 +74,9 @@ opts := {
 	triggers
 	serializer: tronSerializer()
 	cronShim: import.meta.env.DEV
-	extraHandle: import.meta.env.DEV and !auth ? [d1Handle, devUserHandle] : d1Handle
+	// Demo mode: with no better-auth configured, every visitor acts as the
+	// seeded 'dev' user — in production too, so the deployed sample has data.
+	extraHandle: !auth ? [d1Handle, devUserHandle] : d1Handle
 }
 if auth then opts.auth = auth
 

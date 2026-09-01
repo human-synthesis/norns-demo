@@ -1,3 +1,4 @@
 .norns/
 data/
 node_modules/
+wrangler.json
