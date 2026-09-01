@@ -12,7 +12,7 @@
     "migrate": "norns migrate"
   },
   "devDependencies": {
-    "@human-synthesis/norns": "^0.0.16",
+    "@human-synthesis/norns": "^0.1.0",
     "@human-synthesis/norns-core": "^0.0.10",
     "@human-synthesis/norns-ui": "workspace:*",
     "@sveltejs/adapter-auto": "^3.3.1",
@@ -27,7 +27,7 @@
   },
   "packageManager": "bun@1.2.16",
   "dependencies": {
-    "@human-synthesis/norns-tron": "^0.0.1",
+    "@human-synthesis/norns-tron": "^0.1.0",
     "better-sqlite3": "^12.9.0",
     "lodash": "^4.18.1",
     "valibot": "^1.4.0"
