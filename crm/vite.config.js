@@ -36,5 +36,10 @@ export default defineConfig({
 	// AsyncLocalStorage worlds. Bundling norns through Vite dedupes its kit
 	// imports onto the app's single copy.
 	resolve: { dedupe: ['@sveltejs/kit'] },
-	ssr: { noExternal: ['@human-synthesis/norns'] }
+	// norns-ui ships the same raw Civet+Pug `.n` sources as norns, so it gets
+	// the same treatment — and it must also be kept away from esbuild's
+	// dependency optimizer, which has no loader for `.n` files: if it ever
+	// pre-bundles them, client hydration breaks while SSR still looks fine.
+	ssr: { noExternal: ['@human-synthesis/norns', '@human-synthesis/norns-ui'] },
+	optimizeDeps: { exclude: ['@human-synthesis/norns-ui'] }
 });
