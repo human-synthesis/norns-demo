@@ -1,0 +1,20 @@
++if('column === "status"')
+	span.status-pill(data-status!="{value}") {String(value ?? '')}
++else
+	| {String(value ?? '')}
+
+<script>
+	{ row, column, value } .= $props()
+</script>
+
+<style>
+	.status-pill {
+		border: 1px solid currentColor;
+		border-radius: 999px;
+		padding: 0.1rem 0.5rem;
+		font-size: 0.75rem;
+		text-transform: capitalize;
+	}
+	.status-pill[data-status='won'] { color: var(--color-primary-600, seagreen) }
+	.status-pill[data-status='lost'] { opacity: 0.5 }
+</style>
