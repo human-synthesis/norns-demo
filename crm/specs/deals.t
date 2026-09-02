@@ -69,7 +69,8 @@
   "pages": {
     "leads": {
       "route": "/leads",
-      "components": [{ "cell": "deals.Snippet.statusCell", "table": "deals.Query.inbox" }]
+      "components": [{ "cell": "deals.Snippet.statusCell", "table": "deals.Query.inbox" }],
+      "expect": [{ "role": "table" }]
     },
     "pipeline": {
       "route": "/deals",

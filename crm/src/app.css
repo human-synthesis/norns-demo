@@ -4,3 +4,6 @@
 @source "../node_modules/.cache/norns/tailwind-pug-classes.html";
 
 @import '@human-synthesis/norns-ui/styles';
+
+/* BUILD WIRING ONLY — do not add styles here (D42). Theme = app.settings.tokens;
+ * component styles = the owning unit's own scoped <style> block. */

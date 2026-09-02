@@ -3,7 +3,9 @@
 Spec-first sample app: 4 modules, 8 entities (Company, Tag, Contact, Note, Deal,
 Lead, Activity, Task), authored purely as TRON specs in `specs/`. Everything under
 `.norns/generated/` is emitted by the kernel and gitignored; `src/` holds custom
-code only (one file: `deals.Action.reprice` body).
+code only (the `reprice` action body, the D-05 retrofit's mailer job / Stripe
+webhook bodies, and the `statusCell` snippet). `tests/smoke.test.js` is a 13-line
+bridge — e2e coverage is derived from the specs (smoke matrix + `pages.*.expect`).
 
 ## Regenerate
 
