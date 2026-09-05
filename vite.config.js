@@ -28,6 +28,8 @@ export default defineConfig({
 	// "Could not get the request store" — two kit instances, two
 	// AsyncLocalStorage worlds. Bundling norns through Vite dedupes its kit
 	// imports onto the app's single copy.
+	// Accept reverse-proxied Host headers in dev (norns lint: vite/allowed-hosts).
+	server: { allowedHosts: true },
 	resolve: { dedupe: ['@sveltejs/kit'] },
 	ssr: { noExternal: ['@human-synthesis/norns'] }
 });

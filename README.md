@@ -41,6 +41,19 @@ bun run migrate status    # list applied + pending
 bun run migrate create <feature>/<name>   # scaffold a new migration
 ```
 
+## Check
+
+```sh
+bun run lint         # norns lint: scans .n / .c / vite.config for known Civet + Pug pitfalls
+bun run check        # svelte-kit sync + svelte-check over the .js / .ts / .svelte parts
+```
+
+`svelte-check` covers the vanilla `examples/svelte/` side and any `.js` / `.ts` files; it
+does not read `.n` or `.c`. The Norns side is covered by `norns lint` and the compile step
+in `bun run build`. This repo has no test suite of its own; the framework suites run with
+`bun test` inside each framework repo (`norns/packages/norns`, `norns-core/packages/norns-core`,
+`norns-ui`, `norns-tron`, `norns-mcp`).
+
 ## What's in here
 
 ```
