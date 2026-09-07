@@ -31,6 +31,9 @@
 		Btn(variant="secondary" size="sm" icon="lucide:rotate-ccw" onclick!="{handleReset}") Reset
 
 <script>
+	import { mode, board, turn, stats, result, play, reset, setMode, incrementStats } from './store'
+	import { scheduleAiMove } from './ai'
+
 	notified .= $state false
 
 	$effect =>

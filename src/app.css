@@ -16,7 +16,9 @@
  * The sidecar file is auto-generated on dev start and on every `.n`
  * change. Do not edit it; it's in `.gitignore`. */
 @source "./**/*.n";
-@source "./.tailwind-pug-classes.html";
+/* Sidecar written by pugTailwindExtract() (vite.config.js): every class found
+ * in Pug shorthand chains, which Tailwind's scanner cannot read directly. */
+@source "../node_modules/.cache/norns/tailwind-pug-classes.html";
 
 /*
  * App-wide styles.
