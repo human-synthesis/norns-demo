@@ -20,7 +20,7 @@
 		.flex.justify-center.pb-10.pt-4
 			.inline-flex.items-center.gap-2.text-xs.text-neutral-400.font-mono
 				span.w-2.h-2.rounded-full(class="bg-violet-400 animate-pulse")
-				| norns-ui v0.0.7 · early access
+				| norns-ui v{__NORNS_UI_VERSION__} · early access
 
 <script>
 	import { page } from '$app/state'

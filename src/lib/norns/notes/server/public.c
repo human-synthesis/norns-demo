@@ -4,7 +4,7 @@ import type { NotesService, Note, NoteInput } from './service'
 svc := (c: Container) => c.resolve('notes.service') as NotesService
 
 export notes := (c: Container) => {
-	list: (): Note[] => svc(c).list()
+	list: (): Promise<Note[]> => svc(c).list()
 	get: (id: number) => svc(c).get(id)
 	create: (input: NoteInput) => svc(c).create(input)
 	update: (id: number, input: NoteInput) => svc(c).update(id, input)

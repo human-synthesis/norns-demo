@@ -16,12 +16,12 @@ import { createNoteSchema, noteWire } from '$lib/norns/notes/shared/schema'
 //   { data } := await api.get '/api/notes'        // auto-decoded either way
 export GET := route
 	serializer: tronSerializer({ schema: noteWire })
-	handler: ({ container }) =>
-		data: notes(container).list()
+	handler: async ({ container }) =>
+		data: await notes(container).list()
 
 // POST /api/notes — same validation as the form action, but as an API
 // endpoint. Accepts JSON, form, or TRON request bodies.
 export POST := route
 	input: createNoteSchema
-	handler: ({ input, container }) =>
-		id: Number notes(container).create input
+	handler: async ({ input, container }) =>
+		id: await notes(container).create input

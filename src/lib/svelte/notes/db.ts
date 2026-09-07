@@ -1,7 +1,3 @@
-import Database from 'better-sqlite3';
-import { mkdirSync } from 'node:fs';
-import { dirname } from 'node:path';
-
 export type Note = {
 	id: number;
 	title: string;
@@ -10,17 +6,15 @@ export type Note = {
 	updated_at: number;
 };
 
-const DB_PATH = 'data/notes.db';
-mkdirSync(dirname(DB_PATH), { recursive: true });
-
-export const db = new Database(DB_PATH);
-db.pragma('journal_mode = WAL');
-db.exec(`
-	CREATE TABLE IF NOT EXISTS notes (
-		id         INTEGER PRIMARY KEY AUTOINCREMENT,
-		title      TEXT NOT NULL,
-		body       TEXT NOT NULL DEFAULT '',
-		created_at INTEGER NOT NULL,
-		updated_at INTEGER NOT NULL
-	)
-`);
+// Cloudflare D1. The binding is per request: wrangler injects it in
+// production and adapter-cloudflare's platform proxy injects it under
+// `vite dev`. There is no process-wide connection to open.
+export function db(platform: App.Platform | undefined): D1Database {
+	const binding = platform?.env?.DB;
+	if (!binding) {
+		throw new Error(
+			'D1 binding `DB` is missing — check [[d1_databases]] in wrangler.toml and run through wrangler or the adapter platform proxy'
+		);
+	}
+	return binding;
+}

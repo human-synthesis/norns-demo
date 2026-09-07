@@ -15,17 +15,17 @@ export class NotesService
   repo: NotesRepo
   constructor(@repo: NotesRepo)
 
-  list(): Note[]
+  list(): Promise<Note[]>
     @repo.list()
 
-  get(id: number): Note | undefined
+  get(id: number): Promise<Note | null>
     @repo.get id
 
-  create(input: NoteInput): number | bigint
+  create(input: NoteInput): Promise<number>
     @repo.create input.title, input.body
 
-  update(id: number, input: NoteInput): void
+  update(id: number, input: NoteInput): Promise<void>
     @repo.update id, input.title, input.body
 
-  remove(id: number): void
+  remove(id: number): Promise<void>
     @repo.remove id

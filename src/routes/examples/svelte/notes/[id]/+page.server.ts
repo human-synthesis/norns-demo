@@ -2,17 +2,18 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import * as v from 'valibot';
 import type { Actions, PageServerLoad } from './$types';
 import * as notes from '$lib/svelte/notes/service';
+import { db } from '$lib/svelte/notes/db';
 import { updateNoteSchema } from '$lib/svelte/notes/schema';
 
-export const load: PageServerLoad = ({ params }) => {
+export const load: PageServerLoad = async ({ params, platform }) => {
 	const id = Number(params.id);
-	const note = notes.get(id);
+	const note = await notes.get(db(platform), id);
 	if (!note) throw error(404, 'note not found');
 	return { note };
 };
 
 export const actions: Actions = {
-	update: async ({ request, params }) => {
+	update: async ({ request, params, platform }) => {
 		const id = Number(params.id);
 		const data = await request.formData();
 		const result = v.safeParse(updateNoteSchema, {
@@ -20,12 +21,12 @@ export const actions: Actions = {
 			body: data.get('body')?.toString() ?? ''
 		});
 		if (!result.success) return fail(400, { errors: result.issues });
-		notes.update(id, result.output);
+		await notes.update(db(platform), id, result.output);
 		return { saved: true };
 	},
 
-	delete: ({ params }) => {
-		notes.remove(Number(params.id));
+	delete: async ({ params, platform }) => {
+		await notes.remove(db(platform), Number(params.id));
 		throw redirect(303, '/examples/svelte/notes');
 	}
 };

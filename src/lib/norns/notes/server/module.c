@@ -1,18 +1,17 @@
-import Database from 'better-sqlite3'
-import { mkdirSync } from 'node:fs'
-import { dirname } from 'node:path'
-
+import { getScope } from '@human-synthesis/norns/server'
 import type { Container } from '@human-synthesis/norns/server'
 import { NotesRepo } from './repo'
 import { NotesService } from './service'
 
-DB_PATH := 'data/notes.db'
-
+// Cloudflare D1. The binding arrives per request on `event.platform.env.DB`
+// (wrangler in production, adapter-cloudflare's platform proxy under
+// `vite dev`), so `db` is a transient binding read from the current request
+// scope rather than a process-wide singleton. Repo and service are transient
+// too — they close over that request's `db`.
 export default (app: Container) =>
-	app.single 'db', =>
-		mkdirSync dirname(DB_PATH), { recursive: true }
-		db := new Database DB_PATH
-		db.pragma 'journal_mode = WAL'
+	app.bind 'db', =>
+		db := getScope()?.event?.platform?.env?.DB
+		throw new Error 'D1 binding `DB` is missing — check [[d1_databases]] in wrangler.toml and run through wrangler or the adapter platform proxy' unless db
 		db
-	app.single 'notes.repo', (c: Container) => new NotesRepo c.resolve('db')
-	app.single 'notes.service', (c: Container) => new NotesService c.resolve('notes.repo')
+	app.bind 'notes.repo', (c: Container) => new NotesRepo c.resolve('db')
+	app.bind 'notes.service', (c: Container) => new NotesService c.resolve('notes.repo')
