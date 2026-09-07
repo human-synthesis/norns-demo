@@ -1,0 +1,95 @@
+section.animate-in.space-y-3
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/tron") ← TRON examples
+	h1.text-4xl.font-bold.tracking-tight.leading-none
+		GradientText Server-paged table
+	p.max-w-prose.leading-relaxed(class="text-fg-muted")
+		| The page owns paging, sorting and search state (
+		code useList()
+		| ); the server owns the data. Every change becomes
+		code GET /api/notes?page&pageSize&sort&dir&q
+		| , validated by
+		code listQuery()
+		| and answered in schema mode — rows as positional arrays tagged
+		code #notes.v1
+		| , decoded by the contract the client already imports.
+
+section.animate-in-delayed.pt-8.space-y-4
+	.flex.flex-wrap.items-center.gap-3
+		Input(type="search" placeholder="Search title or body…" bind:value!="{list.q}" class="max-w-xs")
+		Select(bind:value!="{list.pageSize}" class="w-28" aria-label="Rows per page")
+			option(value="10") 10 rows
+			option(value="25") 25 rows
+			option(value="50") 50 rows
+			option(value="100") 100 rows
+		span.text-sm(class="text-fg-muted") {list.total} notes
+		.flex-1
+		Btn(variant="secondary" size="sm" icon="lucide:refresh-cw" onclick!="{() => list.refresh()}") Refresh
+		Btn(variant="secondary" size="sm" icon="lucide:sprout" loading!="{seeding}" onclick!="{seed}") Seed 500 notes
+
+	+if('list.error')
+		Banner(variant="danger" icon="lucide:alert-triangle") {list.error.message}
+
+	DataTable(
+		columns!="{columns}"
+		rows!="{list.rows}"
+		bind:sortKey!="{list.sort}"
+		bind:sortDir!="{list.dir}"
+		loading!="{list.loading}"
+		striped!="{true}"
+		stickyHeader!="{true}"
+		dense!="{true}"
+		emptyMessage="No notes — seed some, or create one on the Notes example"
+		onrowclick!="{(row) => goto(`/examples/norns/notes/${row.id}`)}"
+	)
+
+	.flex.flex-wrap.items-center.justify-between.gap-3
+		Pagination(bind:page!="{list.page}" total!="{list.total}" pageSize!="{list.pageSize}")
+		code.text-xs(class="text-fg-subtle") GET /api/notes?{list.params}
+
+section.pt-10.space-y-2
+	h2.text-lg.font-semibold What to look at
+	ul.list-disc.pl-5.space-y-1.text-sm(class="text-fg-muted")
+		li
+			| Network tab: the response body is
+			code #notes.v1
+			| followed by plain JSON with positional rows — no keys repeated per row, no shape declarations.
+		li
+			| Sort by a column that is not in
+			code noteSortKeys
+			| and the route answers 400 with a valibot-style issue; try
+			code /api/notes?sort=password
+			| .
+		li
+			| Out-of-order responses are dropped: type fast and only the last query lands.
+
+<script>
+	import { goto } from '$app/navigation'
+	import { useList } from '@human-synthesis/norns-ui/list'
+	import { toast } from '@human-synthesis/norns-ui/toast'
+	import { listNotes, seedNotes } from '$lib/norns/notes/client/api'
+
+	list := useList listNotes, { sort: 'updated_at', dir: 'desc', pageSize: 25, debounce: 150 }
+
+	date := (v) => new Date(Number(v)).toLocaleDateString()
+	stamp := (v) => new Date(Number(v)).toLocaleString()
+
+	columns := [
+		{ key: 'id', label: 'id', width: '4rem' },
+		{ key: 'title', label: 'Title', sortable: true },
+		{ key: 'body', label: 'Body', cellClass: 'max-w-md truncate text-fg-muted', format: (v) => String(v ?? '').slice(0, 80) },
+		{ key: 'created_at', label: 'Created', sortable: true, width: '8rem', format: date },
+		{ key: 'updated_at', label: 'Updated', sortable: true, width: '11rem', format: stamp },
+	]
+
+	seeding .= $state false
+	seed := async =>
+		seeding = true
+		try
+			{ inserted } := await seedNotes 500
+			toast `Inserted ${inserted} notes`, { variant: 'success' }
+			await list.refresh()
+		catch e
+			toast e?.message ?? 'Seeding failed', { variant: 'error' }
+		finally
+			seeding = false
+</script>

@@ -18,9 +18,9 @@
     "deploy": "bun run build && wrangler deploy"
   },
   "devDependencies": {
-    "@human-synthesis/norns": "^0.0.18",
+    "@human-synthesis/norns": "^0.0.19",
     "@human-synthesis/norns-core": "^0.0.11",
-    "@human-synthesis/norns-ui": "^0.0.13",
+    "@human-synthesis/norns-ui": "^0.0.14",
     "@cloudflare/workers-types": "^5",
     "@sveltejs/adapter-cloudflare": "^7",
     "@sveltejs/kit": "^2.70.3",
@@ -35,7 +35,7 @@
   },
   "packageManager": "bun@1.3.14",
   "dependencies": {
-    "@human-synthesis/norns-tron": "^0.0.2",
+    "@human-synthesis/norns-tron": "^0.0.3",
     "better-sqlite3": "^12.9.0",
     "lodash": "^4.18.1",
     "valibot": "^1.4.0"

@@ -1,0 +1,106 @@
+section.animate-in.space-y-3
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/tron") ← TRON examples
+	h1.text-4xl.font-bold.tracking-tight.leading-none
+		GradientText Agent-facing export
+	p.max-w-prose.leading-relaxed(class="text-fg-muted")
+		code GET /api/notes/export
+		| returns the whole table. Ask for it with
+		code Accept: application/tron
+		| and the payload becomes self-describing TRON — declarations first, then positional rows — which an LLM tool or any third party can read cold at a fraction of the tokens. The route also caches the encoded body per Accept variant for 60 s.
+
+section.animate-in-delayed.pt-8.space-y-4
+	.flex.flex-wrap.items-center.gap-3
+		Btn(variant="secondary" size="sm" icon="lucide:refresh-cw" loading!="{loading}" onclick!="{fetchBoth}") Fetch both
+		+if('json && tron')
+			Badge(variant="success") {pct(json.bytes, tron.bytes)}% fewer bytes
+			Badge(variant="primary") ~{pct(tokens(json.text), tokens(tron.text))}% fewer tokens
+	+if('error')
+		Banner(variant="danger" icon="lucide:alert-triangle") {error.message}
+	+if('json && tron')
+		.grid.gap-4(class="md:grid-cols-2")
+			+each('[json, tron] as r')
+				Card
+					+snippet('header')
+						.flex.items-center.justify-between.gap-2
+							h3.text-base.font-semibold {r.label}
+							code.text-xs(class="text-fg-subtle") {r.type}
+					dl.grid.grid-cols-2.gap-x-4.gap-y-1.text-sm
+						dt(class="text-fg-muted") bytes
+						dd.font-mono {r.bytes.toLocaleString()}
+						dt(class="text-fg-muted") tokens (≈ chars / 4)
+						dd.font-mono {tokens(r.text).toLocaleString()}
+						dt(class="text-fg-muted") fetch
+						dd.font-mono {r.ms.toFixed(1)} ms
+						dt(class="text-fg-muted") x-norns-cache
+						dd.font-mono {r.cache ?? '—'}
+						dt(class="text-fg-muted") etag
+						dd.font-mono.truncate {r.etag ?? '—'}
+					pre.mt-3.text-xs.overflow-auto.max-h-64.rounded.p-3(class="bg-bg-muted")
+						| {preview(r.text)}
+
+section.pt-10.space-y-3
+	h2.text-lg.font-semibold From the terminal
+	pre.text-xs.overflow-auto.rounded.p-3(class="bg-bg-muted")
+		| curl -s {origin}/api/notes/export | head -c 300
+		| curl -s -H 'Accept: application/tron' {origin}/api/notes/export | head -20
+		| curl -sI -H 'Accept: application/tron' {origin}/api/notes/export | grep -iE 'etag|cache'
+	ul.list-disc.pl-5.space-y-1.text-sm(class="text-fg-muted")
+		li
+			| The TRON body starts with
+			code class C0: id,title,body,created_at,updated_at
+			| and
+			code table C0: $
+			| — enough for a reader that has never seen the contract.
+		li
+			| JSON and TRON are separate cache entries (
+			code Vary: accept
+			| ); a second fetch within a minute answers
+			code x-norns-cache: hit
+			| on a deployed Worker (locally the proxy's Cache API is a no-op), and
+			code If-None-Match
+			| gets a 304 anywhere.
+		li
+			| Token counts here are a chars ÷ 4 estimate; the measured range on tabular data is 26–61% fewer.
+
+<script>
+	json .= $state null
+	tron .= $state null
+	loading .= $state false
+	error .= $state null
+
+	origin := $derived page.url.origin
+
+	grab := async (accept, label) =>
+		t0 := performance.now()
+		// no-store: bypass the browser cache so every click reaches the route
+		// and the edge-cache header is visible.
+		res := await fetch '/api/notes/export', { headers: { accept }, cache: 'no-store' }
+		text := await res.text()
+		throw new Error `${res.status} ${text.slice(0, 120)}` unless res.ok
+		{
+			label
+			text
+			bytes: new TextEncoder().encode(text).length
+			ms: performance.now() - t0
+			cache: res.headers.get('x-norns-cache')
+			etag: res.headers.get('etag')
+			type: res.headers.get('content-type')
+		}
+
+	fetchBoth := async =>
+		loading = true
+		error = null
+		try
+			json = await grab 'application/json', 'JSON'
+			tron = await grab 'application/tron', 'TRON'
+		catch e
+			error = e
+		finally
+			loading = false
+
+	onMount fetchBoth
+
+	tokens := (text) => Math.round(text.length / 4)
+	pct := (a, b) => (a > 0 ? Math.round((1 - b / a) * 100) : 0)
+	preview := (text) => text.length > 1200 ? text.slice(0, 1200) + '\n…' : text
+</script>

@@ -1,0 +1,117 @@
+section.animate-in.space-y-3
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/tron") ← TRON examples
+	h1.text-4xl.font-bold.tracking-tight.leading-none
+		GradientText Columnar stats
+	p.max-w-prose.leading-relaxed(class="text-fg-muted")
+		code GET /api/notes/stats
+		| is a purely numeric table (notes per day, characters per day). Served with
+		code tronSerializer(columnar: true)
+		| and read with
+		code api.tape()
+		| , it lands in one
+		code Float64Array
+		| — no row objects, roughly 3× faster than JSON.parse — and the route caches the encoded body at the edge for 30 s.
+
+section.animate-in-delayed.pt-8.space-y-4
+	.flex.flex-wrap.items-center.gap-3
+		Btn(variant="secondary" size="sm" icon="lucide:refresh-cw" loading!="{loading}" onclick!="{load}") Reload
+		+if('table')
+			Badge(variant="primary") {table.rows} days × {table.cols} columns
+			Badge(variant!="{fast ? 'success' : 'default'}") {fast ? 'WASM tape' : 'JS fallback'}
+			Badge {ms.toFixed(1)} ms fetch + decode
+	+if('error')
+		Banner(variant="danger" icon="lucide:alert-triangle") {error.message}
+	+if('table && table.rows === 0')
+		Banner(variant="info" icon="lucide:info") No notes yet — seed some on the table page.
+	+if('bars.length > 0')
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Notes created per day
+			svg.w-full.h-48(viewBox!="{`0 0 ${W} ${H}`}" preserveAspectRatio="none" role="img" aria-label="Notes per day")
+				+each('bars as b, i')
+					rect(
+						x!="{i * step + step * 0.1}"
+						y!="{H - b.h}"
+						width!="{step * 0.8}"
+						height!="{b.h}"
+						fill="var(--color-primary-500)"
+					)
+						title {b.label}: {b.count} notes, {b.chars} chars
+			.flex.justify-between.text-xs.mt-2(class="text-fg-subtle")
+				span {bars[0].label}
+				span peak {peak} / day
+				span {bars[bars.length - 1].label}
+
+section.pt-10.space-y-2
+	h2.text-lg.font-semibold What to look at
+	ul.list-disc.pl-5.space-y-1.text-sm(class="text-fg-muted")
+		li
+			| The response body is
+			code class C0: day,count,chars
+			| followed by
+			code C0(20321,7,412)
+			| rows — the shape the WASM scanner validates and reads directly.
+		li
+			| Reload within 30 s: the response header
+			code x-norns-cache
+			| flips to
+			code hit
+			| on a deployed Worker (the dev platform proxy's Cache API is a no-op, so locally it stays
+			code miss
+			| ), and browsers revalidate with the ETag.
+		li
+			| Without WASM (strict CSP) or when the server answered JSON, the same call still returns the same
+			code fields / rows / cols / tape
+			| shape.
+
+<script>
+	import { wasmAvailable } from '@human-synthesis/norns-tron'
+	import { noteStats } from '$lib/norns/notes/client/api'
+
+	W := 600
+	H := 160
+
+	table .= $state null
+	loading .= $state false
+	ms .= $state 0
+	error .= $state null
+	fast .= $state false
+
+	load := async =>
+		loading = true
+		error = null
+		t0 := performance.now()
+		try
+			table = await noteStats()
+			ms = performance.now() - t0
+			fast = wasmAvailable()
+		catch e
+			error = e
+		finally
+			loading = false
+
+	onMount load
+
+	// Read straight off the tape: row i, column k lives at tape[i * cols + k].
+	bars := $derived.by =>
+		return [] unless table && table.rows > 0
+		{ fields, rows, cols, tape } := table
+		di := fields.indexOf 'day'
+		ci := fields.indexOf 'count'
+		hi := fields.indexOf 'chars'
+		max .= 1
+		for i of [0...rows]
+			max = Math.max max, tape[i * cols + ci]
+		for i of [0...rows]
+			count := tape[i * cols + ci]
+			day := tape[i * cols + di]
+			{
+				count
+				chars: tape[i * cols + hi]
+				label: new Date(day * 86400000).toISOString().slice(0, 10)
+				h: Math.max(2, (count / max) * (H - 4))
+			}
+
+	peak := $derived bars.reduce ((m, b) => Math.max(m, b.count)), 0
+	step := $derived W / Math.max(1, bars.length)
+</script>

@@ -12,7 +12,10 @@ src/
   routes/examples/norns/tic-tac-toe/ Game.n, Board.n, Cell.n, store.c, ai.c
   routes/examples/svelte/            the vanilla twins (.svelte / .ts) — do not "convert" them
   routes/examples/ui/+page.n         norns-ui showcase
-  routes/api/notes/+server.c         JSON / TRON endpoint
+  routes/api/notes/+server.c         paged list (listQuery + schema-mode TRON) and create
+  routes/api/notes/{search,stats,export,seed}/+server.c  picker options, columnar stats (cached), agent-facing export (cached), demo seeding
+  routes/examples/tron/              the five TRON payload examples: table, picker, stats, form, agent
+  lib/norns/notes/client/api.c       browser API client (createApi with the noteWire contract) + typed helpers
   lib/norns/notes/                   server/{module,repo,service,public}.c + shared/schema.c
   lib/svelte/notes/                  vanilla data layer
 migrations/notes/*.sql               applied with `bun run db:migrate` (local D1 under .wrangler/state/) — not `norns migrate up`
@@ -66,6 +69,8 @@ Template syntax that works: `+if('cond')` / `+elseif('cond')` / `+else`, `+each(
 - **`svelte-check` never reads `.n` or `.c` files.** `bun run check:svelte` only covers `.js` / `.ts` / `.svelte`; in a workspace checkout it also reports framework-source errors reached through symlinks. It is not the pass signal for Norns code — `norns check` is.
 - **Type-check is not feature verification.** Verify through the request path: `curl` against `bun run dev`, hitting POST actions and not just GET pages — that's where Bun-vs-Node and Pug-vs-Svelte issues surface.
 - **The notes feature needs a D1 binding** (`event.platform.env.DB`, supplied by adapter-cloudflare's platform proxy in dev), so it has no unit test here; exercise it through `bun run db:migrate` + the dev server. Deploys are user-gated.
+- **`route({ cache })` hits only show on a deployed Worker.** The dev platform proxy's Cache API is a no-op, so `x-norns-cache` is always `miss` locally; `ETag` / 304 handling works everywhere.
+- **Braces in Pug text are Svelte expressions.** `code tronSerializer({ columnar: true })` fails to compile (`Expected token }`); write prose without literal `{ }` or use `{'{'}`.
 
 ### Verification workflow — run before claiming done
 

@@ -1,0 +1,73 @@
+section.animate-in.space-y-3
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/tron") ← TRON examples
+	h1.text-4xl.font-bold.tracking-tight.leading-none
+		GradientText API-mode form
+	p.max-w-prose.leading-relaxed(class="text-fg-muted")
+		| The same
+		code Form
+		| /
+		code Field
+		| markup as the Notes example, but with a
+		code submit
+		| prop: the fields are posted as TRON to
+		code POST /api/notes
+		| through
+		code api.post()
+		| instead of a form action. Validation runs once, in the route — a 400 with
+		code issues
+		| lands on the matching Field.
+
+section.animate-in-delayed.pt-8
+	.grid.gap-6(class="md:grid-cols-2")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Create a note
+			Form(submit!="{createNote}" onsuccess!="{onCreated}" bind:submitting!="{submitting}" resetOnSuccess!="{true}")
+				Field(label="Title" name="title" required)
+					Input(name="title" placeholder="leave empty to see a server-side validation error")
+				Field(label="Body" name="body" help="Optional")
+					Textarea(name="body" placeholder="body (optional)…" rows="3")
+				Btn(type="submit" variant="primary" icon="lucide:send" loading!="{submitting}") Create via API
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Created this session
+			+if('created.length === 0')
+				p.text-sm(class="text-fg-muted") Nothing yet.
+			+else
+				ul.space-y-1.text-sm
+					+each('created as n (n.id)')
+						li
+							a.nav-link(href!="/examples/norns/notes/{n.id}") {n.title}
+							span.text-xs.ml-2(class="text-fg-subtle") id {n.id}
+
+section.pt-10.space-y-2
+	h2.text-lg.font-semibold What to look at
+	ul.list-disc.pl-5.space-y-1.text-sm(class="text-fg-muted")
+		li
+			| Submit with an empty title: the route throws
+			code error(400, issues)
+			| , the client surfaces it as
+			code ApiError.body.issues
+			| , and Form feeds those issues into the same context the action path uses.
+		li
+			| Small bodies go out as plain JSON under the
+			code application/tron
+			| content type (valid TRON); the route reads both through the serializer's
+			code parseBody
+			| .
+		li
+			| Form actions still work unchanged — SvelteKit only dispatches form-encoded POSTs to them, which is why JSON / TRON clients target a
+			code +server.c
+			| route.
+
+<script>
+	import { toast } from '@human-synthesis/norns-ui/toast'
+	import { createNote } from '$lib/norns/notes/client/api'
+
+	submitting .= $state false
+	created .= $state []
+
+	onCreated := (result, values) =>
+		created = [{ id: result.id, title: String(values.title) }, ...created]
+		toast `Created note ${result.id}`, { variant: 'success' }
+</script>

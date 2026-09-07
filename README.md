@@ -5,6 +5,7 @@
 This repo shows non-trivial Norns idioms end-to-end:
 - **Notes** — Cloudflare D1 (SQLite) + dynamic routes + form actions + valibot validation + error pages + SSR `load`. Uses the runtime's DI container, `public.c` boundary, and `page.load` / `page.actions` wrappers.
 - **Tic-tac-toe** — multi-component composition, `$props` with defaults, Svelte stores (`writable` / `derived`), `$state` / `$effect` runes, scoped CSS, and a small AI heuristic.
+- **TRON payloads** (`/examples/tron`) — where lists get big: a server-paged `DataTable` over `GET /api/notes` (schema-mode TRON, `listQuery()` + `useList()`), remote-source pickers, a columnar stats endpoint read into a `Float64Array`, an API-mode `Form` posting to `route()`, and an agent-facing export with edge caching (`route({ cache })`).
 
 ## Stack
 
@@ -94,12 +95,15 @@ src/
       svelte/                       # Vanilla SvelteKit version of the same examples
         notes/, tic-tac-toe/
       ui/+page.n                    # norns-ui showcase — every component with live props
+      tron/                         # TRON payload examples: table, picker, stats, form, agent
+    api/notes/                      # +server.c (paged list + create), search/, stats/, export/, seed/
   lib/
     components/Header.n
     norns/                          # framework-managed feature folders
       notes/
         server/{module,repo,service,public}.c
-        shared/schema.c
+        shared/schema.c             # valibot schemas + the noteWire TRON contract
+        client/api.c                # createApi({ schemas: [noteWire] }) + typed helpers
     svelte/                         # vanilla version of the data layer
       notes/{db,repo,service,schema}.ts
 migrations/

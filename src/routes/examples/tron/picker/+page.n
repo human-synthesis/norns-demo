@@ -1,0 +1,60 @@
+section.animate-in.space-y-3
+	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/tron") ← TRON examples
+	h1.text-4xl.font-bold.tracking-tight.leading-none
+		GradientText Remote pickers
+	p.max-w-prose.leading-relaxed(class="text-fg-muted")
+		| Autocomplete and MultiSelect take a
+		code source
+		| instead of
+		code items
+		| : a debounced function of the typed text that resolves the options. Here it is
+		code GET /api/notes/search?q=
+		| , capped at 20 rows, so the picker works the same over ten notes or ten million.
+
+section.animate-in-delayed.pt-8
+	.grid.gap-6(class="md:grid-cols-2")
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold Autocomplete
+			Field(label="Note" name="note" help="Type to search titles")
+				Autocomplete(source!="{searchNotes}" bind:value!="{one}" placeholder="Search notes…")
+			p.text-sm.mt-3(class="text-fg-muted")
+				| Selected id:
+				code {one ?? '—'}
+		Card
+			+snippet('header')
+				h3.text-base.font-semibold MultiSelect
+			Field(label="Notes" name="notes" help="Labels of picked options survive new searches")
+				MultiSelect(source!="{searchNotes}" bind:value!="{many}" placeholder="Pick several…" minChars!="{0}")
+			p.text-sm.mt-3(class="text-fg-muted")
+				| Selected ids:
+				code {many.length ? many.join(', ') : '—'}
+
+section.pt-10.space-y-2
+	h2.text-lg.font-semibold What to look at
+	ul.list-disc.pl-5.space-y-1.text-sm(class="text-fg-muted")
+		li
+			| Requests fire 200 ms after the last keystroke (
+			code debounce
+			| ), and a slow earlier response never overwrites a newer one.
+		li
+			| The search route reuses
+			code listQuery()
+			| for
+			code q
+			| and
+			code pageSize
+			| ; responses under 1 KB are plain JSON even with the TRON Accept header.
+		li
+			| Swap
+			code source
+			| for
+			code items
+			| and both components fall back to client-side filtering — same markup, same keyboard handling.
+
+<script>
+	import { searchNotes } from '$lib/norns/notes/client/api'
+
+	one .= $state undefined
+	many .= $state []
+</script>

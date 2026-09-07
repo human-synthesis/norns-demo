@@ -1,0 +1,41 @@
+section.animate-in.space-y-4
+	a.nav-link.text-sm.inline-flex.items-center.gap-1(href="/examples") ← examples
+	h1.text-5xl.font-bold.tracking-tight.leading-none
+		GradientText TRON payloads
+	p.text-lg.max-w-prose.leading-relaxed(class="text-fg-muted")
+		| Where lists get big, the page stops carrying them: a
+		code route()
+		| serves them, content-negotiated between JSON and
+		code application/tron
+		| , and the browser (or an agent) pulls exactly the slice it needs.
+
+	Banner(variant="info" icon="lucide:database")
+		| Every page here reads the same D1 table as the Notes example. Empty table? Use “Seed 500 notes” on the table page first.
+
+section.animate-in-delayed.pt-12
+	.grid.gap-3(class="sm:grid-cols-2")
+		Card(href="/examples/tron/table")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg Server-paged table
+				span.text-xs.font-mono.shrink-0.mt-1(class="text-fg-subtle") schema mode
+			p.text-sm.leading-relaxed(class="text-fg-muted") DataTable + Pagination driven by useList() over GET /api/notes?page&sort&q. Rows travel as #notes.v1 positional arrays.
+		Card(href="/examples/tron/picker")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg Remote pickers
+				span.text-xs.font-mono.shrink-0.mt-1(class="text-fg-subtle") source
+			p.text-sm.leading-relaxed(class="text-fg-muted") Autocomplete and MultiSelect with a debounced source() over GET /api/notes/search — the option set never ships with the page.
+		Card(href="/examples/tron/stats")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg Columnar stats
+				span.text-xs.font-mono.shrink-0.mt-1(class="text-fg-subtle") Float64Array
+			p.text-sm.leading-relaxed(class="text-fg-muted") A numeric table decoded with api.tape() into a flat tape — no row objects — and charted. Cached at the edge for 30 s.
+		Card(href="/examples/tron/form")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg API-mode form
+				span.text-xs.font-mono.shrink-0.mt-1(class="text-fg-subtle") submit
+			p.text-sm.leading-relaxed(class="text-fg-muted") The same Form / Field components, posting TRON to POST /api/notes instead of a form action; 400 issues land on the right Field.
+		Card(href="/examples/tron/agent")
+			.flex.items-start.justify-between.gap-3.mb-2
+				h2.font-semibold.text-lg Agent-facing export
+				span.text-xs.font-mono.shrink-0.mt-1(class="text-fg-subtle") self-describing
+			p.text-sm.leading-relaxed(class="text-fg-muted") GET /api/notes/export as JSON and as TRON side by side: bytes, rough tokens, and the edge-cache / ETag headers a Worker adds.

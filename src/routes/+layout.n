@@ -13,7 +13,10 @@
 	+if('isShowcase')
 		main.flex-1.w-full.mx-auto.px-6.py-16.sm:px-8.lg:px-12(style="max-width: 1600px")
 			| {@render children?.()}
-	+if('!isLanding && !isShowcase')
+	+if('isWide')
+		main.flex-1.w-full.mx-auto.px-6.py-16.max-w-5xl.sm:px-8.lg:px-10
+			| {@render children?.()}
+	+if('!isLanding && !isShowcase && !isWide')
 		main.flex-1.w-full.mx-auto.px-6.py-16.max-w-3xl.sm:px-8.lg:px-10
 			| {@render children?.()}
 	+if('!isLanding')
@@ -29,4 +32,6 @@
 
 	isLanding := $derived page.url.pathname.startsWith '/examples/landing'
 	isShowcase := $derived page.url.pathname.startsWith '/examples/ui'
+	// TRON examples carry tables and side-by-side payloads: reading width is too narrow.
+	isWide := $derived page.url.pathname.startsWith '/examples/tron'
 </script>
