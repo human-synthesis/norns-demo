@@ -1,7 +1,7 @@
 section.animate-in.space-y-3
 	a.text-sm.nav-link.inline-flex.items-center.gap-1(href="/examples/tron") ← TRON examples
 	h1.text-4xl.font-bold.tracking-tight.leading-none
-		GradientText Remote pickers
+		| Remote pickers
 	p.max-w-prose.leading-relaxed(class="text-fg-muted")
 		| Autocomplete and MultiSelect take a
 		code source

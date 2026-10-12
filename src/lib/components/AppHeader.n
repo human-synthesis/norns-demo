@@ -1,4 +1,4 @@
-Header(sticky!="{true}" class="surface-glass border-b border-border")
+Header(sticky!="{true}" class="border-b border-border")
 	+snippet('brand')
 		a.flex.items-center.gap-2.no-underline.font-extrabold.tracking-tight.text-lg(href="/" class="text-fg")
 			.logo-mark N

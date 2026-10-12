@@ -302,11 +302,6 @@ section.pt-12.space-y-3
 		Surface
 			h3.text-base.font-semibold.mb-1 Surface
 			p.text-sm.opacity-80 Bare elevated panel — same role tokens, no structural slots.
-		Surface.backdrop-blur-md(tone="glass")
-			h3.text-base.font-semibold.mb-1 Surface glass
-			p.text-sm.opacity-80 Same atom with
-				code tone="glass"
-				| — semi-transparent + backdrop blur.
 
 //- ============================================================
 //- BANNERS
@@ -578,7 +573,7 @@ section.pt-12.space-y-3
 //- ============================================================
 section.pt-12.space-y-3
 	h2 Dialog / Sheet
-	p.text-sm.text-fg-muted Portal + focus trap + scroll lock + escape, on the shared behaviors module. Sheet covers all four sides; the
+	p.text-sm.text-fg-muted Native modal dialog: the page stays visible behind it, Escape and outside click close it. Sheet covers all four sides; the
 		code side="left"
 		| variant replaces the old
 		code Drawer
@@ -947,96 +942,22 @@ section.pt-12.space-y-3
 			AvatarGroup(items!="{teamLg}" size="lg" max!="{4}")
 
 //- ============================================================
-//- ANIMATED TEXT + ANIMATED NUMBER
+//- COPY BUTTON
 //- ============================================================
 section.pt-12.space-y-3
-	h2 GradientText / AnimatedNumber
-	p.text-sm.text-fg-muted GradientText is CSS-only and free.
-		code AnimatedNumber
-		| lives in the
-		code /motion
-		| subpath since it pulls in Motion One.
-	.grid.gap-4.md:grid-cols-2
-		Card
-			+snippet('header')
-				h3.text-base.font-semibold GradientText
-			.text-3xl.font-bold.tracking-tight
-				GradientText Build for the web — beautifully.
-			p.text-sm.mt-3.text-fg-muted Animated background-position; CSS-only.
-		Card
-			+snippet('header')
-				h3.text-base.font-semibold AnimatedNumber
-			.flex.items-end.gap-3
-				.text-5xl.font-bold.leading-none
-					AnimatedNumber(value!="{counter}" duration!="{1.2}")
-				span.text-sm.pb-1.text-fg-muted downloads
-			.flex.gap-2.mt-4
-				Btn(variant="secondary" size="sm" onclick!="{() => counter += 312}") +312
-				Btn(variant="secondary" size="sm" onclick!="{() => counter = 12345}") set 12 345
-				Btn(variant="ghost" size="sm" onclick!="{() => counter = 0}") reset
-
-//- ============================================================
-//- COPY / SHINY / RIPPLE / LIQUID BUTTONS
-//- ============================================================
-section.pt-12.space-y-3
-	h2 CopyButton / ShinyButton / RippleButton / LiquidButton
-	p.text-sm.text-fg-muted Decorative button variants. The first three are CSS-only; LiquidButton lives in the
-		code /motion
-		| subpath.
+	h2 CopyButton
+	p.text-sm.text-fg-muted Swaps its icon for a check while the value is on the clipboard. No animation.
 	Card
 		.flex.flex-wrap.items-center.gap-3
 			CopyButton(value="@human-synthesis/norns-ui" variant="secondary") Copy package
-			ShinyButton(variant="primary" icon="lucide:sparkles") Shiny
-			RippleButton(variant="primary" icon="lucide:waves") Click for ripple
-			LiquidButton(variant="primary" icon="lucide:droplet") Hover for liquid
-
-//- ============================================================
-//- REVEAL + SPARKLES + GRADIENT BACKGROUND
-//- ============================================================
-section.pt-12.space-y-3
-	h2 Reveal / Sparkles / GradientBackground
-	p.text-sm.text-fg-muted All three live in the
-		code /motion
-		| subpath. Free to remix; pause on
-		code prefers-reduced-motion
-		| .
-	.grid.gap-4.md:grid-cols-2
-		Card
-			+snippet('header')
-				h3.text-base.font-semibold Reveal
-			.h-32.overflow-hidden
-				p.text-sm.text-fg-muted Scroll the page — wrappers fade up when entering the viewport.
-			Reveal(direction="up" delay!="{0.1}")
-				.text-base.mt-2 Hello — I revealed myself.
-			Reveal(direction="up" delay!="{0.25}")
-				.text-base I followed.
-			Reveal(direction="up" delay!="{0.4}")
-				.text-base.font-semibold And me last.
-		Card
-			+snippet('header')
-				h3.text-base.font-semibold Sparkles
-			.flex.justify-center.py-4
-				Sparkles
-					Btn(variant="primary" icon="lucide:zap") I have sparkles
-	GradientBackground.rounded-lg.overflow-hidden.p-8.mt-4.text-white
-		h3.text-2xl.font-semibold GradientBackground
-		p.text-sm.mt-2.opacity-90 Looping color-stop animation. CSS-driven; pauses off-screen via IntersectionObserver.
 
 <script>
 	import { toast } from '@human-synthesis/norns-ui/toast'
 	import { addCollection } from '@iconify/svelte'
 	import lucideIcons from '@iconify-json/lucide/icons.json'
 
-	// Motion-driven components live in the opt-in subpath — pulled in only here.
-	import AnimatedNumber from '@human-synthesis/norns-ui/motion/AnimatedNumber.n'
-	import Reveal from '@human-synthesis/norns-ui/motion/Reveal.n'
-	import LiquidButton from '@human-synthesis/norns-ui/motion/LiquidButton.n'
-	import Sparkles from '@human-synthesis/norns-ui/motion/Sparkles.n'
-	import GradientBackground from '@human-synthesis/norns-ui/motion/GradientBackground.n'
-
 	addCollection lucideIcons
 
-	counter .= $state 12345
 	teamSmall := [
 		{ name: 'Ada Lovelace' }
 		{ name: 'Grace Hopper' }

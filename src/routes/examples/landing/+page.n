@@ -32,13 +32,7 @@ section.relative.overflow-hidden
 		)
 			| Ship full-stack apps
 			br
-			GradientText(
-				animate!="{true}"
-				from="var(--color-primary-500)"
-				via="var(--color-info-500)"
-				to="var(--color-success-500)"
-			)
-				| at the speed of thought
+			span.text-primary-600 at the speed of thought
 		p.text-center.max-w-2xl.mx-auto.mb-10(
 			class="text-lg md:text-xl text-fg-muted leading-relaxed"
 		)
@@ -49,11 +43,10 @@ section.relative.overflow-hidden
 
 		//- Dual CTAs
 		.flex.flex-wrap.items-center.justify-center.gap-3.mb-6
-			Sparkles
-				Btn(variant="primary" size="lg" icon="lucide:rocket" href="/examples")
-					| Start building
-					+snippet('trailing')
-						Icon(name="lucide:arrow-right" size="size-5")
+			Btn(variant="primary" size="lg" icon="lucide:rocket" href="/examples")
+				| Start building
+				+snippet('trailing')
+					Icon(name="lucide:arrow-right" size="size-5")
 			Btn(
 				variant="secondary"
 				size="lg"
@@ -139,7 +132,7 @@ section.max-w-7xl.mx-auto.px-6.py-24
 					.text-4xl.font-bold.tracking-tight.mb-1.md:text-5xl
 						+if('stat.prefix')
 							span {stat.prefix}
-						AnimatedNumber(value!="{stat.value}" duration!="{1.6}")
+						span {stat.value.toLocaleString()}
 						+if('stat.suffix')
 							span {stat.suffix}
 					.text-sm.text-fg-muted {stat.label}
@@ -154,7 +147,7 @@ section.bg-bg-subtle/40.py-24
 			h2.text-3xl.font-bold.tracking-tight.mb-3.md:text-5xl
 				| Everything you need,
 				br
-				GradientText(animate!="{true}") nothing you don't
+				span.text-primary-600 nothing you don't
 			p.text-base.text-fg-muted Pick the pieces that fit. Each one is composable, typed, and small enough to read in one sitting.
 
 		.grid.gap-4.lg:grid-cols-6
@@ -598,9 +591,6 @@ section.relative.border-t.border-border
 	import { toast } from '@human-synthesis/norns-ui/toast'
 	import { addCollection } from '@iconify/svelte'
 	import lucideIcons from '@iconify-json/lucide/icons.json'
-
-	import AnimatedNumber from '@human-synthesis/norns-ui/motion/AnimatedNumber.n'
-	import Sparkles from '@human-synthesis/norns-ui/motion/Sparkles.n'
 
 	addCollection lucideIcons
 

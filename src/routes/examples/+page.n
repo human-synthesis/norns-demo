@@ -1,6 +1,6 @@
 section.animate-in.space-y-4
 	h1.text-5xl.font-bold.tracking-tight.leading-none
-		GradientText Examples
+		| Examples
 	p.text-lg.max-w-prose.leading-relaxed(class="text-fg-muted")
 		| The same apps written two ways. Same UI, same behavior — different conventions.
 

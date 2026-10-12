@@ -1,7 +1,7 @@
 section.animate-in.space-y-4
 	a.nav-link.text-sm.inline-flex.items-center.gap-1(href="/examples") ← examples
 	h1.text-5xl.font-bold.tracking-tight.leading-none
-		GradientText Norns
+		| Norns
 	p.text-lg.max-w-prose.leading-relaxed(class="text-fg-muted")
 		| Apps using Norns conventions — Pug + Civet in
 		code .n
