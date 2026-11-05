@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@human-synthesis/norns": "^0.0.20",
-    "@human-synthesis/norns-core": "^0.0.11",
+    "@human-synthesis/norns-core": "^0.0.12",
     "@human-synthesis/norns-ui": "^0.0.19",
     "@cloudflare/workers-types": "^5",
     "@sveltejs/adapter-cloudflare": "^8.0.2",
