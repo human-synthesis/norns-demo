@@ -5,12 +5,12 @@ import * as notes from '$lib/svelte/notes/service';
 import { db } from '$lib/svelte/notes/db';
 import { createNoteSchema } from '$lib/svelte/notes/schema';
 
-export const load: PageServerLoad = async ({ platform }) => ({
-	notes: await notes.list(db(platform))
+export const load: PageServerLoad = async () => ({
+	notes: await notes.list(db())
 });
 
 export const actions: Actions = {
-	create: async ({ request, platform }) => {
+	create: async ({ request }) => {
 		const data = await request.formData();
 		const result = v.safeParse(createNoteSchema, {
 			title: data.get('title')?.toString(),
@@ -19,7 +19,7 @@ export const actions: Actions = {
 		if (!result.success) {
 			return fail(400, { errors: result.issues, values: Object.fromEntries(data) });
 		}
-		const id = await notes.create(db(platform), result.output);
+		const id = await notes.create(db(), result.output);
 		throw redirect(303, `/examples/svelte/notes/${id}`);
 	}
 };

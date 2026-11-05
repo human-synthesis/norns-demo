@@ -1,8 +1,11 @@
 import { createRequire } from 'node:module';
 import { defineConfig } from 'vite';
 import { sveltekit } from '@sveltejs/kit/vite';
+import adapter from '@sveltejs/adapter-cloudflare';
 import tailwindcss from '@tailwindcss/vite';
 import { nornsAutoImport } from '@human-synthesis/norns/auto-import';
+import { nornsConfig } from '@human-synthesis/norns/config';
+import { nornsPreprocess } from '@human-synthesis/norns/preprocess';
 import { nornsCivetPlugin, pugTailwindExtract } from '@human-synthesis/norns/vite';
 import { presetUI } from '@human-synthesis/norns-ui/auto-import';
 
@@ -19,15 +22,32 @@ export default defineConfig({
 		// `.cls.cls(` chains.
 		pugTailwindExtract(),
 		nornsCivetPlugin(),
-		// Vite-plugin half of the auto-importer (the Svelte-preprocessor half is
-		// registered in svelte.config.js). `exportGlobs` is not enabled, so
+		// Vite-plugin half of the auto-importer, for standalone .c modules (the
+		// Svelte-preprocessor half is in the sveltekit() options below). `exportGlobs` is not enabled, so
 		// project code (facades, schemas, services, stores) is always imported
 		// explicitly.
 		nornsAutoImport({
 			components: ui.components
 		}),
 		tailwindcss(),
-		sveltekit()
+		// SvelteKit 3 takes its config here (svelte.config.js is gone).
+		// nornsConfig adds .n components, .c/.civet modules and hooks and the
+		// Pug + Civet preprocessor.
+		sveltekit(
+			nornsConfig({
+				preprocess: [
+					...nornsPreprocess(),
+					nornsAutoImport({
+						componentDirs: ['src/lib/components', 'src/routes'],
+						components: ui.components
+					})
+				],
+				// Cloudflare Workers + D1 (see wrangler.toml). In dev the adapter's
+				// platform proxy backs `cloudflare:workers`, so `env.DB` resolves to
+				// a local D1 under .wrangler/state/.
+				adapter: adapter()
+			})
+		)
 	],
 	// In workspace mode @human-synthesis/norns is a symlink into the kit fork,
 	// which has its own @sveltejs/kit under pnpm. Left external, its server

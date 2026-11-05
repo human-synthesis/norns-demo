@@ -1,16 +1,13 @@
 /// <reference types="@cloudflare/workers-types" />
 
-// Cloudflare Workers bindings exposed on `event.platform`. `DB` is the D1
-// database declared in wrangler.toml; both notes examples read it from here.
+// Cloudflare Workers bindings. SvelteKit 3's adapter-cloudflare no longer puts
+// them on `event.platform`; they are read from `cloudflare:workers` (`env`,
+// `waitUntil`, …) and `caches` is a global. `DB` is the D1 database declared
+// in wrangler.toml; both notes examples read it through `env.DB`.
 declare global {
-	namespace App {
-		interface Platform {
-			env: {
-				DB: D1Database;
-			};
-			context: ExecutionContext;
-			caches: CacheStorage & { default: Cache };
-			cf?: IncomingRequestCfProperties;
+	namespace Cloudflare {
+		interface Env {
+			DB: D1Database;
 		}
 	}
 }

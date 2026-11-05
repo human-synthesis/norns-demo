@@ -10,7 +10,7 @@ This repo shows non-trivial Norns idioms end-to-end:
 ## Stack
 
 - [Svelte 5](https://svelte.dev) — components and runes
-- [SvelteKit 2](https://kit.svelte.dev) — file-system routing, SSR, endpoints
+- [SvelteKit 3](https://svelte.dev/docs/kit) — file-system routing, SSR, endpoints
 - [Pug](https://pugjs.org) — templates (in `.n` files)
 - [Civet](https://civet.dev) — script language (in `.n` `<script>` blocks and `.c` files)
 - [Tailwind CSS v4](https://tailwindcss.com) — styling
@@ -31,7 +31,7 @@ bun install
 bun run db:migrate   # apply migrations to the local D1 (.wrangler/state/)
 ```
 
-The dev server gets `event.platform.env.DB` from adapter-cloudflare's platform proxy, which
+The dev server gets `env.DB` (from `cloudflare:workers`) through adapter-cloudflare's platform proxy, which
 reads `wrangler.toml` and keeps a local D1 under `.wrangler/state/`. No Cloudflare account is
 needed to run locally.
 
@@ -63,7 +63,7 @@ bun run deploy
 
 ```sh
 bun run lint         # norns lint: Civet + Pug pitfall scan over .n / .c (templates and script blocks) + vite.config
-bun run check        # norns check: preprocess + compile every .n / .c / .svelte through svelte.config.js
+bun run check        # norns check: preprocess + compile every .n / .c / .svelte through the sveltekit() options in vite.config.js
 bun run check:svelte # svelte-kit sync + svelte-check over the vanilla .svelte / .ts side
 bun run build        # full Vite build
 ```
